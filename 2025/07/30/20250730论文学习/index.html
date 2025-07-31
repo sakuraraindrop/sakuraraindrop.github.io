@@ -1,0 +1,1413 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>20250730论文学习 | cheng_xing's blog</title><meta name="robots" content="noindex"><meta name="author" content="cheng_xing"><meta name="copyright" content="cheng_xing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="被资本做局去参加方班了，迫不得已要选一篇论文，还好有白泽✌的高质量论文做我的救命稻草，今天先看看备选列表的论文各自大概在讲啥，然后选一篇合适的去方班讲。 MOCGuard: Automatically Detecting Missing-Owner-Check Vulnerabilities in Java Web Applications研究背景和问题研究背景Java 作为一种健壮、可靠的编程语">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20250730论文学习">
+<meta property="og:url" content="https://sakuraraindrop.github.io/2025/07/30/20250730%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="cheng_xing&#39;s blog">
+<meta property="og:description" content="被资本做局去参加方班了，迫不得已要选一篇论文，还好有白泽✌的高质量论文做我的救命稻草，今天先看看备选列表的论文各自大概在讲啥，然后选一篇合适的去方班讲。 MOCGuard: Automatically Detecting Missing-Owner-Check Vulnerabilities in Java Web Applications研究背景和问题研究背景Java 作为一种健壮、可靠的编程语">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sakuraraindrop.github.io/img/ltx.jpg">
+<meta property="article:published_time" content="2025-07-30T14:08:12.000Z">
+<meta property="article:modified_time" content="2025-07-31T15:17:18.986Z">
+<meta property="article:author" content="cheng_xing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sakuraraindrop.github.io/img/ltx.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "20250730论文学习",
+  "url": "https://sakuraraindrop.github.io/2025/07/30/20250730%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/",
+  "image": "https://sakuraraindrop.github.io/img/ltx.jpg",
+  "datePublished": "2025-07-30T14:08:12.000Z",
+  "dateModified": "2025-07-31T15:17:18.986Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "cheng_xing",
+      "url": "https://sakuraraindrop.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/ltx-icon.jpg"><link rel="canonical" href="https://sakuraraindrop.github.io/2025/07/30/20250730%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '20250730论文学习',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/hk.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">106</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hk.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ltx-icon.jpg" alt="Logo"><span class="site-name">cheng_xing's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">20250730论文学习</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">20250730论文学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-30T14:08:12.000Z" title="发表于 2025-07-30 22:08:12">2025-07-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-31T15:17:18.986Z" title="更新于 2025-07-31 23:17:18">2025-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/research/">research</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>被资本做局去参加方班了，迫不得已要选一篇论文，还好有白泽✌的高质量论文做我的救命稻草，今天先看看备选列表的论文各自大概在讲啥，然后选一篇合适的去方班讲。</p>
+<h2 id="MOCGuard-Automatically-Detecting-Missing-Owner-Check-Vulnerabilities-in-Java-Web-Applications"><a href="#MOCGuard-Automatically-Detecting-Missing-Owner-Check-Vulnerabilities-in-Java-Web-Applications" class="headerlink" title="MOCGuard: Automatically Detecting Missing-Owner-Check Vulnerabilities in Java Web Applications"></a>MOCGuard: Automatically Detecting Missing-Owner-Check Vulnerabilities in Java Web Applications</h2><h3 id="研究背景和问题"><a href="#研究背景和问题" class="headerlink" title="研究背景和问题"></a>研究背景和问题</h3><h4 id="研究背景"><a href="#研究背景" class="headerlink" title="研究背景"></a>研究背景</h4><p>Java 作为一种健壮、可靠的编程语言，被广泛用于构建大型商业网站和Web应用，例如亚马逊、Paypal等。这些应用通常会存储和管理海量的敏感用户数据，如账户信息、财务记录、个人隐私等。这类归属于特定用户的数据，在论文中被称为<strong>用户所属数据（user-owned data）</strong>。</p>
+<p>为了保护这些数据，任何对它们的访问都应该经过严格的<strong>所有权校验（owner check）</strong>，即验证当前操作数据的用户是否是这些数据的合法所有者。如果开发者在代码中疏忽了这一校验环节，就会产生一个严重的安全漏洞，论文将其命名为<strong>缺失所有权校验（Missing-Owner-Check, MOC）</strong>。</p>
+<p>MOC漏洞的危害是巨大的。论文以美国邮政服务（USPS）网站的一个真实案例作为开场：一个MOC漏洞导致任何已登录的用户都可以访问其他用户的账户信息，最终可能泄露了高达6000万用户的数据。这表明，MOC漏洞是现实世界中一个普遍且高风险的安全威胁。</p>
+<h4 id="研究问题"><a href="#研究问题" class="headerlink" title="研究问题"></a>研究问题</h4><p>尽管MOC漏洞危害严重，但自动、高效地检测它却面临着巨大的挑战。论文将这些挑战归纳为两个核心问题：</p>
+<ol>
+<li><p><strong>Q1: 如何在复杂的Java Web应用中准确地推断出哪些是用户所属数据？</strong></p>
+<ul>
+<li>在一个现代Web应用中，存在成千上万的变量和数据项。要从中精确地识别出哪些数据（例如，数据库中的某个表或某个字段）是与特定用户绑定的，是一项非常困难的任务。如果识别不准，就会导致漏报（False Negatives）或误报（False Positives）。</li>
+</ul>
+</li>
+<li><p><strong>Q2: 在识别出用户所属数据后，如何有效地检测缺失的所有权校验？</strong></p>
+<ul>
+<li>所有权校验的实现方式非常灵活，没有统一标准。开发者可能在<strong>SQL层</strong>通过 <code>WHERE</code> 子句进行校验（例如 <code>... AND user_id = ?</code>），也可能在<strong>Java代码层</strong>通过 <code>if</code> 条件判断语句进行校验。现有技术很难全面覆盖这两种情况。</li>
+</ul>
+</li>
+</ol>
+<p>论文指出，现有的漏洞检测工具在解决这两个问题上存在明显不足。一些工具依赖过时的启发式规则（如分析JSP文件结构），不适用于基于现代框架（如Spring Boot）的应用。另一些工具（如MACE）虽然思路先进，但严重依赖人工标注用户身份变量，这在Java中比在PHP中困难得多，且它们对于通过数据ID而非用户ID关联的复杂数据所有权关系分析不足，导致了高达70.81%的漏报率。</p>
+<h3 id="研究目的和创新点"><a href="#研究目的和创新点" class="headerlink" title="研究目的和创新点"></a>研究目的和创新点</h3><h4 id="研究目的"><a href="#研究目的" class="headerlink" title="研究目的"></a>研究目的</h4><p>本文旨在解决上述挑战，提出一个名为 <strong>MOCGuard</strong> 的新型端到端自动化漏洞分析方法，用于高效、准确地发现Java Web应用中的MOC漏洞。其最终目标是能够全自动地分析真实世界的复杂应用，并找出其中潜藏的、未被发现的（0-day）MOC漏洞。</p>
+<h4 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h4><p>MOCGuard最大的创新点在于它提出了一个<strong>以数据库为中心（database-centric）<strong>的分析视角。其核心思想是</strong>让数据库自己说话（database-speaks-for-itself）</strong>，即利用精心设计的数据库结构本身来反向推断数据的所有权关系。这与传统方法从代码层面进行分析的思路完全不同。</p>
+<p>具体来说，其创新点体现在以下几个关键洞察（Key Observations）:</p>
+<ol>
+<li><p><strong>从数据库结构识别用户和所有权：</strong></p>
+<ul>
+<li><strong>识别用户表：</strong> 通过分析数据库表结构（<code>.sql</code>文件），根据列名关键词（如 <code>password</code>, <code>username</code>, <code>token</code>）可以自动识别出存储用户凭证的用户表（User Table）。</li>
+<li><strong>识别显式所有权（Explicit Ownership）：</strong> 通过分析数据库的外键（Foreign Key）约束，可以找到直接与用户表主键关联的表，这些表自然地构成了用户所属数据表（User-owned Table）。例如，<code>order</code> 表中的 <code>user_id</code> 列是 <code>user</code> 表 <code>id</code> 的外键，表明订单数据属于用户。</li>
+<li><strong>识别隐式所有权（Implicit Ownership）：</strong> 更进一步，MOCGuard创新地通过跨层代码分析来发现隐藏的所有权关系。例如，代码首先从 <code>order</code> 表中查询某个用户的所有订单ID，然后将这些ID作为参数去查询 <code>order_item</code> 表。尽管 <code>order_item</code> 表和 <code>user</code> 表在数据库层面没有直接关联，但通过这个数据流，MOCGuard可以推断出 <code>order_item</code> 也是用户所属数据。</li>
+</ul>
+</li>
+<li><p><strong>双层校验检测（Two-tiered Check Detection）：</strong> MOCGuard能够同时检查SQL层和Java代码层的安全校验，全面覆盖了开发者可能实现所有权校验的两种主要方式，从而避免了传统方法的片面性。</p>
+</li>
+<li><p><strong>全自动化与高效率：</strong> 基于以数据库为中心的策略，MOCGuard无需任何人工标注或干预，实现了从数据所有权推断到漏洞检测的端到端自动化，大大提高了分析效率和可扩展性。</p>
+</li>
+</ol>
+<h3 id="研究方法和实验设计"><a href="#研究方法和实验设计" class="headerlink" title="研究方法和实验设计"></a>研究方法和实验设计</h3><h4 id="研究方法-MOCGuard的工作流程"><a href="#研究方法-MOCGuard的工作流程" class="headerlink" title="研究方法 (MOCGuard的工作流程)"></a>研究方法 (MOCGuard的工作流程)</h4><p>MOCGuard的整体架构（见论文图6）分为两个主要阶段：</p>
+<p><strong>阶段一：用户所属数据推断 (User-owned Data Inference)</strong><br>这个阶段的目标是回答哪些数据是用户所属数据？。</p>
+<ol>
+<li><strong>用户表识别 (User Table Identification):</strong> MOCGuard首先解析应用的数据库初始化文件（通常是 <code>.sql</code> 文件），通过匹配一组预定义的关键词（如 ‘pass’, ‘token’, ‘auth’）来定位包含用户认证信息的列，从而确定用户表。</li>
+<li><strong>外键分析 (Foreign Key Analysis):</strong> 分析 <code>CREATE TABLE</code> 语句中的 <code>FOREIGN KEY</code> 子句，找出所有通过外键直接关联到用户表主键的表，将它们标记为显式用户所属表。</li>
+<li><strong>跨层代码分析 (Cross-layer Code Analysis):</strong> 这是推断隐式用户所属表的关键。MOCGuard使用静态数据流分析技术，追踪从显式用户所属表中读取的数据（尤其是ID），观察这些数据在Java代码中如何流动，并最终作为参数传递给对其他表的数据库查询。通过这种方式，它能建立起表与表之间在业务逻辑上的所有权关联。</li>
+</ol>
+<p><strong>阶段二：不安全访问检测 (Insecure Access Detection)</strong><br>这个阶段在找到用户数据后，回答对这些数据的访问是否经过了校验？。</p>
+<ol>
+<li><strong>识别Source-to-Sink路径:</strong><ul>
+<li><strong>Sink (汇点):</strong> 对用户所属表进行增删改查的数据库操作。</li>
+<li><strong>Source (源点):</strong> 用户可控的程序入口点，如Web请求的参数。</li>
+<li>MOCGuard使用静态分析（基于CodeQL）构建调用图和数据流图，找出从Source到Sink的所有执行路径。</li>
+</ul>
+</li>
+<li><strong>所有权校验识别 (Owner Check Identification):</strong> 在上一步找到的路径上，MOCGuard会检查是否存在所有权校验。<ul>
+<li><strong>SQL层校验:</strong> 检查执行的SQL语句的 <code>WHERE</code> 子句中，是否包含了对用户身份的约束（例如，<code>userId = ?</code>），并且这个 <code>userId</code> 来自于当前登录用户，而不是用户可控的输入。</li>
+<li><strong>Java层校验:</strong> 检查路径上是否存在 <code>if</code> 等条件语句。这些语句的判断条件必须是比较当前登录用户的ID和被操作数据的属主ID。</li>
+</ul>
+</li>
+<li><strong>MOC漏洞判定 (Vulnerability Determination):</strong> 如果一条从Source到Sink的路径上，既没有发现SQL层的校验，也没有发现Java层的校验，MOCGuard就判定该路径存在一个MOC漏洞，并生成报告。</li>
+</ol>
+<h4 id="实验设计"><a href="#实验设计" class="headerlink" title="实验设计"></a>实验设计</h4><p>为了验证MOCGuard的有效性和效率，作者进行了一系列实验：</p>
+<ul>
+<li><strong>数据集：</strong> 选取了37个真实世界的Java Web应用，包括30个在GitHub上非常流行（star数很高）的开源项目（如 <code>mall</code>, <code>platform</code>）和7个来自一家大型科技公司的工业级应用。这个数据集覆盖了电商、内容管理、开发平台等多个领域，具有很好的代表性。</li>
+<li><strong>对比基线 (Baseline):</strong> 作者实现了论文中提到的当前最先进技术MACE的Java版本，命名为<code>MACE-Java</code>，作为对比对象。</li>
+<li><strong>评估指标：</strong> 主要使用精确率（Precision）和召回率（Recall）来评估工具的性能。</li>
+<li><strong>基准真相 (Ground Truth):</strong> 由于无法预知一个项目所有的漏洞，作者采用了一种通用的方法：将MOCGuard和MACE-Java发现的所有漏洞汇总，然后人工逐一验证（通过构造PoC攻击代码），最终确认的真实漏洞集合构成了评估用的基准真相。</li>
+</ul>
+<h3 id="主要结果和结论"><a href="#主要结果和结论" class="headerlink" title="主要结果和结论"></a>主要结果和结论</h3><h4 id="主要结果"><a href="#主要结果" class="headerlink" title="主要结果"></a>主要结果</h4><p>实验结果非常令人信服，证明了MOCGuard的强大能力：</p>
+<ol>
+<li><p><strong>高效的漏洞发现能力 (RQ1):</strong></p>
+<ul>
+<li>在37个应用中，MOCGuard共发现了161个已确认的0-day MOC漏洞，整体精确率高达<strong>89.44%</strong>。</li>
+<li>这些漏洞的风险非常高，最终被分配了<strong>73个CVE编号</strong>，这在学术界的漏洞挖掘工具中是极为罕见的成果，充分证明了其现实世界的价值。</li>
+</ul>
+</li>
+<li><p><strong>显著优于现有技术 (RQ2):</strong></p>
+<ul>
+<li>与<code>MACE-Java</code>相比，MOCGuard在性能上实现了碾压。MOCGuard找到了全部161个基准真相漏洞（召回率100%），而<code>MACE-Java</code>只找到了47个，漏报了114个。</li>
+<li>MOCGuard的精确率（89.44%）也远高于<code>MACE-Java</code>（68.12%）。</li>
+<li><code>MACE-Java</code>之所以大量漏报，是因为它的不一致性保护策略要求一个应用中至少有一部分是正确防护的，如果一个功能点完全没有防护，它就无法发现。而这正是MOC漏洞的常见模式。</li>
+</ul>
+</li>
+<li><p><strong>双层校验分析的必要性 (RQ3):</strong></p>
+<ul>
+<li>通过消融实验（分别禁用SQL层和Java层的校验分析），发现任意一层的缺失都会导致精确率大幅下降（分别下降28.57%和22.74%）。这证明了MOCGuard同时分析两个层次的校验是其获得高精度的关键。</li>
+</ul>
+</li>
+<li><p><strong>高效率 (RQ4):</strong></p>
+<ul>
+<li>MOCGuard分析37个应用总共耗时约47分钟，平均每个应用仅需<strong>76.22秒</strong>，非常高效。这得益于其自动化的数据库语义分析方法，避免了传统静态分析的重量级分析和人工标注的耗时。</li>
+</ul>
+</li>
+</ol>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>论文得出结论，MOCGuard是一种新颖且高效的Java Web应用安全审查方法。通过创新的以数据库为中心的分析技术，MOCGuard能够自动且准确地推断用户数据所有权，并验证其访问安全性，成功地在真实世界的应用中发现了大量高风险的0-day MOC漏洞。</p>
+<h3 id="潜在意义和未来工作方向"><a href="#潜在意义和未来工作方向" class="headerlink" title="潜在意义和未来工作方向"></a>潜在意义和未来工作方向</h3><h4 id="潜在意义"><a href="#潜在意义" class="headerlink" title="潜在意义"></a>潜在意义</h4><ol>
+<li><p><strong>对学术界的意义:</strong></p>
+<ul>
+<li>提出了一个全新的、有效的漏洞挖掘视角（database-centric），为访问控制漏洞领域的研究开辟了新的方向。</li>
+<li>提供了一个开源工具，可以作为未来相关研究的基础和基准。</li>
+</ul>
+</li>
+<li><p><strong>对工业界的意义:</strong></p>
+<ul>
+<li>提供了一个即插即用、全自动的MOC漏洞扫描工具，可以轻松集成到软件开发生命周期（SDLC）中，帮助企业在开发早期发现并修复此类高危漏洞。</li>
+<li>论文中发现的两个具体案例（<code>mall</code>项目的支付劫持漏洞和<code>platform</code>项目的任意订单详情泄露漏洞）生动地展示了MOCGuard发现真实世界高风险漏洞的实用价值。</li>
+</ul>
+</li>
+</ol>
+<h4 id="未来工作方向"><a href="#未来工作方向" class="headerlink" title="未来工作方向"></a>未来工作方向</h4><p>作者也指出了当前工作的局限性和未来的改进方向：</p>
+<ol>
+<li><strong>所有权推断的改进:</strong> 当前的MOCGuard仍存在少量误报，主要原因是难以区分某些数据是有意设计为公开的还是忘记加权限校验的（例如，所有用户都应该能查看所有商品的价格）。未来计划引入**大语言模型（LLM）**来更智能地理解数据库列名的语义，从而更准确地判断开发者的意图，减少误报。</li>
+<li><strong>更广泛的适用性:</strong> MOCGuard的核心思想是语言和数据库无关的。未来可以将其扩展到其他编程语言（如PHP）和其他关系型数据库（如PostgreSQL），以保护更广泛的Web生态系统。</li>
+<li><strong>合法性与伦理:</strong> 作者强调，研究过程遵循了负责任的漏洞披露原则，所有发现的漏洞都已报告给相关开发者或CVE编号机构，并积极协助修复，展现了良好的安全研究伦理。</li>
+</ol>
+<h2 id="Detecting-Taint-Style-Vulnerabilities-in-Microservice-Structured-Web-Applications"><a href="#Detecting-Taint-Style-Vulnerabilities-in-Microservice-Structured-Web-Applications" class="headerlink" title="Detecting Taint-Style Vulnerabilities in Microservice-Structured Web Applications"></a>Detecting Taint-Style Vulnerabilities in Microservice-Structured Web Applications</h2><h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>这篇论文提出了一种名为 <strong>MScan</strong> 的新型静态安全分析方法，专门用于检测现代<strong>微服务架构</strong>Web应用中的<strong>污点型漏洞</strong>（Taint-style Vulnerabilities）。传统方法难以应对微服务带来的新挑战，而 MScan 通过一个三阶段的创新方案解决了这些难题。它首先利用<strong>大语言模型（LLM）<strong>分析网关配置以精准识别外部攻击入口；然后构建一个新颖的</strong>服务依赖图（SDG）<strong>来追踪跨服务的复杂数据流；最后采用一种</strong>距离引导的选择性上下文敏感分析</strong>策略，在保证高精度的同时解决了性能瓶颈。</p>
+<p>在对25个开源项目和5个大型金融科技公司的工业级项目进行测试后，MScan 成功发现了 <strong>59个高风险的0-day漏洞</strong>，并获得了 <strong>31个CVE编号</strong>，充分证明了其在真实世界中的有效性和先进性。</p>
+<h3 id="研究背景和问题-1"><a href="#研究背景和问题-1" class="headerlink" title="研究背景和问题"></a>研究背景和问题</h3><h4 id="研究背景-1"><a href="#研究背景-1" class="headerlink" title="研究背景"></a>研究背景</h4><ul>
+<li><strong>微服务架构的普及</strong>：为了应对现代Web应用快速迭代、高并发、高可用的需求，工业界（如Uber, Amazon, X&#x2F;Twitter）已广泛从传统的单体架构转向微服务架构。微服务将一个大型应用拆分成一组小而独立的服务，每个服务运行在自己的进程中，通过轻量级机制（如API调用、消息队列）进行通信。</li>
+<li><strong>安全观念的误区</strong>：通常认为，微服务的松耦合和隔离设计（每个服务是独立的）能够缩小攻击面，从而提升整体安全性。</li>
+<li><strong>现实的安全威胁</strong>：然而，论文作者发现，微服务应用依然会遭受最常见且危害最严重的<strong>污点型漏洞</strong>的攻击。这类漏洞的本质是：来自外部用户的、不可信的污点数据（Taint），在未经充分验证和清洗（Sanitization）的情况下，被传递到系统内部的敏感操作函数（Sink），从而导致严重后果，如SQL注入、远程命令执行（RCE）、服务器端请求伪造（SSRF）等。</li>
+</ul>
+<h4 id="核心问题与挑战"><a href="#核心问题与挑战" class="headerlink" title="核心问题与挑战"></a>核心问题与挑战</h4><p>传统针对单体应用的污点分析工具直接应用于微服务架构时，会面临三个核心挑战，导致检测效果不佳（大量漏报和误报）：</p>
+<ol>
+<li><p><strong>挑战一 (C1): 如何准确识别真正的攻击入口点？</strong></p>
+<ul>
+<li><strong>问题</strong>: 微服务应用通常有一个API网关（Gateway）作为所有外部请求的统一入口。网关通过复杂的路由规则来决定哪些请求可以转发到哪个内部服务，哪些请求应该被拒绝。这些规则配置灵活、格式多样，难以用传统方法精确解析。</li>
+<li><strong>困难</strong>: 如果无法准确识别哪些API是真正暴露给外部用户的，分析工具要么会将所有内部API都当作攻击入口，导致大量<strong>误报</strong>（False Positives）；要么会遗漏真正的入口，导致<strong>漏报</strong>（False Negatives）。</li>
+</ul>
+</li>
+<li><p><strong>挑战二 (C2): 如何精确追踪跨服务的污点传播？</strong></p>
+<ul>
+<li><strong>问题</strong>: 在微服务中，一个完整的业务流程可能涉及多个服务之间的数据传递。例如，A服务接收用户输入，通过消息队列（如Kafka）将数据发送给B服务，B服务处理后可能再通过RPC调用C服务。</li>
+<li><strong>困难</strong>: 这种跨服务的通信机制非常多样（如REST、gRPC、Kafka、RabbitMQ等），并且实现方式灵活。传统分析工具无法有效建立起一个服务中发送数据的操作和另一个服务中接收数据的操作之间的关联，导致污点传播路径中断，造成大量的<strong>漏报</strong>，尤其是那些跨服务漏洞。</li>
+</ul>
+</li>
+<li><p><strong>挑战三 (C3): 如何在保证分析精度的同时避免性能崩溃？</strong></p>
+<ul>
+<li><strong>问题</strong>: 为了提高分析精度，污点分析需要采用上下文敏感（Context-sensitive）技术，即区分一个函数在不同调用路径下的不同行为。</li>
+<li><strong>困难</strong>: 微服务中由于服务间的串联调用，导致调用链（Call Chain）极长。对如此长的调用链进行完全的上下文敏感分析，会消耗巨大的内存和时间，常常导致分析工具超时或内存溢出而崩溃，最终同样导致<strong>漏报</strong>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="研究目的和创新点-1"><a href="#研究目的和创新点-1" class="headerlink" title="研究目的和创新点"></a>研究目的和创新点</h3><h4 id="研究目的-1"><a href="#研究目的-1" class="headerlink" title="研究目的"></a>研究目的</h4><p>本文的核心目的，是设计并实现一个名为 <strong>MScan</strong> 的自动化静态分析工具，能够<strong>有效、精确且高效地</strong>检测真实世界中基于Java的微服务应用中的污点型漏洞，特别是那些潜藏在服务间交互中的复杂漏洞。</p>
+<h4 id="三大核心创新点"><a href="#三大核心创新点" class="headerlink" title="三大核心创新点"></a>三大核心创新点</h4><p>为了应对上述三大挑战，MScan 提出了三个针对性的创新解决方案：</p>
+<ol>
+<li><p><strong>创新点一：LLM辅助的入口点识别 (LLM-assisted Entry Point Identification)</strong></p>
+<ul>
+<li><strong>目的</strong>: 解决挑战C1（识别攻击入口）。</li>
+<li><strong>方法</strong>: 论文创新地利用**大语言模型（LLM）**来理解语义丰富但结构不固定的网关配置文件。通过精心设计的提示（Prompt），MScan让LLM扮演网关配置分析专家的角色，准确地从配置文件中提取出允许外部访问的路由规则。这巧妙地绕过了对所有类型网关进行手动建模的难题，实现了高精度的入口点识别。</li>
+</ul>
+</li>
+<li><p><strong>创新点二：构建服务依赖图 (Service Dependence Graph, SDG)</strong></p>
+<ul>
+<li><strong>目的</strong>: 解决挑战C2（追踪跨服务污点）。</li>
+<li><strong>方法</strong>: MScan 提出了一种新的数据结构——<strong>服务依赖图（SDG）</strong>。SDG在传统的程序内控制流图（ICFG）基础上，增加了代表跨服务通信的节点和边。它通过分析代码中常见的通信组件API（如Kafka的<code>send</code>&#x2F;<code>poll</code>，gRPC的调用等），并匹配通信双方使用的标识符（如Kafka的Topic名称、API的URL），从而精确地将不同服务中的发送方和接收方连接起来，构建出一张完整的、覆盖所有服务的污点传播地图。</li>
+</ul>
+</li>
+<li><p><strong>创新点三：距离引导的选择性上下文敏感分析 (Distance-guided Selective Context-sensitive Analysis)</strong></p>
+<ul>
+<li><strong>目的</strong>: 解决挑战C3（平衡精度与效率）。</li>
+<li><strong>方法</strong>: MScan 认识到，并非所有代码都需要最高精度的分析。它提出了一种动态调整分析精度的策略：<ul>
+<li>对于直接位于污点源头(Source)到敏感操作(Sink)路径上的代码，采用<strong>完全的上下文敏感分析</strong>以保证最高精度。</li>
+<li>对于偏离这条核心路径的代码，根据其与核心路径的距离<strong>动态地降低上下文敏感度</strong>。</li>
+<li>这种方法将计算资源集中在最关键的代码上，极大地减少了内存和时间开销，避免了分析崩溃，同时保证了对关键漏洞路径的分析精度。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="研究方法和实验设计-1"><a href="#研究方法和实验设计-1" class="headerlink" title="研究方法和实验设计"></a>研究方法和实验设计</h3><h4 id="MScan-的工作流程"><a href="#MScan-的工作流程" class="headerlink" title="MScan 的工作流程"></a>MScan 的工作流程</h4><p>MScan 的整体架构（见论文图5）遵循一个清晰的三步流程：</p>
+<ol>
+<li><strong>入口点识别</strong>：利用LLM分析网关配置，结合静态代码扫描，最终确定所有对外部用户开放的API端点，这些端点成为污点分析的源头（Sources）。</li>
+<li><strong>服务依赖图构建</strong>：分析每个微服务的代码，识别出所有服务间的通信行为（发送和接收），并构建SDG，将所有服务连接成一个整体。</li>
+<li><strong>漏洞检测</strong>：在构建好的SDG上，从识别出的入口点开始，执行<strong>距离引导的污点分析</strong>。追踪污点数据在服务内部以及跨服务的流动路径。如果污点数据最终流入了某个敏感操作（Sinks），MScan就会报告一个潜在漏洞。</li>
+</ol>
+<h4 id="实验设计-1"><a href="#实验设计-1" class="headerlink" title="实验设计"></a><strong>实验设计</strong></h4><p>为了验证MScan的有效性，研究者进行了严谨的实验：</p>
+<ul>
+<li><strong>实验对象</strong>: 选择了 <strong>30个真实世界的Java微服务应用</strong>，包括25个在GitHub上非常流行（平均Star数超过1000）的开源项目（如 <code>spring-cloud-dataflow</code>, <code>yudao-cloud</code>）和5个来自世界领先金融科技公司的、经过严格安全审计的工业级闭源应用。</li>
+<li><strong>基线对比</strong>: 将MScan与当前最先进的静态分析工具 <strong>CodeQL</strong>（由GitHub开发）进行对比。</li>
+<li><strong>评估维度 (研究问题 RQs)</strong>:<ul>
+<li><strong>RQ1 (有效性)</strong>: MScan在真实应用中发现漏洞的能力如何？</li>
+<li><strong>RQ2 (对比)</strong>: MScan与CodeQL相比效果如何？</li>
+<li><strong>RQ3 (消融研究)</strong>: MScan的每个创新点（LLM、SDG、距离引导策略）是否都必不可少？</li>
+<li><strong>RQ4 (效率)</strong>: MScan的分析速度如何？</li>
+</ul>
+</li>
+</ul>
+<h3 id="主要结果和结论-1"><a href="#主要结果和结论-1" class="headerlink" title="主要结果和结论"></a>主要结果和结论</h3><p>实验结果非常有力地证明了MScan的优越性：</p>
+<ol>
+<li><p><strong>有效性 (RQ1)</strong>:</p>
+<ul>
+<li>MScan共检测到 <strong>59个</strong> 经人工确认的真实漏洞（0-day），整体<strong>精确率高达71.95%</strong>。</li>
+<li>这些漏洞覆盖了SQL注入、XXE、SSRF等多种高危类型。</li>
+<li>其中 <strong>32个是跨服务漏洞</strong>，是传统工具难以发现的。</li>
+<li>这些发现的重大意义体现在：截至论文发表，已有 <strong>31个漏洞被授予了CVE编号</strong>，例如Spring框架中的一个高危漏洞（CVE-2024-22263, CVSS评分8.8）。</li>
+</ul>
+</li>
+<li><p><strong>与CodeQL的对比 (RQ2)</strong>:</p>
+<ul>
+<li><strong>MScan全面超越CodeQL</strong>。在59个已知漏洞中，MScan全部检出（<strong>召回率100%</strong>），而CodeQL仅检出23个（<strong>召回率38.98%</strong>）。</li>
+<li>CodeQL漏报的主要原因是：无法理解跨服务通信（导致32个漏洞丢失）以及在分析大型应用时因超时而失败（导致4个漏洞丢失）。</li>
+<li>MScan的精确率（71.95%）也远高于CodeQL（39.66%）。</li>
+</ul>
+</li>
+<li><p><strong>各组件的必要性 (RQ3 - 消融研究)</strong>:</p>
+<ul>
+<li><strong>去掉LLM网关分析</strong>: 精确率从72%骤降至40%，因为大量的内部API被错误地当作攻击入口，产生了海量误报。</li>
+<li><strong>去掉SDG跨服务分析</strong>: 无法发现任何跨服务漏洞，召回率从100%腰斩至45.76%。</li>
+<li><strong>去掉距离引导策略</strong> (改用完全上下文敏感): 在分析大型应用时会<strong>内存溢出</strong>，导致分析失败，召回率降至49.15%。如果改用简单的上下文限制（如2-call），则精确率暴跌至19%。</li>
+<li><strong>结论</strong>: 这三项创新点<strong>缺一不可</strong>，共同构成了MScan成功的基石。</li>
+</ul>
+</li>
+<li><p><strong>效率 (RQ4)</strong>:</p>
+<ul>
+<li>MScan分析全部30个应用总耗时8.45小时，<strong>平均每个应用16.9分钟</strong>。对于微服务这种复杂度的应用来说，这个速度完全可以在实际开发流程（如CI&#x2F;CD流水线）中接受和使用。</li>
+</ul>
+</li>
+</ol>
+<h3 id="潜在意义和未来工作方向-1"><a href="#潜在意义和未来工作方向-1" class="headerlink" title="潜在意义和未来工作方向"></a>潜在意义和未来工作方向</h3><h4 id="潜在意义-1"><a href="#潜在意义-1" class="headerlink" title="潜在意义"></a>潜在意义</h4><ol>
+<li><strong>填补技术空白</strong>: 提供了<strong>首个</strong>专门用于检测Java微服务应用中污点型漏洞的自动化静态分析工具，对保障日益普及的微服务生态安全具有重大价值。</li>
+<li><strong>方法论创新</strong>: 论文提出的<strong>LLM+领域特定图模型+智能分析策略</strong>的组合拳，为解决其他领域的复杂软件系统安全分析问题提供了新的思路和范式。</li>
+<li><strong>产生实际影响</strong>: 在众多流行开源项目和大型商业应用中发现并帮助修复了大量高危0-day漏洞，直接提升了软件供应链的安全性。</li>
+</ol>
+<h4 id="未来工作方向-1"><a href="#未来工作方向-1" class="headerlink" title="未来工作方向"></a>未来工作方向</h4><ol>
+<li><strong>减少误报和漏报</strong>:<ul>
+<li><strong>误报</strong>: 进一步研究如何自动识别开发者自定义的、复杂的污点清洗函数（Sanitizer），这是静态分析中的一个经典难题。</li>
+<li><strong>漏报</strong>: 增强数据流分析能力，处理更复杂的代码结构，以减少因数据流中断导致的漏报。</li>
+</ul>
+</li>
+<li><strong>扩展通用性</strong>:<ul>
+<li>目前MScan仅支持Java。未来可以将其核心思想和方法扩展到其他主流微服务开发语言，如Go、Python、Node.js等。</li>
+<li>在更广泛和多样化的微服务应用上进行测试，以验证其通用性。</li>
+</ul>
+</li>
+</ol>
+<h2 id="EPScan-Automated-Detection-of-Excessive-RBAC-Permissions-in-Kubernetes-Applications"><a href="#EPScan-Automated-Detection-of-Excessive-RBAC-Permissions-in-Kubernetes-Applications" class="headerlink" title="EPScan: Automated Detection of Excessive RBAC Permissions in Kubernetes Applications"></a>EPScan: Automated Detection of Excessive RBAC Permissions in Kubernetes Applications</h2><p>这篇论文《EPScan: Automated Detection of Excessive RBAC Permissions in Kubernetes Applications》提出了一种自动检测Kubernetes第三方应用中过度RBAC权限的方法，并揭示了这些权限可能带来的安全风险。</p>
+<h3 id="研究背景和问题-2"><a href="#研究背景和问题-2" class="headerlink" title="研究背景和问题"></a>研究背景和问题</h3><ul>
+<li><strong>Kubernetes的普及与生态：</strong> Kubernetes已成为主流的容器编排系统，拥有庞大的第三方应用生态系统。这些第三方应用通过访问集群资源来扩展Kubernetes的功能。</li>
+<li><strong>RBAC机制：</strong> Kubernetes采用基于角色的访问控制（RBAC）机制来管理资源访问权限，以确保安全性。</li>
+<li><strong>过度权限问题：</strong> 近年来研究发现，Kubernetes中的第三方应用常被授予超出其功能所需的过度权限（Excessive Permissions, EPs）。这些过度权限可能被攻击者利用，导致过度权限攻击。</li>
+<li><strong>现有攻击模型的局限性：</strong> Yang et al. [17] 曾提出一种过度权限攻击，攻击者可以利用关键的过度权限从工作节点逃逸并接管整个Kubernetes集群。然而，这种攻击模型假设攻击者已经攻陷了工作节点（通常通过容器逃逸实现），这在实际场景中实现难度较大。</li>
+<li><strong>本研究提出的新问题：</strong><ul>
+<li><strong>新的攻击模型：</strong> 论文提出了一种<strong>新的过度权限攻击模型</strong>，攻击条件更为宽松。攻击者只需攻陷一个Pod（比攻陷整个工作节点容易得多），就可以利用某些过度权限来接管工作节点，甚至破坏其他Pod的可用性或窃取敏感数据。</li>
+<li><strong>检测手段的缺失：</strong> 尽管过度权限对Kubernetes集群安全构成巨大威胁，但目前缺乏有效的方法来自动检测这些过度权限。</li>
+</ul>
+</li>
+</ul>
+<h3 id="研究目的和创新点-2"><a href="#研究目的和创新点-2" class="headerlink" title="研究目的和创新点"></a>研究目的和创新点</h3><ul>
+<li><strong>研究目的：</strong> 提出一种名为EPScan的新颖方法，旨在自动检测Kubernetes第三方应用中可利用的过度RBAC权限。</li>
+<li><strong>主要创新点：</strong><ol>
+<li><strong>提出更实际的攻击模型 (Attack-Model-II)：</strong> 针对现有攻击模型（Yang et al.）需要攻陷工作节点条件苛刻的问题，本文提出了一个更易实现的攻击模型：攻击者仅需攻陷一个Pod，即可利用过度权限实现工作节点接管、敏感信息泄露或拒绝服务（DoS）攻击。这大大降低了攻击门槛，更符合实际场景。</li>
+<li><strong>新颖的Pod导向程序分析：</strong> 针对Kubernetes应用的复杂性（多Pod、多可执行文件、复杂启动脚本等），EPScan设计了一种Pod粒度的程序分析方法，能够准确识别每个Pod中程序的资源访问行为。</li>
+<li><strong>LLM辅助的Pod-程序匹配：</strong> 创新性地利用大型语言模型（LLM，如GPT-4o）来理解复杂的容器启动命令和Shell脚本，从而准确识别Pod中运行的主程序及其源代码入口点，解决了传统方法难以识别的问题。</li>
+<li><strong>定制化的Kubernetes资源访问行为建模：</strong> 深入研究了Kubernetes官方API库（client-go和controller-runtime），手动检查并建模了1498个资源访问API，并提出三种方法（通过接收者类型、参数类型、字符串参数）来精确识别资源类型，克服了API多样性和复杂性带来的挑战。</li>
+<li><strong>RefGraph可达性近似分析：</strong> 针对Go语言程序分析中函数调用链长、虚调用和回调复杂的问题，提出了一种基于引用图（RefGraph）的可达性近似分析方法，高效准确地判断资源访问代码是否可达，显著优于传统的调用图分析方法。</li>
+<li><strong>自动化检测可利用的过度权限：</strong> 结合配置分析、行为分析和可利用性判断，实现了对可利用过度权限的自动化、高精度检测。</li>
+</ol>
+</li>
+</ul>
+<h3 id="研究方法和实验设计-2"><a href="#研究方法和实验设计-2" class="headerlink" title="研究方法和实验设计"></a>研究方法和实验设计</h3><p>EPScan的设计分为三个主要组件：</p>
+<ol>
+<li><p><strong>RBAC中心配置分析 (RBAC-centered Configuration Analysis)：</strong></p>
+<ul>
+<li><strong>目标：</strong> 从Kubernetes应用的配置文件中提取每个Pod请求（requested）的RBAC权限。</li>
+<li><strong>实现：</strong> 解析Pod、RoleBinding、Role和ClusterRole等对象，建立Pod与权限规则的绑定关系。将提取的权限规则统一转换为(verb, resource)元组格式，并处理通配符（<code>*</code>）和权限重叠问题，确保后续分析的准确性。</li>
+</ul>
+</li>
+<li><p><strong>Pod导向行为分析 (Pod-oriented Behavior Analysis)：</strong></p>
+<ul>
+<li><strong>目标：</strong> 通过静态程序分析，诊断每个Pod中程序的资源访问行为，从而获取其实际需要（required）的最小权限。</li>
+<li><strong>实现步骤：</strong><ul>
+<li><strong>LLM辅助的Pod-程序匹配：</strong><ul>
+<li>下载容器镜像，利用LLM（如GPT-4o）分析容器启动命令和脚本（通过构建包含任务说明、示例和实际查询的Prompt），识别Pod中运行的主程序（可执行文件）。</li>
+<li>利用Go语言可执行文件中嵌入的运行时信息，定位主程序在源代码仓库中的入口点。</li>
+</ul>
+</li>
+<li><strong>RefGraph基础的程序行为分析：</strong><ul>
+<li><strong>资源访问建模与识别：</strong> 识别所有Kubernetes资源访问API的调用点。根据API的特点（如通过接收者类型、参数类型或字符串参数指定资源），建模其访问行为（操作类型和资源类型）。</li>
+<li><strong>RefGraph构建：</strong> 构建一个引用图（RefGraph），表示Go语言中函数、全局变量和类型定义之间的引用关系。</li>
+<li><strong>可达性近似分析：</strong> 利用RefGraph，从程序入口点出发，近似判断哪些资源访问API调用点是可达的。如果从入口点到某个资源访问点存在引用路径，则认为该访问点可达，并记录其所需的权限。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>过度权限检测 (Excessive Permission Detection)：</strong></p>
+<ul>
+<li><strong>目标：</strong> 比较Pod请求的权限和程序实际需要的权限，并筛选出可利用的过度权限。</li>
+<li><strong>实现：</strong><ul>
+<li>对比两组权限集合，识别出那些配置中请求了但程序实际未使用的权限，将其标记为过度权限。</li>
+<li>根据论文中预定义的可利用过度权限列表（如表1所示，包含不同权限类型和作用范围），进一步筛选并报告那些具有实际安全风险的过度权限（例如，可导致集群接管、工作节点接管、敏感信息泄露或DoS攻击的权限）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>实验设计：</strong><ul>
+<li><strong>原型实现：</strong> EPScan的原型使用CodeQL（用于Go语言静态分析）和Python（用于配置解析和权限检测）实现，并集成了GPT-4o作为LLM。</li>
+<li><strong>数据集：</strong> 选取了CNCF（云原生计算基金会）项目中108个Go语言编写的第三方Kubernetes应用作为实验对象，共包含282个Pod。</li>
+<li><strong>评估指标：</strong> 评估EPScan在过度权限检测的有效性（精度、召回率、CVE分配）、效率、LLM辅助匹配的准确性、资源访问建模的准确性以及可达性分析的准确性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="主要结果和结论-2"><a href="#主要结果和结论-2" class="headerlink" title="主要结果和结论"></a>主要结果和结论</h3><ul>
+<li><strong>过度权限检测效果：</strong><ul>
+<li>EPScan成功识别了106个Pod（来自50个应用）中可利用的过度权限。</li>
+<li>经过人工验证，其中106个Pod的检测结果（占总数的94.6%）被确认为真正的过度权限，表明EPScan具有很高的检测精度。</li>
+<li>根据论文提出的攻击模型，这些过度权限可导致多种严重后果，包括集群接管、工作节点接管、敏感信息泄露和拒绝服务攻击（DoS）。</li>
+<li>论文已负责任地向开发者报告了发现的问题，其中39个Pod的问题已得到开发者确认，并获得了9个CVE编号。</li>
+</ul>
+</li>
+<li><strong>效率：</strong><ul>
+<li>EPScan分析108个应用的总耗时约为27小时，平均每个应用仅需14分钟。</li>
+<li>与Yang et al. [17] 的半自动化方法（分析53个应用耗时2个月）相比，EPScan的效率显著提升，证明其在大规模应用分析中的实用性。</li>
+</ul>
+</li>
+<li><strong>关键组件的有效性：</strong><ul>
+<li><strong>Pod-程序匹配：</strong> LLM辅助的EPScan在Pod-程序匹配上的准确率达到88.8%，远高于基于启发式规则的基线方法（48.8%），证明了LLM在理解复杂启动脚本方面的有效性。</li>
+<li><strong>资源访问建模与识别：</strong> EPScan在资源访问建模与识别上的召回率达到96.0%，表明其能够准确捕捉程序中的资源访问行为。</li>
+<li><strong>可达性近似分析：</strong> 基于RefGraph的可达性分析在精度和召回率上均达到98.9%，显著优于传统的RTA和VTA调用图分析方法，解决了Go语言复杂性带来的挑战。</li>
+</ul>
+</li>
+<li><strong>结论：</strong> EPScan是一种有效、高效且自动化的方法，能够准确检测Kubernetes第三方应用中可利用的过度RBAC权限，并揭示了新的、更易实现的攻击路径。</li>
+</ul>
+<h3 id="潜在意义和未来工作方向-2"><a href="#潜在意义和未来工作方向-2" class="headerlink" title="潜在意义和未来工作方向"></a>潜在意义和未来工作方向</h3><ul>
+<li><p><strong>潜在意义：</strong></p>
+<ul>
+<li><strong>提升Kubernetes安全：</strong> EPScan填补了Kubernetes RBAC权限自动检测的空白，为开发者和运维人员提供了一个强大的工具，用于识别和修复应用中的潜在安全漏洞，从而增强整个Kubernetes集群的安全性。</li>
+<li><strong>改变安全态势：</strong> 论文提出的新攻击模型降低了攻击门槛，将安全焦点从工作节点层面的攻防扩展到Pod层面，促使业界更加关注Pod粒度的权限管理和最小权限原则。</li>
+<li><strong>推动自动化安全分析：</strong> 成功将LLM和先进的静态分析技术应用于复杂云原生环境的安全分析，为未来自动化安全工具的开发提供了宝贵的经验和方向。</li>
+<li><strong>实际应用价值：</strong> EPScan的原型和方法可直接应用于实际生产环境，帮助云服务提供商和企业用户对其Kubernetes应用进行安全审计和加固。</li>
+</ul>
+</li>
+<li><p><strong>未来工作方向：</strong></p>
+<ul>
+<li><strong>提高数据流分析精度：</strong> 解决CodeQL在处理某些复杂数据流场景（如动态解析YAML文件）时的局限性，减少误报，进一步提高检测的准确性。</li>
+<li><strong>扩展LLM应用：</strong> 探索LLM在更广泛的程序分析任务中的应用，例如处理更多种类的语言、更复杂的编译过程或更抽象的程序逻辑。</li>
+<li><strong>支持多语言和多平台：</strong> 将EPScan的方法扩展到Go语言之外的其他编程语言（如Python、Java等）编写的Kubernetes应用，并考虑适应其他容器编排平台。</li>
+<li><strong>结合动态分析：</strong> 探索将静态分析与轻量级动态分析相结合，以弥补静态分析在某些运行时行为识别上的不足，进一步提高检测的覆盖率和准确性。</li>
+<li><strong>开发预防性工具：</strong> 基于EPScan的发现，开发更上层的工具或最佳实践指南，帮助开发者在应用设计和部署阶段就遵循最小权限原则，从源头避免过度权限的产生。</li>
+</ul>
+</li>
+</ul>
+<h2 id="HouseFuzz-Service-Aware-Grey-Box-Fuzzing-for-Vulnerability-Detection-in-Linux-Based-Firmware"><a href="#HouseFuzz-Service-Aware-Grey-Box-Fuzzing-for-Vulnerability-Detection-in-Linux-Based-Firmware" class="headerlink" title="HouseFuzz: Service-Aware Grey-Box Fuzzing for Vulnerability Detection in Linux-Based Firmware"></a>HouseFuzz: Service-Aware Grey-Box Fuzzing for Vulnerability Detection in Linux-Based Firmware</h2><h3 id="研究背景和问题-3"><a href="#研究背景和问题-3" class="headerlink" title="研究背景和问题"></a>研究背景和问题</h3><p><strong>1. 研究背景</strong></p>
+<p>随着物联网（IoT）的飞速发展，基于Linux系统的固件（Firmware）被广泛应用于路由器、摄像头、智能家居等海量设备中。然而，这些固件中的网络服务（如Web服务器）常常存在安全漏洞，使得设备极易受到远程网络攻击，可能导致远程代码执行、设备被控等严重后果。</p>
+<p>为了发现这些漏洞，<strong>灰盒模糊测试（Grey-box Fuzzing）<strong>已成为一种主流且有效的技术。其基本流程是：首先，在受控环境中</strong>模拟（Emulate）<strong>固件的网络服务；然后，生成大量变异的</strong>测试用例（Test Case）<strong>并发送给被测服务；最后，通过收集执行过程中的</strong>反馈（Feedback）</strong>（如代码覆盖率）来指导后续的测试用-例生成，以探索更深的代码路径，从而发现漏洞。</p>
+<p><strong>2. 核心问题</strong></p>
+<p>尽管灰盒模糊测试被广泛应用，但现有方法在测试Linux固件时，由于未能充分理解固件服务的内在特性，普遍存在<strong>三个被忽视的关键障碍</strong>，这极大地限制了漏洞发现的效率和效果。</p>
+<ul>
+<li><p><strong>问题一：服务模拟不完整（Limitations in Service Emulation）</strong></p>
+<ul>
+<li><strong>问题描述：</strong> Linux固件中的一个网络服务通常不是由单个进程独立完成的，而是由多个进程协作完成的。这包括直接面向网络的进程（Network-facing Process）和在后台运行的守护进程（Daemon Process）。例如，一个Web请求可能先由<code>httpd</code>进程接收，然后通过进程间通信（IPC）交给另一个名为<code>ncc</code>的后台进程处理。</li>
+<li><strong>现有方法缺陷：</strong> 现有方法要么基于白名单识别进程，容易漏掉不在名单中的关键进程（如<code>ncc</code>）；要么尝试模拟整个系统，但常常因为模拟环境与真实硬件的差异而中途崩溃，导致网络服务根本无法成功启动。这使得模拟出的服务是残缺的，大量代码逻辑无法被测试。</li>
+</ul>
+</li>
+<li><p><strong>问题二：模糊测试反馈不全面（Limitations in Fuzzing Feedback Guidance）</strong></p>
+<ul>
+<li><strong>问题描述：</strong> 由于服务是多进程协作的，一个完整的请求处理流程会跨越多个进程。因此，全面的执行反馈（代码覆盖率）必须包含所有相关进程的信息。</li>
+<li><strong>现有方法缺陷：</strong> 现有模糊测试工具通常只监控那个直接与网络交互的进程（如<code>httpd</code>），完全忽略了其他协作进程（如<code>ncc</code>）的执行情况。这导致fuzzer无法感知到在后台进程中触发的新代码路径，因而难以发现那些需要多进程交互才能触发的复杂漏洞。</li>
+</ul>
+</li>
+<li><p><strong>问题三：测试用例生成盲目（Limitations in Test Case Generation）</strong></p>
+<ul>
+<li><strong>问题描述：</strong> 固件服务除了使用HTTP等标准协议外，通常还会在此之上实现一套<strong>自定义的应用层协议</strong>。这些自定义协议包含大量特定的潜规则，即严格的语义约束。例如，某个功能必须要求请求中包含<code>ccp_act=set</code>这样的键值对。</li>
+<li><strong>现有方法缺陷：</strong> 现有fuzzer通常只懂标准协议的语法，不懂这些自定义的语义。它们生成的测试用例虽然可能符合HTTP格式，但因为不满足自定义协议的语义约束，在服务逻辑的浅层就被拒绝了，无法深入测试真正处理业务的核心代码，大大降低了fuzzing的效率。</li>
+</ul>
+</li>
+</ul>
+<h3 id="研究目的和创新点-3"><a href="#研究目的和创新点-3" class="headerlink" title="研究目的和创新点"></a>研究目的和创新点</h3><p><strong>1. 研究目的</strong></p>
+<p>本文旨在解决上述三大问题，提出一个**服务感知（Service-Aware）**的灰盒模糊测试工具——<strong>HouseFuzz</strong>，以更全面、更深入、更高效地检测Linux固件中的网络服务漏洞。</p>
+<p><strong>2. 核心创新点</strong></p>
+<p>为了实现这一目标，HouseFuzz引入了三个关键的创新技术，分别对应上述三个问题：</p>
+<ul>
+<li><p><strong>创新点一：全面的服务识别与模拟（Holistic Service Identification and Emulation）</strong></p>
+<ul>
+<li><strong>解决方案：</strong> HouseFuzz不依赖于不靠谱的白名单，而是通过模拟固件的**系统初始化过程（System Initialization）**来自动发现所有网络服务及其依赖的后台进程。</li>
+<li><strong>关键技术：</strong> 它在模拟系统启动时，能<strong>自动识别并修复</strong>因环境差异导致的<strong>模拟异常（Emulation Exception）</strong>，如进程崩溃或卡死。通过动态地给异常代码打补丁（Patch），HouseFuzz能让初始化流程走得更远，从而成功启动更多、更完整的网络服务，为后续测试提供全面的目标。</li>
+</ul>
+</li>
+<li><p><strong>创新点二：多进程模糊测试框架（Multi-Process Fuzzing Framework）</strong></p>
+<ul>
+<li><strong>解决方案：</strong> HouseFuzz能够<strong>同时监控</strong>服务涉及的所有相关进程（网络进程、守护进程、工具进程）的执行情况。</li>
+<li><strong>关键技术：</strong> 它能收集并<strong>合并</strong>所有这些进程的代码覆盖率，形成一个全局的、完整的执行反馈视图。当任何一个进程中发现了新的代码路径，fuzzer都会认为当前的测试用例是有趣的，并将其保留下来用于后续变异。这使得HouseFuzz能够有效地指导测试向多进程交互的深层逻辑探索。</li>
+</ul>
+</li>
+<li><p><strong>创新点三：服务协议指导的测试用例生成（Service-Protocol-Guided Test Case Generation）</strong></p>
+<ul>
+<li><strong>解决方案：</strong> 为了理解并满足自定义协议的语义约束，HouseFuzz引入了<strong>令牌依赖图（Token Dependency Graph, TDG）</strong>。</li>
+<li><strong>关键技术：</strong> TDG将协议中的关键字段（如<code>ccp_act</code>, <code>set</code>）抽象为令牌，并分析它们之间的依赖关系（例如，set这个值令牌依赖于ccp_act这个键令牌）。HouseFuzz通过<strong>离线静态分析</strong>和<strong>在线动态分析</strong>相结合的方式自动推断出这个图。在生成测试用例时，它会利用TDG来构造满足这些语义约束的、高质量的输入，从而轻松绕过协议的表层校验，直击深层业务逻辑。</li>
+</ul>
+</li>
+</ul>
+<h3 id="研究方法和实验设计-3"><a href="#研究方法和实验设计-3" class="headerlink" title="研究方法和实验设计"></a>研究方法和实验设计</h3><p><strong>1. 研究方法（HouseFuzz工作流程）</strong></p>
+<p>HouseFuzz的整体工作流程（见论文图2）分为两个主要阶段：</p>
+<ul>
+<li><p><strong>阶段一：服务模拟（Service Emulation）</strong></p>
+<ol>
+<li><strong>全面服务识别：</strong> HouseFuzz首先模拟固件的<code>init</code>进程启动。它会持续追踪所有子进程的执行，一旦检测到有进程因模拟问题而异常终止或挂起，就会分析执行轨迹，定位到引发问题的代码（通常是一个函数调用），并将其替换为无操作指令（NOP），然后重新模拟。这个模拟-修复-再模拟的循环会一直持续，直到没有新的异常发生，或者修复导致已发现的网络通道减少（说明修复过度，此时会回滚）。</li>
+<li><strong>进程信息提取：</strong> 在稳定的模拟过程中，HouseFuzz通过分析系统调用（如<code>bind</code>, <code>execve</code>）来识别出所有<strong>网络服务进程</strong>（监听在外部IP地址上）和<strong>守护进程</strong>（通过IPC与其他服务进程通信），并记录下启动它们所需的确切命令行参数。</li>
+</ol>
+</li>
+<li><p><strong>阶段二：服务模糊测试（Service Fuzzing）</strong></p>
+<ol>
+<li><strong>启动被测服务：</strong> 根据第一阶段获得的信息，HouseFuzz以正确的方式启动目标服务的所有相关进程。</li>
+<li><strong>多进程反馈收集：</strong><ul>
+<li><strong>覆盖率指导：</strong> HouseFuzz为每个进程分配独立的内存空间来记录代码覆盖率。它定义了**测试完成事件（Test Completion Event, TCE）**来判断何时收集覆盖率：对工具进程是进程终止，对网络进程是网络套接字关闭，对守护进程是完成一次IPC请求处理并重新进入等待状态。当所有进程的TCE都被观察到后，它会合并所有覆盖率，用于指导下一轮fuzzing。</li>
+<li><strong>漏洞检测：</strong> 它会监控所有进程的崩溃信号，以发现内存破坏类漏洞。</li>
+</ul>
+</li>
+<li><strong>协议指导的测试用例生成：</strong><ul>
+<li><strong>TDG推断：</strong> HouseFuzz结合两种方式构建TDG。<strong>离线分析</strong>通过IDA Pro等工具静态分析二进制文件，寻找代码中的协议关键词和依赖关系。<strong>在线分析</strong>则在fuzzing过程中通过插桩<code>strcmp</code>等字符串比较函数，动态地捕捉程序在解析输入时用到的令牌，并根据标准协议（如HTTP）的结构推断其依赖关系。</li>
+<li><strong>用例生成：</strong> HouseFuzz首先基于标准协议的语法（用上下文无关文法CFG表示）生成一个合法的测试用例骨架，然后根据TDG，将推断出的、具有依赖关系的令牌（键值对）智能地插入到测试用例的正确位置，生成语义有效的高能输入。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>2. 实验设计</strong></p>
+<ul>
+<li><strong>实验对象：</strong> 作者使用了一个包含来自D-Link、Netgear等3个厂商的60个真实固件镜像的数据集。</li>
+<li><strong>对比基线（Baseline）：</strong> 主要选择了当前最先进的基于进程模拟的固件fuzzer <strong>GREENHOUSE</strong> 作为对比对象。此外，在服务识别部分还与<strong>FirmAE</strong>（基于全系统模拟）进行了比较。</li>
+<li><strong>评估指标：</strong><ul>
+<li><strong>RQ1 (综合性能):</strong> 比较HouseFuzz和GREENHOUSE在代码覆盖率和漏洞发现数量上的表现。</li>
+<li><strong>RQ2 (服务识别能力):</strong> 比较HouseFuzz、GREENHOUSE和FirmAE能识别出的网络服务数量。</li>
+<li><strong>RQ3 (多进程框架效果):</strong> 通过消融实验（Ablation Study），验证多进程框架相比单进程监控带来的提升。</li>
+<li><strong>RQ4 (协议指导效果):</strong> 通过消融实验，验证TDG协议指导相比传统方法带来的提升。</li>
+</ul>
+</li>
+<li><strong>漏洞验证：</strong> 所有发现的崩溃都经过了手动分析以确认其为可利用的漏洞，并向厂商报告，获得了多个CVE&#x2F;CNVD编号。</li>
+</ul>
+<h3 id="主要结果和结论-3"><a href="#主要结果和结论-3" class="headerlink" title="主要结果和结论"></a>主要结果和结论</h3><p><strong>1. 主要结果</strong></p>
+<p>实验结果有力地证明了HouseFuzz的有效性：</p>
+<ul>
+<li><strong>服务识别能力显著更强：</strong> 在服务识别方面，HouseFuzz识别出的网络服务比GREENHOUSE和FirmAE<strong>多76%</strong>。这得益于其强大的异常修复能力，使得更多服务得以成功启动。</li>
+<li><strong>代码覆盖率和漏洞发现大幅提升：</strong> 在对双方都能测试的41个服务进行的公平对比中，HouseFuzz的<strong>代码覆盖率平均高出24.8%</strong>，发现的<strong>0day漏洞数量比GREENHOUSE多175%</strong>（128个 vs 46个）。</li>
+<li><strong>多进程与协议指导效果显著：</strong> 消融实验表明，多进程框架和协议指导是性能提升的关键。例如，仅考虑自定义协议就能比仅考虑标准协议多发现94%的漏洞。HouseFuzz发现的漏洞中有18个是需要多进程交互才能触发的，占其获得CVE编号漏洞的38%，这是传统fuzzer无法发现的。</li>
+<li><strong>发现大量真实世界漏洞：</strong> HouseFuzz在实验中总共发现了<strong>177个漏洞</strong>，其中<strong>156个是0day漏洞</strong>，并已获得<strong>45个CVE&#x2F;CNVD编号</strong>，证明了其强大的实战能力。</li>
+</ul>
+<p><strong>2. 结论</strong></p>
+<p>论文得出结论，现有Linux固件灰盒模糊测试工具由于忽视了服务的<strong>多进程协作</strong>和<strong>协议定制化</strong>这两个核心特性，其效果受到严重制约。本文提出的HouseFuzz通过<strong>全面的服务识别</strong>、<strong>多进程反馈框架</strong>和<strong>基于TDG的协议指导</strong>这三项创新，有效地解决了这些问题，极大地提升了在Linux固件中发现漏洞的能力，其性能显著优于当前最先进的（SoTA）方法。</p>
+<h3 id="潜在意义和未来工作方向-3"><a href="#潜在意义和未来工作方向-3" class="headerlink" title="潜在意义和未来工作方向"></a>潜在意义和未来工作方向</h3><p><strong>1. 潜在意义</strong></p>
+<ul>
+<li><strong>理论意义：</strong> 论文揭示了在对复杂软件系统（尤其是嵌入式系统）进行模糊测试时，理解其服务的整体性（多进程&#x2F;多组件交互）和协议的特殊性（语义约束）至关重要。为该领域的研究提供了新的视角和方向。</li>
+<li><strong>实践意义：</strong> HouseFuzz作为一个高效的自动化漏洞挖掘工具，可以直接用于提升大量物联网设备的安全性。其发现的众多0day漏洞也直接帮助厂商修复了产品，保护了用户安全。其核心思想和技术可以被安全社区和业界借鉴，用于开发更强大的安全测试工具。</li>
+</ul>
+<p><strong>2. 未来工作方向</strong></p>
+<p>作者在论文的讨论部分也指出了当前工作的一些局限性，并展望了未来的研究方向：</p>
+<ul>
+<li><strong>处理认证机制（Authentication Handling）：</strong> 许多高权限功能需要用户登录后才能访问。目前的HouseFuzz无法处理认证，未来可以研究如何维持一个认证后的会话状态进行fuzzing，以测试更多受保护的代码。</li>
+<li><strong>处理未知协议（Unknown Service Protocols）：</strong> HouseFuzz的协议指导部分仍然依赖于一个已知的标准协议（如HTTP）作为基础。对于完全未知的、私有的二进制协议，其效果会打折扣。未来可以结合**协议逆向工程（Protocol Reverse Engineering）**技术，实现对任意协议的自动分析和建模。</li>
+<li><strong>增强模拟保真度（Enhance Emulation Fidelity）：</strong> 尽管HouseFuzz能修复一些模拟异常，但其模拟能力仍有提升空间。更精准的模拟可以减少打补丁的需求，进一步提高测试的准确性。</li>
+<li><strong>完善TCE检测和TDG推断：</strong> 当前的实现对某些IPC机制（如<code>inotify</code>）和自定义的字符串比较函数支持不足，未来可以进一步扩展和完善这些技术细节，提高普适性和准确性。</li>
+</ul>
+<h2 id="Careless-Retention-and-Management-Understanding-and-Detecting-Data-Retention-Denial-of-Service-Vulnerabilities-in-Java-Web-Containers"><a href="#Careless-Retention-and-Management-Understanding-and-Detecting-Data-Retention-Denial-of-Service-Vulnerabilities-in-Java-Web-Containers" class="headerlink" title="Careless Retention and Management: Understanding and Detecting Data Retention Denial-of-Service Vulnerabilities in Java Web Containers"></a>Careless Retention and Management: Understanding and Detecting Data Retention Denial-of-Service Vulnerabilities in Java Web Containers</h2><h3 id="研究背景和问题-4"><a href="#研究背景和问题-4" class="headerlink" title="研究背景和问题"></a>研究背景和问题</h3><h4 id="研究背景-2"><a href="#研究背景-2" class="headerlink" title="研究背景"></a>研究背景</h4><p>拒绝服务（Denial-of-Service, DoS）攻击是网络安全领域一个长期存在的重大威胁，其目的是使服务器或网络资源无法为合法用户提供正常服务。传统的DoS攻击主要分为两类：</p>
+<ol>
+<li><strong>网络层攻击</strong>：如DDoS、TCP SYN Flood等，通过发送海量数据包耗尽目标的网络带宽或连接资源。这类攻击研究较为广泛，防御机制也相对成熟。</li>
+<li><strong>应用层攻击</strong>：这类攻击更具针对性，利用应用程序自身的漏洞或设计缺陷，以较低的流量消耗目标的CPU或内存资源。例如，著名的正则表达式DoS攻击（ReDoS）就是通过构造特殊字符串，使正则表达式匹配时间呈指数级增长，从而耗尽CPU。</li>
+</ol>
+<p>然而，在应用层攻击中，一类特殊的<strong>内存耗尽型DoS攻击</strong>，尤其是在Java Web容器（如Tomcat, Jetty等）中的此类攻击，并未得到学术界的系统性关注和研究。</p>
+<h4 id="研究问题-1"><a href="#研究问题-1" class="headerlink" title="研究问题"></a>研究问题</h4><p>本文聚焦于一种作者新定义的、特殊的应用层内存耗尽型DoS攻击——<strong>数据保留型拒绝服务攻击（Data Retention DoS, DRDoS）</strong>。</p>
+<p><strong>核心问题是</strong>：Java Web容器在处理用户请求时，为了实现某些功能（如会话管理、性能优化、安全认证等），不可避免地需要暂时缓存或保留部分来自客户端请求的数据。如果对这些数据的保留和管理机制存在缺陷（即粗心的保留和管理），例如没有设置合理的容量限制或销毁时限，攻击者就可以通过构造大量特定的请求，使其数据被服务器持续保留在内存中。由于Java的垃圾回收机制（GC）无法回收这些仍然被引用的数据，最终将导致服务器内存耗尽，使得该容器上部署的所有Web应用均无法提供服务。</p>
+<p>尽管已有零星的CVE报告手动发现了此类问题，但学术界缺乏对Java Web容器中DRDoS漏洞的<strong>系统性研究、成因分析和自动化检测方法</strong>。这就是本研究旨在解决的核心问题。</p>
+<hr>
+<h3 id="研究目的和创新点-4"><a href="#研究目的和创新点-4" class="headerlink" title="研究目的和创新点"></a>研究目的和创新点</h3><h4 id="研究目的-2"><a href="#研究目的-2" class="headerlink" title="研究目的"></a>研究目的</h4><p>本研究的主要目的有三个：</p>
+<ol>
+<li><strong>首次系统性研究DRDoS</strong>：对Java Web容器中的DRDoS漏洞进行定义、分类和深入分析，揭示其根本原因和攻击模式。</li>
+<li><strong>开发自动化检测工具</strong>：设计并实现一个名为 <strong>DR. D (Data Retention Diagnoser)</strong> 的新型静态分析工具，用于自动、高效地检测和评估Java Web容器中的DRDoS漏洞。</li>
+<li><strong>验证现实世界的影响</strong>：利用DR. D对主流的Java Web容器进行实际检测，发现未知漏洞（零日漏洞），并评估这些漏洞在真实网络环境中的危害程度和影响范围。</li>
+</ol>
+<h4 id="创新点-1"><a href="#创新点-1" class="headerlink" title="创新点"></a>创新点</h4><ol>
+<li><strong>提出并定义了DRDoS</strong>：本文首次明确提出了数据保留型拒绝服务（DRDoS）这一新的漏洞类别，填补了应用层DoS攻击研究领域的一个空白。</li>
+<li><strong>创新的三阶段静态分析方法（DR. D）</strong>：针对检测DRDoS的挑战，作者设计了一套新颖的自动化分析流程：<ul>
+<li><strong>请求处理器定位</strong>：通过一种请求数据驱动的方法，自动识别容器中处理请求的入口函数，解决了处理器分散、非标准化难以定位的问题。</li>
+<li><strong>长寿命对象识别</strong>：创新性地使用<strong>机器学习</strong>方法（随机森林模型），通过提取类的13个静态特征（如实例化次数、作为参数次数、是否可配置等），来判断一个类的实例是否为长寿命对象，解决了静态分析难以准确判断对象生命周期的问题。</li>
+<li><strong>漏洞检测与可利用性评估</strong>：结合精确的<strong>污点分析</strong>（Taint Analysis）和轻量级的<strong>可利用性评估模型</strong>。污点分析追踪从请求数据（Source）到长寿命对象（Sink）的数据流；可利用性评估则从<strong>数据值空间、容量限制、生命周期</strong>三个维度静态评估漏洞的实际危害，有效过滤了误报，提高了检测效率。</li>
+</ul>
+</li>
+<li><strong>显著的实证成果</strong>：<ul>
+<li>在4个主流Java Web容器（Tomcat, Jetty, Undertow, Resin）中发现了<strong>25个全新的、可利用的零日DRDoS漏洞</strong>。</li>
+<li>已获得<strong>17个CVE编号</strong>，其中3个被评为<strong>高危</strong>漏洞。</li>
+<li>通过Shodan搜索引擎扫描发现，全网有<strong>超过150万个</strong>公共IP地址可能托管着受这些漏洞影响的Web容器，揭示了该问题的广泛性和严重性。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="研究方法和实验设计-4"><a href="#研究方法和实验设计-4" class="headerlink" title="研究方法和实验设计"></a>研究方法和实验设计</h3><h4 id="研究方法-DR-D-工具"><a href="#研究方法-DR-D-工具" class="headerlink" title="研究方法 (DR. D 工具)"></a>研究方法 (DR. D 工具)</h4><p>DR. D的工作流程分为三个核心阶段，如图4所示：</p>
+<p><strong>阶段一：定位请求处理器 (Locating Request Handlers)</strong></p>
+<ul>
+<li><strong>目标</strong>：找到处理外部请求的代码入口点。</li>
+<li><strong>方法</strong>：<ol>
+<li><strong>识别请求类</strong>：首先，根据Jakarta EE规范（如 <code>ServletRequest</code> 接口），扫描并识别出容器中所有代表请求的Java类。</li>
+<li><strong>聚类分析</strong>：然后，找出所有操作这些请求类的方法。通过分析这些方法的调用关系和设计模式（如集中式管理的Filter链，或分散式管理的Handler链），对它们进行聚类，从而准确定位出独立的请求处理器（Request Handlers）。</li>
+</ol>
+</li>
+</ul>
+<p><strong>阶段二：识别长寿命数据 (Identifying Long-Lived Data)</strong></p>
+<ul>
+<li><strong>目标</strong>：找出在程序运行期间会长期存在于内存中的对象。</li>
+<li><strong>方法</strong>：<ol>
+<li><strong>特征提取</strong>：首先，人工标注一部分长寿命和短寿命的类作为训练集。然后，为每个类自动提取13个维度的特征，例如：类的实例化次数、作为函数参数的次数、是否可配置、是否为迭代器等。</li>
+<li><strong>模型训练与预测</strong>：使用这些特征训练一个<strong>随机森林分类器</strong>。对于待分析的容器，DR. D会提取所有类的特征，并用训练好的模型预测每个类是否是长寿命类。被判定为长寿命类的实例及其字段，以及所有静态字段，都被认为是长寿命数据。</li>
+</ol>
+</li>
+</ul>
+<p><strong>阶段三：检测与评估漏洞 (Detecting and Assessing Vulnerability)</strong></p>
+<ul>
+<li><strong>目标</strong>：发现请求数据被保留在长寿命数据中，并评估其危害。</li>
+<li><strong>方法</strong>：<ol>
+<li><strong>污点分析</strong>：以第一阶段定位的请求处理器为入口，将客户端可控的请求数据（如URI、请求体）标记为污点源（Taint Source）。将第二阶段识别的长寿命数据（特别是可扩展集合，如Map、List）标记为污点汇（Taint Sink）。通过精确的、上下文敏感、流敏感、字段敏感的数据流分析，检测是否存在从污点源到污点汇的数据传播路径（即数据保留）。</li>
+<li><strong>可利用性评估</strong>：对发现的每个潜在漏洞，从三个方面进行静态评估（如图6所示）：<ul>
+<li><strong>请求数据值空间 (Value Space)</strong>：攻击者能否轻易构造大量不同的数据？（例如，请求URI路径的值空间是无限的，而请求方法只有GET, POST等有限几种）。</li>
+<li><strong>数据保留容量 (Capacity)</strong>：服务器端保留数据的集合是否有大小限制？</li>
+<li><strong>数据生命周期 (Lifespan)</strong>：保留的数据是否会因超时等机制被自动清理？</li>
+</ul>
+</li>
+<li><strong>分级</strong>：根据评估结果，将漏洞分为<strong>无约束 (Unconstrained)</strong>、<strong>时间受限 (Time-Constrained)</strong>、<strong>上下文受限 (Context-Constrained)</strong> 和 <strong>不可利用 (Unexploitable)</strong> 四个等级，帮助开发者确定修复的优先级。</li>
+</ol>
+</li>
+</ul>
+<h4 id="实验设计-2"><a href="#实验设计-2" class="headerlink" title="实验设计"></a>实验设计</h4><ol>
+<li><strong>测试对象</strong>：选择了4个广泛使用的开源Java Web容器：Apache Tomcat, Eclipse Jetty, Red Hat Undertow, 和 Caucho Resin 的最新版本。</li>
+<li><strong>漏洞验证</strong>：对DR. D报告的潜在漏洞，研究人员手动配置环境，构造攻击请求，实际验证数据是否被保留以及是否能导致内存显著增长。</li>
+<li><strong>真实世界攻击模拟</strong>：在Google Cloud, Microsoft Azure, Alibaba Cloud, Huawei Cloud四大主流云平台上部署存在漏洞的容器，并开启平台自带的DDoS防护服务。从一台普通桌面电脑发起DRDoS攻击，验证攻击的有效性以及云平台防护的有效性。</li>
+<li><strong>影响范围评估</strong>：使用Shodan网络空间搜索引擎，通过版本指纹识别，扫描全球网络上可能受已发现漏洞影响的服务器IP数量。</li>
+</ol>
+<hr>
+<h3 id="主要结果和结论-4"><a href="#主要结果和结论-4" class="headerlink" title="主要结果和结论"></a>主要结果和结论</h3><h4 id="主要结果-1"><a href="#主要结果-1" class="headerlink" title="主要结果"></a>主要结果</h4><ol>
+<li><strong>DR. D的有效性</strong>：该工具成功分析了所有4个容器，平均每个容器的分析时间在3分钟以内，证明了其高效性。</li>
+<li><strong>漏洞发现</strong>：总共发现了 <strong>25个</strong> 之前未知的、可被利用的DRDoS零日漏洞。<strong>所有被测的4个容器均存在此类漏洞</strong>。这些漏洞的功能背景多样，涉及安全认证、资源管理、性能优化等多个方面。</li>
+<li><strong>漏洞特征分析</strong>：<ul>
+<li><strong>保留的数据类型</strong>：大部分漏洞（16个）保留的是请求体（request body），其次是URI（11个）。</li>
+<li><strong>存储位置</strong>：绝大多数（23&#x2F;25）数据被存储在由机器学习识别出的长寿命对象中，而非简单的静态变量中，凸显了该方法的价值。</li>
+</ul>
+</li>
+<li><strong>真实世界攻击结果</strong>：<ul>
+<li>在四大云平台的攻击测试中，<strong>所有DRDoS攻击均成功耗尽了2GB的服务器内存</strong>，且<strong>没有触发任何云平台的DDoS告警</strong>。这表明现有的、基于流量模式的DDoS防御机制对DRDoS攻击是无效的。</li>
+<li>Shodan扫描结果显示，全球有<strong>超过1.5 million</strong>的IP地址运行着受影响版本的容器，主要分布在中国、美国和日本，表明该漏洞风险波及范围极广。</li>
+</ul>
+</li>
+</ol>
+<h4 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h4><ol>
+<li><strong>DRDoS是一个真实且普遍的威胁</strong>：数据保留型拒绝服务（DRDoS）并非理论上的攻击，而是广泛存在于主流Java Web容器中的一类严重安全漏洞。</li>
+<li><strong>自动内存管理不等于高枕无忧</strong>：即使在Java这种具有自动垃圾回收的内存安全语言中，开发者仍然需要对数据的生命周期和保留策略进行审慎的管理，否则依然会引发严重的内存耗尽问题。</li>
+<li><strong>DR. D是一个有效的检测工具</strong>：本文提出的静态分析方法和工具DR. D能够有效、高效地自动化发现此类深层次的逻辑漏洞。</li>
+</ol>
+<hr>
+<h3 id="潜在意义和未来工作方向-4"><a href="#潜在意义和未来工作方向-4" class="headerlink" title="潜在意义和未来工作方向"></a>潜在意义和未来工作方向</h3><h4 id="潜在意义-2"><a href="#潜在意义-2" class="headerlink" title="潜在意义"></a>潜在意义</h4><ol>
+<li><strong>对软件开发者的启示</strong>：提高了社区对DRDoS这类新型应用层DoS攻击的认识。论文给出的缓解措施（如谨慎保留数据、使用LRU淘汰策略、设置容量和时间限制）为开发者设计更安全、更健壮的系统提供了直接指导。</li>
+<li><strong>对安全研究的贡献</strong>：开辟了一个新的研究方向。DR. D的设计思想和框架（特别是机器学习识别长寿命对象、多维度可利用性评估）可以被借鉴和扩展，用于检测其他语言（如C#）、其他框架（如Spring MVC）或更广泛的Web组件中的类似漏洞。</li>
+<li><strong>对网络防御的推动</strong>：揭示了现有DDoS防御方案的盲点，推动业界开发能够感知应用层资源消耗、识别低速率、高消耗攻击的新型防御机制。</li>
+</ol>
+<h4 id="未来工作方向-2"><a href="#未来工作方向-2" class="headerlink" title="未来工作方向"></a>未来工作方向</h4><ol>
+<li><strong>增强检测能力</strong>：<ul>
+<li>扩展DR. D以支持更多自定义的可扩展数据结构。</li>
+<li>将语义信息（如类名、注释）融入机器学习模型，以提高识别长寿命对象的准确性。</li>
+</ul>
+</li>
+<li><strong>自动化漏洞验证</strong>：研究如何自动推断和生成触发漏洞所需的复杂配置，以减少人工验证的工作量，这是静态分析领域一个持续的挑战。</li>
+<li><strong>扩展研究范围</strong>：将DR. D的方法论应用到更广泛的Java生态系统中，如通用的Web框架（Spring MVC）和具体的Web应用程序，分析DRDoS在整个Web技术栈中的分布情况。</li>
+<li><strong>开发针对性防御措施</strong>：基于对DRDoS的深入理解，研究和开发专门用于缓解此类攻击的轻量级、高效的运行时防御模块。</li>
+</ol>
+<h2 id="ChainFuzz-Exploiting-Upstream-Vulnerabilities-in-Open-Source-Supply-Chains"><a href="#ChainFuzz-Exploiting-Upstream-Vulnerabilities-in-Open-Source-Supply-Chains" class="headerlink" title="ChainFuzz: Exploiting Upstream Vulnerabilities in Open-Source Supply Chains"></a>ChainFuzz: Exploiting Upstream Vulnerabilities in Open-Source Supply Chains</h2><h3 id="研究背景和问题-5"><a href="#研究背景和问题-5" class="headerlink" title="研究背景和问题"></a>研究背景和问题</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li><strong>软件供应链的依赖性</strong>：现代软件开发高度依赖开源第三方库（如 <code>libjpeg-turbo</code>、<code>libtiff</code>），形成多层依赖链（如 <code>OpenJPEG → libtiff → libjpeg-turbo</code>）。  </li>
+<li><strong>漏洞传播风险</strong>：上游库的漏洞（如 CVE-2021-29390）会通过依赖链传播至下游软件，引发供应链攻击（如 2024 年 <code>xz/liblzma</code> 后门事件）。  </li>
+<li><strong>现有检测工具的局限</strong>：  <ul>
+<li><strong>SCA（Software Composition Analysis）工具</strong>（如 OWASP DC）仅识别存在漏洞的依赖库，但 <strong>88.8% 的报告为误报</strong>（Ponta et al.）。  </li>
+<li><strong>可达性分析</strong>（如调用图分析）无法验证漏洞触发条件是否满足，仍存在高误报。</li>
+</ul>
+</li>
+</ul>
+<h4 id="核心问题"><a href="#核心问题" class="headerlink" title="核心问题"></a>核心问题</h4><ul>
+<li><strong>下游定制化代码阻碍漏洞触发</strong>：下游软件添加的<strong>数据校验</strong>（如图 2 中的 <code>width/height</code> 检查）和<strong>跨层依赖</strong>（如控制流&#x2F;数据流约束）使上游 PoC 失效（仅 <strong>3.25%</strong> 的上游 PoC 可直接用于下游）。  </li>
+<li><strong>长供应链的复杂性</strong>：传递依赖（如 <code>S₂ → S₁ → S₀</code>）导致漏洞触发路径呈指数级增长（<code>O(Mⁿ)</code>），传统定向模糊测试（DGF）无法高效探索路径空间。</li>
+</ul>
+<blockquote>
+<p><strong>案例</strong>：<code>CVE-2021-29390</code>（<code>libjpeg-turbo</code> 的 OOB Write）需通过 <code>libtiff</code> 和 <code>OpenJPEG</code> 的定制校验（图 1-2），原始 PoC（<code>PoC1.jpg</code>）无法直接触发下游漏洞。</p>
+</blockquote>
+<hr>
+<h3 id="研究目的和创新点-5"><a href="#研究目的和创新点-5" class="headerlink" title="研究目的和创新点"></a>研究目的和创新点</h3><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><p>开发自动化工具 <strong>ChainFuzz</strong>，通过生成下游 PoC <strong>验证上游漏洞的实际可利用性</strong>，解决以下问题：  </p>
+<ul>
+<li>降低 SCA 工具的误报率。  </li>
+<li>减少开发者手动验证漏洞的时间成本。  </li>
+<li>揭示长供应链中漏洞的传播路径。</li>
+</ul>
+<h4 id="创新点-2"><a href="#创新点-2" class="headerlink" title="创新点"></a><strong>创新点</strong></h4><ol>
+<li><p><strong>跨层差分定向模糊测试（Cross-layer Differential Directed Fuzzing）</strong>：  </p>
+<ul>
+<li><strong>路点（Waypoints）引导</strong>：识别连接上下游的关键 API 函数（如 <code>jpeg_read_scanlines()</code>），作为定向模糊测试的中间目标。  </li>
+<li><strong>执行轨迹分割</strong>：将输入的执行轨迹分为下游段（<code>T_d</code>）和上游段（<code>T_u</code>），优先选择 <code>T_d</code> 多样且 <code>T_u</code> 接近漏洞轨迹 <code>T_v</code> 的种子（公式 1）。</li>
+</ul>
+</li>
+<li><p><strong>自底向上 PoC 生成（Bottom-up PoC Generation）</strong>：  </p>
+<ul>
+<li><strong>分层策略</strong>：将长供应链拆分为直接依赖的子链（如 <code>S₀→S₁</code>, <code>S₁→S₂</code>），逐层生成 PoC。  </li>
+<li><strong>任务回溯机制</strong>：当层间约束冲突时，回溯至冲突层生成更多样化的 PoC（图 7）。</li>
+</ul>
+</li>
+<li><p><strong>定制化变异策略</strong>：  </p>
+<ul>
+<li><strong>粗粒度拼接</strong>：替换上游处理的输入区域（如 TIFF 文件中嵌入的 JPEG 数据）。  </li>
+<li><strong>细粒度字段替换</strong>：针对条件语句的输入字段进行精准替换（图 6）。  </li>
+<li><strong>跨层条件同步</strong>：协调上下游分支约束（如 <code>OpenJPEG</code> 的 <code>photometric</code> 字段需匹配 <code>libtiff</code> 的校验）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="研究方法和实验设计-5"><a href="#研究方法和实验设计-5" class="headerlink" title="研究方法和实验设计"></a>研究方法和实验设计</h3><h4 id="系统架构（图-3）"><a href="#系统架构（图-3）" class="headerlink" title="系统架构（图 3）"></a>系统架构（图 3）</h4><ol>
+<li><strong>路点识别</strong>：  <ul>
+<li>通过静态分析（SVF 构建调用图）和动态验证，确定连接漏洞函数与下游的 API 集合 <code>C = A ∩ B</code>。</li>
+</ul>
+</li>
+<li><strong>探索阶段</strong>：  <ul>
+<li>种子评分公式：<code>Score(i) = d(i)⁻¹ + r(i) + s(i)</code>  <ul>
+<li><code>d(i)</code>：种子到路点的基本块距离（公式 2）。  </li>
+<li><code>r(i)</code>：下游路径多样性（公式 4）。  </li>
+<li><code>s(i)</code>：上游轨迹与 <code>T_v</code> 的函数级相似度（基于 LCS，公式 5）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>利用阶段</strong>：  <ul>
+<li><strong>动态污点分析</strong>：追踪输入字段与条件变量的映射（图 5）。  </li>
+<li><strong>轨迹差分引导变异</strong>：对比 <code>T_u</code> 与 <code>T_v</code>，通过 4 种变异器对齐执行路径（图 6）。</li>
+</ul>
+</li>
+</ol>
+<h4 id="实验设计-3"><a href="#实验设计-3" class="headerlink" title="实验设计"></a>实验设计</h4><ul>
+<li><strong>数据集</strong>：  <ul>
+<li>21 个真实漏洞 + 66 个（漏洞，供应链）组合（表 5），覆盖 16 款软件（图 8）。  </li>
+<li>供应链长度：2 层（如 <code>ImageMagick → libheif</code>）和 3 层（如 <code>OpenJPEG → libtiff → libjpeg-turbo</code>）。</li>
+</ul>
+</li>
+<li><strong>基线工具</strong>：AFLGo（Up&#x2F;Down 配置）、AFL++、NestFuzz（结构化输入感知）。  </li>
+<li><strong>评估指标</strong>：  <ul>
+<li><strong>生成成功率</strong>：24 小时内生成有效下游 PoC 的比例。  </li>
+<li><strong>平均生成时间（µTTE）</strong>：首次触发漏洞的时间（表 1）。  </li>
+<li><strong>误报&#x2F;漏报分析</strong>：对比 SCA（CCScanner）和可达性分析（表 2）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="主要结果和结论-5"><a href="#主要结果和结论-5" class="headerlink" title="主要结果和结论"></a>主要结果和结论</h3><h4 id="有效性验证"><a href="#有效性验证" class="headerlink" title="有效性验证"></a>有效性验证</h4><ul>
+<li><strong>PoC 生成成功率</strong>：  <ul>
+<li>ChainFuzz 在 <strong>24 小时内为所有 66 个案例生成 PoC</strong>（表 1），平均 µTTE 为分钟级（如 CVE-2021-29390 仅需 24 分钟）。  </li>
+<li>基线工具（如 AFLGo-Up）多数失败（✗），仅 AFL++ 在个别案例（如 CVE-2024-31619）表现较好。</li>
+</ul>
+</li>
+<li><strong>长供应链处理</strong>：在 4 层供应链（<code>libde265 → libheif → JasPer → FreeImage</code>）中，30 分钟内生成所有 PoC。  </li>
+<li><strong>零日漏洞发现</strong>：在测试过程中<strong>意外发现 8 个零日漏洞</strong>（表 3），涉及跨组件交互（如 <code>CVE-2022-43252</code> 在 <code>libde265</code> 触发 <code>JasPer</code> 的 NULL 指针解引用）。</li>
+</ul>
+<h4 id="关键结论"><a href="#关键结论" class="headerlink" title="关键结论"></a>关键结论</h4><ul>
+<li><strong>漏洞可利用性验证</strong>：仅 <strong>11.91%</strong> 的上游漏洞可通过修改 PoC 在下游触发（Case#2），其余因路径不可达或条件不满足无法利用（Case#3）。  </li>
+<li><strong>降低误报</strong>：ChainFuzz 的漏报率（1&#x2F;67）和误报率（0）显著低于 SCA 和可达性分析（表 2）。  </li>
+<li><strong>更新依赖的局限性</strong>：单纯更新漏洞库<strong>可能无效</strong>（案例 III），如 <code>ImageMagick</code> 更新 <code>libtiff</code> 后仍存在新漏洞。</li>
+</ul>
+<blockquote>
+<p><strong>案例</strong>：ChainFuzz 生成 <code>Eog</code>（GNOME 图片查看器）的 PoC，触发 <code>libde265</code> 的 <code>CVE-2023-49468</code>（图 9），揭示桌面软件的实际风险。</p>
+</blockquote>
+<hr>
+<h3 id="潜在意义和未来方向"><a href="#潜在意义和未来方向" class="headerlink" title="潜在意义和未来方向"></a>潜在意义和未来方向</h3><h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h4><ul>
+<li><strong>实践价值</strong>：  <ul>
+<li>为开发者提供<strong>自动化漏洞验证工具</strong>，减少手动审计成本。  </li>
+<li>揭示<strong>依赖更新的局限性</strong>，推动更全面的供应链安全管理。</li>
+</ul>
+</li>
+<li><strong>学术贡献</strong>：  <ul>
+<li>首创针对<strong>跨层依赖</strong>和<strong>长供应链</strong>的 PoC 生成方法。  </li>
+<li>公开数据集与工具链（<a target="_blank" rel="noopener" href="https://zenodo.org/records/14732712">Zenodo</a>），促进后续研究。</li>
+</ul>
+</li>
+</ul>
+<h4 id="局限与未来方向"><a href="#局限与未来方向" class="headerlink" title="局限与未来方向"></a>局限与未来方向</h4><ol>
+<li><strong>依赖上游 PoC</strong>：需结合漏洞复现工具（如 AFLGo）处理无 PoC 场景。  </li>
+<li><strong>输入类型限制</strong>：目前仅支持文件输入（占 CVE PoC 的 70%），未来需扩展至 API&#x2F;网络输入。  </li>
+<li><strong>语言支持</strong>：当前实现针对 C&#x2F;C++，可扩展至 Java&#x2F;Python 生态。  </li>
+<li><strong>路径探索优化</strong>：结合符号执行增强复杂约束求解能力。  </li>
+<li><strong>供应链深度扩展</strong>：验证超长链（&gt; 5 层）的可行性。</li>
+</ol>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>ChainFuzz 通过 <strong>跨层差分模糊测试</strong> 和 <strong>自底向上 PoC 生成</strong>，解决了开源供应链中漏洞验证的三大挑战：下游定制化约束、跨层依赖和长链复杂性。实验证明其在生成下游 PoC 的效率（分钟级）和覆盖率（100%）上显著优于现有工具，同时揭示了依赖更新的局限性及零日漏洞风险，为软件供应链安全提供了创新解决方案。</p>
+<h2 id="Towards-Automatic-Detection-and-Exploitation-of-Java-Web-Application-Vulnerabilities-via-Concolic-Execution-guided-by-Cross-thread-Object-Manipulation"><a href="#Towards-Automatic-Detection-and-Exploitation-of-Java-Web-Application-Vulnerabilities-via-Concolic-Execution-guided-by-Cross-thread-Object-Manipulation" class="headerlink" title="Towards Automatic Detection and Exploitation of Java Web Application Vulnerabilities via Concolic Execution guided by Cross-thread Object Manipulation"></a>Towards Automatic Detection and Exploitation of Java Web Application Vulnerabilities via Concolic Execution guided by Cross-thread Object Manipulation</h2><p><strong>论文核心：</strong> 提出并实现 <strong>JAEX</strong> 框架，这是第一个通过<strong>跨线程对象操作（Cross-thread Object Manipulation）<strong>引导的</strong>混合执行（Concolic Execution）</strong> 技术，来自动检测和<strong>生成利用（Exploit Generation）</strong> Java Web 应用漏洞（特别是注入类漏洞）的系统。</p>
+<h3 id="研究背景和问题-6"><a href="#研究背景和问题-6" class="headerlink" title="研究背景和问题"></a>研究背景和问题</h3><ul>
+<li><strong>Java Web 应用的重要性与风险：</strong> Java Web 应用被广泛部署在企业、政府等关键领域的信息系统中（如 Log4j 漏洞的影响所示）。其安全性至关重要。</li>
+<li><strong>核心挑战：跨线程数据流（Cross-thread Dataflows）：</strong><ul>
+<li><strong>问题本质：</strong> Java Web 应用本质上是多线程的。同一个会话（Session）中的不同 HTTP 请求可能在不同的线程中处理，但它们<strong>共享 Java 对象</strong>（通过全局变量、数据库、文件、消息队列等持久化机制）。</li>
+<li><strong>漏洞触发难点：</strong> 要成功利用一个漏洞（到达Sink点，如执行命令的函数）：<ol>
+<li><strong>需要特定的请求序列：</strong> 必须按特定顺序发送一系列请求，以逐步操作共享对象，建立跨线程的数据流链。例如，请求 A 创建对象存入数据库，请求 B 从数据库读取该对象并触发漏洞。</li>
+<li><strong>需要结构化且相互依赖的载荷：</strong> 每个请求的负载（Payload）字段之间往往存在复杂的依赖关系和约束条件（例如，请求 B 的某个字段值必须等于请求 A 创建的对象的某个字段值，或者需要满足特定的格式或条件分支）。</li>
+</ol>
+</li>
+<li><strong>现有工作的不足：</strong><ul>
+<li><strong>非 Java Web 工具（如 NAVEX for PHP, Horndroid for Android）：</strong> 无法直接建模 Java 的共享对象机制或生成 Java Web 漏洞利用所需的复杂输入。</li>
+<li><strong>特定漏洞工具（如 JOI, DoS 检测器）：</strong> 不关注或很少涉及跨线程数据流。</li>
+<li><strong>通用 Java Web 工具：</strong><ul>
+<li><strong>Witcher (灰盒 Fuzzing)：</strong> 基于代码覆盖率，无法感知跨线程数据流，难以生成正确的请求序列和相互依赖的有效载荷（随机变异无效）。</li>
+<li><strong>Joern (静态分析)：</strong> 缺乏跨线程数据流分析支持，静态分析导致大量误报（90.8%），且无法生成利用。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>结论：</strong> 在 JAEX 之前，<strong>没有任何现有工作能够有效处理 Java Web 应用中的跨线程数据流问题，从而无法自动化地检测和利用这类复杂漏洞。</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="研究目的和创新点-6"><a href="#研究目的和创新点-6" class="headerlink" title="研究目的和创新点"></a>研究目的和创新点</h3><ul>
+<li><strong>核心目的：</strong> 设计并实现第一个能够<strong>自动检测并生成利用（Automated Exploit Generation, AEG）</strong> 涉及<strong>跨线程数据流</strong>的 Java Web 应用漏洞（特别是 SQLi, CMDi, Expr Injection）的框架。</li>
+<li><strong>关键创新点：</strong><ol>
+<li><strong>首创 Java Web AEG 框架 (JAEX)：</strong> 这是第一个专门针对 Java Web 应用特性（尤其是跨线程数据流）设计的端到端漏洞检测与利用生成框架。</li>
+<li><strong>聚焦并解决跨线程漏洞：</strong> 首次明确指出并系统性地解决了 Java Web 中由跨线程数据流引入的独特挑战。</li>
+<li><strong>跨线程对象操作图（COMG）：</strong> 提出一种新颖的数据结构（COMG），用于精确建模和表示：<ul>
+<li>不同 HTTP 请求之间的调用顺序。</li>
+<li>请求参数字段之间的依赖关系（通过共享对象传递）。</li>
+<li>满足路径执行所需的具体约束条件。</li>
+<li>Sink 点的位置。</li>
+</ul>
+</li>
+<li><strong>Sink 引导的按需迭代路径探索策略：</strong><ul>
+<li><strong>Sink 引导：</strong> 从潜在的漏洞 Sink 点开始反向分析。</li>
+<li><strong>按需迭代：</strong> 识别影响 Sink 点参数但当前不可控的引导符号（Guidance Symbols，通常是共享对象）。然后迭代地寻找能够污染这些符号的路径（通常来自其他线程&#x2F;请求），直到所有符号可控或路径收敛。这有效指导了后续的混合执行。</li>
+</ul>
+</li>
+<li><strong>步进式混合执行（Step-forward Concolic Execution）：</strong><ul>
+<li>按照静态分析推断的请求序列执行。</li>
+<li>将前序请求执行路径中产生的、影响后续路径的引导符号作为目标点。</li>
+<li>仅在当前请求的执行能够影响这些目标符号时，才继续执行下一个请求。</li>
+<li>在混合执行过程中收集路径约束（用于求解有效载荷）和对象依赖关系（用于构建 COMG）。</li>
+</ul>
+</li>
+<li><strong>混合执行中的外部资源建模：</strong> 对数据库操作、文件操作等关键的外部资源访问 API 进行精细建模，使混合执行能理解和模拟这些操作对共享对象状态的影响，这是处理跨线程数据流的关键。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="研究方法和实验设计-6"><a href="#研究方法和实验设计-6" class="headerlink" title="研究方法和实验设计"></a>研究方法和实验设计</h3><ul>
+<li><strong>JAEX 框架架构（两阶段四模块）：</strong><ul>
+<li><strong>阶段 1: 静态分析</strong><ul>
+<li><strong>模块 1: 初始化（源&#x2F;汇识别）：</strong><ul>
+<li>使用<strong>基于指针分析的增强型过程间控制流图（Pointer-based ICFG）</strong> 解决 Java 动态特性（反射、依赖注入）导致的 CFG 不完整问题。</li>
+<li>识别 <strong>Web 入口点</strong>（如 Spring <code>@Controller</code>, Servlet <code>doGet</code>）和<strong>线程入口点</strong>（如 <code>Thread.run</code>, 框架异步 API）。</li>
+<li>识别 <strong>Sink 点</strong>（收集 500+ 危险方法&#x2F;模式，如 <code>Runtime.exec()</code>, ORM SQL API）。</li>
+</ul>
+</li>
+<li><strong>模块 2: 漏洞检测与攻击序列识别：</strong><ul>
+<li>构建<strong>跨线程数据流图（Cross-thread DFG）</strong>：通过建模四种跨线程数据流机制识别共享对象和操作：<ol>
+<li><strong>全局变量访问</strong>（静态变量、后台线程字段、框架单例）。</li>
+<li><strong>数据库操作</strong>（JDBC, MyBatis, Hibernate - 解析 SQL&#x2F;配置）。</li>
+<li><strong>文件操作</strong>（JDK&#x2F;第三方文件 API - 分析文件名数据流）。</li>
+<li><strong>异步通信</strong>（JDK <code>CompletableFuture</code>, RxJava, Spring <code>ApplicationEvent</code>）。</li>
+</ol>
+</li>
+<li><strong>Sink 引导的按需迭代算法：</strong> (算法核心)<ol>
+<li>初步污点分析找潜在漏洞路径。</li>
+<li>遍历路径，找到不可控的引导符号。</li>
+<li>优先处理线程相关符号，搜索能污染它们的路径（新路径的 Sink 变为这些符号的操作点）。</li>
+<li>递归分析新路径，直到所有符号可控（路径收敛）或找不到路径。</li>
+<li>记录：Web 入口调用顺序、所需参数字段。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>阶段 2: 混合执行</strong><ul>
+<li><strong>模块 3: 漏洞路径验证：</strong><ul>
+<li><strong>混合变量（Concolic Variable）：</strong> 四元组（类型，具体值，来源，符号表达式），精确跟踪输入来源、传播和约束。支持 POJO、集合、Map 和特定框架对象（如 <code>HttpServletRequest</code>）的建模。</li>
+<li><strong>混合操作（Concolic Operation）：</strong> 定义规则处理变量交互（常规运算符、常用 API、<strong>关键：外部资源 API 建模</strong>、未建模操作）。</li>
+<li><strong>步进式执行策略：</strong> 按静态序列执行入口点。以引导符号为目标，深度优先探索路径。区分强制分支（静态已知）和非强制分支。解决遇到的约束和发现的不可控符号（反馈给静态分析）。</li>
+<li><strong>约束与对象依赖分析：</strong> 收集路径约束（用 Z3 求解）和对象间数据依赖关系（为 COMG 准备）。</li>
+</ul>
+</li>
+<li><strong>模块 4: 利用生成：</strong><ul>
+<li><strong>利用模板数据库：</strong> 收集 150+ 真实利用，总结 37 个模板覆盖 7 类漏洞。</li>
+<li><strong>COMG 构建：</strong> 整合混合执行收集的约束、依赖关系和框架模型（HTTP 请求 &lt;-&gt; Java 对象映射），形成包含 HTTP 描述、调用顺序、字段依赖、载荷约束、Sink 位置信息的图。</li>
+<li><strong>真实利用适配：</strong> 基于 COMG 和选择的利用模板，将约束和依赖关系具体化，生成结构正确、字段值满足所有条件和依赖关系的 HTTP 请求序列（Exploit）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>实验设计：</strong><ul>
+<li><strong>研究问题 (RQ)：</strong><ul>
+<li><strong>RQ1:</strong> JAEX 在基准测试集上与 SOTA 工具（Witcher, Joern）相比，在漏洞检测和利用生成方面的表现如何？</li>
+<li><strong>RQ2:</strong> JAEX 在真实世界应用中检测和利用 0-day 漏洞的效果如何？</li>
+<li><strong>RQ3:</strong> JAEX 分析过程中的性能开销如何？</li>
+</ul>
+</li>
+<li><strong>数据集：</strong><ul>
+<li><strong>基准测试集 (Benchmark)：</strong> 收集自 16 个流行 Java Web 开源应用的 <strong>92 个历史漏洞</strong>（来自 NVD 等，均有公开 PoC）。包含大量<strong>跨线程漏洞 (30&#x2F;92)</strong>。</li>
+<li><strong>真实世界应用 (Real-world Apps)：</strong> <strong>25 个</strong> Star &gt; 500 的流行 Java Web 应用（最新版本），用于挖掘 0-day。</li>
+</ul>
+</li>
+<li><strong>基线工具：</strong><ul>
+<li><strong>Witcher [19]：</strong> 灰盒 Fuzzer（为公平，静态分析提供 Web 入口）。</li>
+<li><strong>Joern [20]：</strong> 静态分析平台（配置入口点和 Sink，使用其污点分析）。</li>
+<li><strong>JAEX-noCT：</strong> JAEX 的消融版本（<strong>移除跨线程分析模块</strong>）。</li>
+</ul>
+</li>
+<li><strong>评估指标：</strong><ul>
+<li>检测到的漏洞数 (Detected) &#x2F; 真实漏洞检出数 (True Positive)。</li>
+<li>成功生成利用的漏洞数 (Exploited)。</li>
+<li>误报率 (False Positive Rate) &#x2F; 漏报率 (False Negative Rate)。</li>
+<li>各分析阶段耗时（图构建、漏洞路径搜索、混合执行）。</li>
+</ul>
+</li>
+<li><strong>环境：</strong> Linux ESXi VM (64核 Xeon Gold, 128GB RAM, Ubuntu 18.04, JDK 17)。使用 Docker 验证利用有效性。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="主要结果和结论-6"><a href="#主要结果和结论-6" class="headerlink" title="主要结果和结论"></a>主要结果和结论</h3><ul>
+<li><strong>RQ1: 与基线工具对比 (基准测试集 - 92 个历史漏洞)</strong><ul>
+<li><strong>漏洞检测：</strong><ul>
+<li><strong>JAEX:</strong> 检测到 <strong>90 个</strong> (TP &#x3D; 90, <strong>检出率 97.8%</strong>)，漏报 2 个。</li>
+<li><strong>JAEX-noCT:</strong> 检测到 <strong>73 个</strong> (TP &#x3D; 73)。</li>
+<li><strong>Joern:</strong> 检测到 <strong>44 个</strong> (TP &#x3D; 44, <strong>漏报率 51.2%</strong>)，<strong>误报率高达 90.8%</strong> (1478 潜在漏洞中只有 44 是真)。</li>
+<li><strong>Witcher:</strong> 仅检测到 <strong>2 个</strong> (TP &#x3D; 2, <strong>漏报率 97.8%</strong>)。</li>
+</ul>
+</li>
+<li><strong>利用生成：</strong><ul>
+<li><strong>JAEX:</strong> 成功为 <strong>87 个</strong> 检测到的漏洞生成利用。</li>
+<li><strong>JAEX-noCT:</strong> 成功为 <strong>62 个</strong> 检测到的漏洞生成利用。</li>
+<li><strong>Witcher&#x2F;Joern: N&#x2F;A</strong> (两者均<strong>无</strong>自动利用生成能力)。</li>
+</ul>
+</li>
+<li><strong>关键结论：</strong><ol>
+<li>JAEX <strong>显著优于</strong>现有 SOTA 工具（Witcher, Joern），检出率和利用能力有数量级提升。</li>
+<li><strong>跨线程分析模块至关重要：</strong><ul>
+<li>JAEX 比 JAEX-noCT 多检出 17 个漏洞（主要是跨线程漏洞）。</li>
+<li>JAEX 比 JAEX-noCT 多生成 25 个利用（跨线程漏洞的利用需要该模块解决约束和依赖）。</li>
+</ul>
+</li>
+<li>传统 Fuzzing (Witcher) 在需要复杂请求序列和结构化负载的 Java Web 场景效果很差。</li>
+<li>纯静态分析 (Joern) 误报率高，且无法处理跨线程数据流和生成利用。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>RQ2: 真实世界 0-day 挖掘 (25 个应用)</strong><ul>
+<li>JAEX 在 <strong>10 个</strong> 应用中发现了 <strong>35 个 0-day 漏洞</strong>。</li>
+<li>其中 <strong>12 个漏洞需要利用跨线程数据流</strong>才能触发。</li>
+<li>所有漏洞均已<strong>负责任披露</strong>给厂商并收到确认。</li>
+<li><strong>案例研究 (Case #1):</strong> 演示了 JAEX 如何检测并利用一个需要两个按序请求、涉及共享对象 (<code>ItemConfig</code>)、满足多个字段约束和依赖关系的代码注入 (CI) 漏洞。传统静态分析和 Fuzzing 无法处理这种复杂性。</li>
+</ul>
+</li>
+<li><strong>RQ3: 性能开销 (10 个发现漏洞的真实应用)</strong><ul>
+<li>时间开销分布在三个阶段：<ul>
+<li><strong>图构建 (ICFG + Cross-thread DFG):</strong> 几分钟到几十分钟 (e.g., 3m57s ~ 30m54s)，与 Web 入口点数量相关。</li>
+<li><strong>漏洞路径搜索：</strong> 十几分钟到几十分钟 (e.g., 12m17s ~ 51m22s)，与潜在漏洞数量相关。</li>
+<li><strong>混合执行 (验证+利用生成)：</strong> 几分钟到几小时 (e.g., 7m47s ~ 2h22m12s)，与跨线程漏洞数量和路径复杂度强相关。</li>
+</ul>
+</li>
+<li><strong>结论：</strong> 开销在可接受范围内，尤其对于挖掘高危 0-day 漏洞的价值而言。时间主要消耗在混合执行阶段，尤其是涉及复杂跨线程交互时。</li>
+</ul>
+</li>
+<li><strong>总体结论：</strong><ol>
+<li><strong>JAEX 是有效的：</strong> 它是第一个成功自动化处理 Java Web 应用中跨线程漏洞检测与利用生成的框架。</li>
+<li><strong>跨线程分析是核心：</strong> 提出的跨线程 DFG、Sink 引导按需迭代算法、COMG 和步进式混合执行策略是解决该问题的关键创新。</li>
+<li><strong>实战能力强：</strong> 在历史漏洞基准和真实世界应用中均表现出色，检测到 90&#x2F;92 历史漏洞并生成 87 个利用，发现了 35 个 0-day 漏洞。</li>
+<li><strong>显著优于现有技术：</strong> 大幅超越 Witcher 和 Joern 等 SOTA 工具。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="潜在意义和未来工作方向-5"><a href="#潜在意义和未来工作方向-5" class="headerlink" title="潜在意义和未来工作方向"></a>潜在意义和未来工作方向</h3><ul>
+<li><strong>潜在意义：</strong><ul>
+<li><strong>提升 Java Web 应用安全：</strong> 提供强大的自动化工具，帮助开发者和安全人员发现并验证涉及复杂跨线程交互的高危漏洞，降低类似 Log4j 事件的风险。</li>
+<li><strong>推动漏洞自动化研究：</strong> 为处理多线程、状态化 Web 应用的漏洞自动化（AEG）设定了新标准，提供了创新的技术路径（COMG, 跨线程 DFG, Sink 引导迭代, 步进混合执行）。</li>
+<li><strong>理解复杂漏洞模式：</strong> 加深了对 Java Web 应用中由共享对象和跨线程数据流引入的复杂漏洞模式的理解和建模能力。</li>
+</ul>
+</li>
+<li><strong>未来工作方向：</strong><ol>
+<li><strong>扩展至微服务场景：</strong> 微服务架构天然涉及跨服务通信（类似跨线程），JAEX 可通过建模 RPC&#x2F;HTTP 通信机制并协调跨微服务的混合执行来扩展。</li>
+<li><strong>增强漏洞检测与验证能力：</strong><ul>
+<li><strong>约束求解：</strong> 改进对复杂字符串操作（拼接、切片）、正则表达式、哈希值比较等的支持（当前是 Z3 的主要限制）。</li>
+<li><strong>类型推断：</strong> 提升对 Java 泛型等特性的精确类型推断能力（如通过数据流跟踪 CAST 语句）。</li>
+<li><strong>集合&#x2F;Map 敏感分析：</strong> 对 Java 集合框架（<code>ArrayList</code>, <code>HashMap</code>）进行更精细建模，支持集合项（Collection-item）和 Map 键（Map-key）敏感的数据流分析。</li>
+</ul>
+</li>
+<li><strong>建模更多主流框架和库：</strong> 持续扩展对流行 Java Web 框架、ORM、消息中间件等的支持，提升框架覆盖率。</li>
+<li><strong>支持更多漏洞类型：</strong> 将当前聚焦的注入漏洞（SQLi, CMDi, Expr）扩展到反序列化、DoS 等类型（需对触发模式建模）。</li>
+<li><strong>处理动态 Java 特性：</strong> 加强对反射（Reflection）、动态代理（Dynamic Proxy）、复杂机制（如错过的 JMX）等动态特性的支持。</li>
+<li><strong>提升可扩展性与效率：</strong> 优化静态分析和混合执行的性能，以处理更大规模的应用。</li>
+<li><strong>领域知识泛化：</strong> 探索如何减少对特定漏洞模式（Sink）手工建模的依赖，提高自动化程度。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<p><strong>总结：</strong> JAEX 通过创新性地提出跨线程对象操作引导的混合执行框架，成功解决了 Java Web 应用中跨线程漏洞自动化检测与利用的核心难题。其结合了增强的静态分析（跨线程 DFG, Sink 引导迭代）、精确的混合执行（步进策略、外部资源建模）和结构化的利用生成（COMG, 模板），在基准测试和真实应用中验证了高效性和实用性，为 Java Web 应用安全自动化研究与实践做出了重要贡献。未来的工作将在应用场景、分析能力、漏洞覆盖和效率方面进一步拓展。</p>
+<h2 id="Demystifying-the-In-Security-of-QR-Code-based-Login-in-Real-world-Deployments"><a href="#Demystifying-the-In-Security-of-QR-Code-based-Login-in-Real-world-Deployments" class="headerlink" title="Demystifying the (In)Security of QR Code-based Login in Real-world Deployments"></a>Demystifying the (In)Security of QR Code-based Login in Real-world Deployments</h2><h3 id="研究背景和问题-7"><a href="#研究背景和问题-7" class="headerlink" title="研究背景和问题"></a>研究背景和问题</h3><h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><ul>
+<li><strong>QRLogin的普及性</strong>：<br>二维码登录（QRLogin）因其便捷性（无需记忆密码）和安全性（依赖手机生物识别）被广泛采用。论文通过对Tranco top 100K网站的分析，发现<strong>350个网站支持QRLogin</strong>，覆盖社交、金融、政府等51类敏感场景（如中国省级政府网站、淘宝等）。</li>
+<li><strong>用户认知偏差</strong>：<br>用户调研（180名有效参与者）显示：<br>✅ <strong>39.44%用户每天使用QRLogin</strong>（高频率）<br>❌ <strong>41.67%用户未采取保护措施防止二维码泄露</strong><br>❌ <strong>72.78%用户不确定是否应向他人提供二维码</strong><br>→ 用户安全意识薄弱，易受社会工程攻击。</li>
+</ul>
+<h4 id="核心安全问题"><a href="#核心安全问题" class="headerlink" title="核心安全问题"></a>核心安全问题</h4><ul>
+<li><strong>缺乏标准化</strong>：<br>无统一安全实现规范，各厂商自行设计流程，导致安全水平参差不齐。</li>
+<li><strong>潜在攻击面</strong>：<br>二维码生命周期（生成、扫描、确认）中的关键变量（<code>QrId</code>, <code>sessionId</code>, <code>Tokens</code>）若未遵循<strong>保密性、完整性、一致性</strong>原则，可能引发账户劫持、隐私泄露等风险。</li>
+</ul>
+<hr>
+<h3 id="研究目的和创新点-7"><a href="#研究目的和创新点-7" class="headerlink" title="研究目的和创新点"></a>研究目的和创新点</h3><h4 id="研究目的-3"><a href="#研究目的-3" class="headerlink" title="研究目的"></a>研究目的</h4><ul>
+<li><strong>首次系统化评估</strong>：<br>揭示真实场景中QRLogin的安全现状，建立威胁模型，量化漏洞影响。</li>
+<li><strong>推动安全实践</strong>：<br>为开发者提供自动化审计工具（QRLChecker），为用户提供安全指南。</li>
+</ul>
+<h4 id="核心创新点"><a href="#核心创新点" class="headerlink" title="核心创新点"></a>核心创新点</h4><ul>
+<li><strong>漏洞模型抽象</strong>：<br>通过分析153个网站的工作流，提炼出QRLogin生命周期的<strong>6类漏洞</strong>（表2）：  <table>
+<thead>
+<tr>
+<th>漏洞类型</th>
+<th>关键变量</th>
+<th>攻击后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unbound SessionId</td>
+<td>sessionId</td>
+<td>授权劫持、双登录</td>
+</tr>
+<tr>
+<td>Reusable QrId</td>
+<td>QrId</td>
+<td>双登录</td>
+</tr>
+<tr>
+<td>Predictable QrId</td>
+<td>QrId</td>
+<td>暴力破解登录</td>
+</tr>
+<tr>
+<td>Controllable QrId</td>
+<td>QrId</td>
+<td>授权劫持</td>
+</tr>
+<tr>
+<td>Vulnerable Identity</td>
+<td>Tokens</td>
+<td><strong>万能账户接管</strong></td>
+</tr>
+<tr>
+<td>Privacy Leakage</td>
+<td>响应数据</td>
+<td>密码等敏感信息泄露</td>
+</tr>
+</tbody></table>
+</li>
+<li><strong>半自动化检测管道</strong>：<br>结合流量分析（mitmproxy）与动态测试，实现高效漏洞检测（图4）。</li>
+</ul>
+<hr>
+<h3 id="研究方法和实验设计-7"><a href="#研究方法和实验设计-7" class="headerlink" title="研究方法和实验设计"></a>研究方法和实验设计</h3><h4 id="方法论"><a href="#方法论" class="headerlink" title="方法论"></a>方法论</h4><ul>
+<li><strong>威胁模型</strong>：<br>假设攻击者可：<br>✅ 窃取受害者二维码（肩窥、社交工程）<br>✅ 暴力破解弱随机性<code>QrId</code><br>✅ 获取用户手机号等标识符（利用公开泄露数据）。</li>
+<li><strong>工作流解构</strong>（图3）：<br>将QRLogin分为三阶段：  <ol>
+<li><strong>QR生成</strong>：服务器生成<code>QrId</code>并绑定<code>sessionId</code>  </li>
+<li><strong>QR扫描</strong>：APP解析<code>QrId</code>，发送<code>app_token</code>至服务器  </li>
+<li><strong>登录确认</strong>：用户授权后生成<code>pc_token</code>完成登录。</li>
+</ol>
+</li>
+</ul>
+<h4 id="实验设计-4"><a href="#实验设计-4" class="headerlink" title="实验设计"></a>实验设计</h4><ul>
+<li><strong>检测流程</strong>（半自动管道）：<br>(1) 收集登录流量 → (2) 定位关键组件（<code>QrId</code>, 请求URL）→ (3) 动态测试（表3规则）→ (4) 人工确认漏洞。  </li>
+<li><strong>数据集</strong>：  <ul>
+<li><strong>350个QRLogin网站</strong> → 去重后<strong>181个独立实现</strong> → 最终测试<strong>109个可测网站</strong>。  </li>
+<li>未测试原因：55个需特定国家手机号&#x2F;社会ID，17个使用非标加密机制。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="主要结果和结论-7"><a href="#主要结果和结论-7" class="headerlink" title="主要结果和结论"></a>主要结果和结论</h3><h4 id="关键结果"><a href="#关键结果" class="headerlink" title="关键结果"></a>关键结果</h4><ul>
+<li><strong>漏洞普遍性</strong>：<br>47&#x2F;109（<strong>43%</strong>）的网站存在至少1类漏洞，共发现<strong>75个漏洞实例</strong>（图5）。  <ul>
+<li><strong>最严重漏洞</strong>：  <ul>
+<li><strong>万能账户接管</strong>（Flaw-5）：某省级政府网站和用户超1亿的网盘服务商，仅需受害者手机号即可登录其账户。  </li>
+<li><strong>隐私泄露</strong>（Flaw-6）：中国国家数字图书馆返回用户明文密码，引发撞库风险。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>攻击案例</strong>（表4）：  <table>
+<thead>
+<tr>
+<th>攻击类型</th>
+<th>关联漏洞</th>
+<th>案例说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>授权劫持（37网站）</td>
+<td>F1&#x2F;F4</td>
+<td>淘宝：攻击者抢占登录会话</td>
+</tr>
+<tr>
+<td>双登录（17网站）</td>
+<td>F1&amp;F2</td>
+<td>俄罗斯社交平台：受害者无感知</td>
+</tr>
+<tr>
+<td>暴力破解（1网站）</td>
+<td>F1&amp;F3</td>
+<td>国际虚拟社区：6位纯数字QrId</td>
+</tr>
+<tr>
+<td>万能账户接管（2网站）</td>
+<td>F5</td>
+<td>政府&#x2F;网盘：绕过token验证</td>
+</tr>
+<tr>
+<td>隐私滥用（7网站）</td>
+<td>F6*</td>
+<td>返回密码明文</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="结论-2"><a href="#结论-2" class="headerlink" title="结论"></a>结论</h4><ul>
+<li><strong>现实影响</strong>：<br>漏洞已获<strong>42个官方漏洞编号</strong>（17 CNVD + 25 NVDB），推动厂商修复。  </li>
+<li><strong>核心问题根源</strong>：<br>关键变量（如<code>QrId</code>）未遵循安全原则（如弱随机性、未绑定会话、状态未及时失效）。</li>
+</ul>
+<hr>
+<h3 id="潜在意义和未来工作方向-6"><a href="#潜在意义和未来工作方向-6" class="headerlink" title="潜在意义和未来工作方向"></a>潜在意义和未来工作方向</h3><h4 id="实践意义"><a href="#实践意义" class="headerlink" title="实践意义"></a>实践意义</h4><ul>
+<li><strong>开发者工具</strong>：<br>开源审计工具<strong>QRLChecker</strong>（图9），支持配置化检测漏洞并提供修复建议（如：服务器生成强随机<code>QrId</code>、绑定<code>sessionId</code>）。  </li>
+<li><strong>用户指南</strong>：<br>建议用户主动遮挡二维码、避免分享，提升安全意识。</li>
+</ul>
+<h4 id="未来方向"><a href="#未来方向" class="headerlink" title="未来方向"></a>未来方向</h4><ul>
+<li><strong>标准化推进</strong>：<br>呼吁制定QRLogin安全规范，便于形式化验证（当前实现异构性阻碍形式化方法应用）。  </li>
+<li><strong>扩展研究场景</strong>：  <ul>
+<li><strong>第三方QRLogin</strong>（如微信扫码）：研究其OAuth流程的潜在风险。  </li>
+<li><strong>可用性安全</strong>：评估用户对授权状态的感知能力（部分网站跳过确认阶段）。</li>
+</ul>
+</li>
+<li><strong>技术深化</strong>：<br>改进动态测试以应对参数加密&#x2F;编码（当前55个网站因账户限制未测试）。</li>
+</ul>
+<hr>
+<h3 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h3><ul>
+<li><strong>伦理合规</strong>：<br>所有漏洞已通过CNVD&#x2F;CAPPVD平台披露；测试使用自有账户，避免服务干扰。  </li>
+<li><strong>数据开源</strong>：<br>检测工具、数据集及用户调研数据公开于Zenodo（DOI: 10.5281&#x2F;zenodo.14676762）。</li>
+</ul>
+<p>此研究填补了QRLogin系统性安全评估的空白，揭示了便捷性背后的隐蔽风险，为产学界提供了可落地的解决方案。</p>
+<h2 id="Effective-Directed-Fuzzing-with-Hierarchical-Scheduling-for-Web-Vulnerability-Detection"><a href="#Effective-Directed-Fuzzing-with-Hierarchical-Scheduling-for-Web-Vulnerability-Detection" class="headerlink" title="Effective Directed Fuzzing with Hierarchical Scheduling for Web Vulnerability Detection"></a>Effective Directed Fuzzing with Hierarchical Scheduling for Web Vulnerability Detection</h2><h3 id="研究背景与问题"><a href="#研究背景与问题" class="headerlink" title="研究背景与问题"></a>研究背景与问题</h3><p><strong>核心问题</strong>：<br>Java Web应用在现代数字生态中广泛应用（占Java服务端81%市场份额），但<strong>75%存在安全缺陷</strong>（24%为严重漏洞）。传统漏洞检测方法面临两大挑战：  </p>
+<ul>
+<li><strong>挑战1：海量入口与参数的低效探索</strong><br>Web应用通常包含数万个入口点（如单个商业应用含27,000+入口），每个入口平均需测试10个参数，而Web应用模糊测试吞吐量极低（&lt;15 exec&#x2F;s，远低于二进制程序的500+ exec&#x2F;s）。  </li>
+<li><strong>挑战2：结构化语义约束输入的生成</strong><br>输入需满足复杂格式（JSON&#x2F;XML嵌套）和语义约束（如邮箱格式、状态校验），传统模糊测试难以生成有效用例（图1案例需同时满足嵌套JSON和字段校验）。</li>
+</ul>
+<p><strong>现有方法局限</strong>：  </p>
+<table>
+<thead>
+<tr>
+<th><strong>方法</strong></th>
+<th><strong>代表工具</strong></th>
+<th><strong>缺陷</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>静态分析</strong></td>
+<td>TChecker, ANTaint</td>
+<td>高误报率（需人工验证），无法生成PoC漏洞利用证明</td>
+</tr>
+<tr>
+<td><strong>黑盒扫描</strong></td>
+<td>Burp Suite, OWASP ZAP</td>
+<td>覆盖率低（依赖前端交互），难以探测深层漏洞</td>
+</tr>
+<tr>
+<td><strong>灰盒模糊测试</strong></td>
+<td>Witcher, Atropos</td>
+<td>覆盖率引导策略探索无关路径；调度策略简单；无法处理复杂输入约束</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="研究目的与创新点"><a href="#研究目的与创新点" class="headerlink" title="研究目的与创新点"></a>研究目的与创新点</h3><p><strong>目标</strong>：<br>设计<strong>定向模糊测试框架WDFuzz</strong>，针对性解决Web应用漏洞检测的两大挑战，实现<strong>高效率、高覆盖的漏洞发现</strong>。  </p>
+<p><strong>核心创新点</strong>：  </p>
+<ul>
+<li><strong>语义约束提取技术</strong>：<br>基于API调用序列自动推断参数结构（嵌套JSON&#x2F;Map）、类型约束（整数&#x2F;日期）和值约束（如<code>status=&quot;open&quot;</code>），构建<strong>请求树（Request Tree）</strong>（图3）。  </li>
+<li><strong>分层调度策略（Hierarchical Scheduling）</strong>：  <ol>
+<li><strong>入口点评分</strong>（公式1）：基于与漏洞点的平均距离、调度次数等动态优先级。  </li>
+<li><strong>漏洞点评分</strong>：类似入口点，筛选高风险路径。  </li>
+<li><strong>能量分配</strong>：按AFLGo公式（公式4-6）分配突变次数，聚焦高潜力种子。</li>
+</ol>
+</li>
+<li><strong>定向突变算子</strong>：  <ul>
+<li>约束值注入（如强制<code>action.modify=true</code>）  </li>
+<li>类型突变（字符串插入SQL注入特征符）  </li>
+<li>类型转换（诱导类型错误漏洞）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="研究方法与实验设计"><a href="#研究方法与实验设计" class="headerlink" title="研究方法与实验设计"></a>研究方法与实验设计</h3><p><strong>系统架构（图2）</strong>：  </p>
+<h4 id="静态准备阶段"><a href="#静态准备阶段" class="headerlink" title="静态准备阶段"></a>静态准备阶段</h4><ul>
+<li><strong>入口&#x2F;漏洞点识别</strong>：<br>基于Spring&#x2F;Servlet等框架模式识别入口（如<code>@PostMapping</code>注解）；预定义SQL执行&#x2F;文件操作等<strong>漏洞点清单</strong>（附录A）。  </li>
+<li><strong>漏洞路径提取</strong>：<br>污点分析追踪用户输入到漏洞点的路径，支持依赖注入（如Spring Bean）。  </li>
+<li><strong>请求树生成</strong>：<br>将参数约束转化为树结构（入口节点→结构节点→值节点）。</li>
+</ul>
+<h4 id="动态模糊测试阶段"><a href="#动态模糊测试阶段" class="headerlink" title="动态模糊测试阶段"></a>动态模糊测试阶段</h4><ul>
+<li><strong>分层调度</strong>：<br>加权采样高评分入口（公式2-3），动态更新路径距离反馈。  </li>
+<li><strong>突变与执行</strong>：<br>基于请求树突变种子，通过<strong>系统层错误拦截</strong> + <strong>Java层API监控</strong>检测漏洞。</li>
+</ul>
+<p><strong>实验设计</strong>：  </p>
+<ul>
+<li><strong>数据集</strong>：15个真实Java Web应用（11开源+3闭源商业+WebGoat），含68个已知漏洞。  </li>
+<li><strong>对比基准</strong>：SOTA工具Witcher（增强其入口识别能力以公平对比）。  </li>
+<li><strong>指标</strong>：召回率、暴露时间（TTE）、每小时漏洞发现数（Vuln&#x2F;hr）。</li>
+</ul>
+<hr>
+<h3 id="主要结果与结论"><a href="#主要结果与结论" class="headerlink" title="主要结果与结论"></a>主要结果与结论</h3><h4 id="关键结果（表1）："><a href="#关键结果（表1）：" class="headerlink" title="关键结果（表1）："></a>关键结果（表1）：</h4><table>
+<thead>
+<tr>
+<th><strong>指标</strong></th>
+<th><strong>WDFuzz</strong></th>
+<th><strong>Witcher</strong></th>
+<th><strong>提升</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>已知漏洞召回率</td>
+<td>92.6% (63&#x2F;68)</td>
+<td>22.1% (15&#x2F;68)</td>
+<td><strong>3.2倍</strong></td>
+</tr>
+<tr>
+<td>平均暴露时间（TTE）</td>
+<td>60.6秒</td>
+<td>492.1秒</td>
+<td><strong>降低87.69%</strong></td>
+</tr>
+<tr>
+<td>漏洞发现效率（Vuln&#x2F;hr）</td>
+<td>59.39</td>
+<td>8.36</td>
+<td><strong>7.1倍</strong></td>
+</tr>
+<tr>
+<td><strong>未知漏洞发现</strong></td>
+<td><strong>92个</strong>（83 SQLi, 4 SSRF等）</td>
+<td>0个</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h4 id="消融实验（表2）："><a href="#消融实验（表2）：" class="headerlink" title="消融实验（表2）："></a>消融实验（表2）：</h4><ul>
+<li><strong>完整版WDFuzz</strong>召回率92.6%，<strong>分层调度贡献34%效率提升</strong>，TTE降低66.24%。  </li>
+<li><strong>语义约束提取</strong>使漏洞发现增加74.07%（因可生成复杂结构输入）。</li>
+</ul>
+<h4 id="案例验证（图5）："><a href="#案例验证（图5）：" class="headerlink" title="案例验证（图5）："></a>案例验证（图5）：</h4><p>在<code>lamp-boot</code>中发现SQL注入漏洞，需生成嵌套JSON并满足<code>scope=&quot;1&quot;</code>等约束，Witcher因无法满足约束而漏报。  </p>
+<hr>
+<h3 id="潜在意义与未来方向"><a href="#潜在意义与未来方向" class="headerlink" title="潜在意义与未来方向"></a>潜在意义与未来方向</h3><p><strong>意义</strong>：  </p>
+<ul>
+<li><strong>工业价值</strong>：检出92个零日漏洞（19个获CVE&#x2F;CNVD编号），涵盖高风险SQL注入&#x2F;SSRF。  </li>
+<li><strong>方法论突破</strong>：首次将定向模糊测试适配Web应用，解决结构输入生成与调度效率问题。</li>
+</ul>
+<p><strong>局限与未来方向</strong>：  </p>
+<ul>
+<li><strong>高阶漏洞检测</strong>：<br>当前仅支持单请求触发的漏洞（占92.6%），需扩展多步骤交互漏洞（如跨会话攻击）。  </li>
+<li><strong>静态分析优化</strong>：<br>复杂循环&#x2F;反射操作导致约束提取不精确（如误报），需融合更先进分析技术（如上下文敏感指针分析）。  </li>
+<li><strong>跨语言支持</strong>：<br>框架可扩展至PHP（用PHPJoern&#x2F;Xdebug替换工具链），但需适配语言特性。  </li>
+<li><strong>AI增强</strong>：<br>结合LLM生成复杂语义约束，突破静态分析限制。</li>
+</ul>
+<hr>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>WDFuzz通过<strong>语义约束提取</strong>与<strong>分层调度策略</strong>，显著提升Web漏洞检测效率（7.1倍于SOTA），并在真实应用中验证有效性（92个零日漏洞）。其创新架构为Web安全测试提供新范式，未来可通过高阶漏洞支持与跨语言扩展进一步突破。</p>
+<h2 id="Beyond-Exploit-Scanning-A-Functional-Change-Driven-Approach-to-Remote-Software-Version-Identification"><a href="#Beyond-Exploit-Scanning-A-Functional-Change-Driven-Approach-to-Remote-Software-Version-Identification" class="headerlink" title="Beyond Exploit Scanning: A Functional Change-Driven Approach to Remote Software Version Identification"></a>Beyond Exploit Scanning: A Functional Change-Driven Approach to Remote Software Version Identification</h2><h3 id="研究背景和问题-Research-Background-and-Problem"><a href="#研究背景和问题-Research-Background-and-Problem" class="headerlink" title="研究背景和问题 (Research Background and Problem)"></a>研究背景和问题 (Research Background and Problem)</h3><p>在网络安全领域，无论是攻击者还是防御者，准确识别远程服务器上运行的软件版本都至关重要。</p>
+<ul>
+<li><strong>对于攻击者而言</strong>，获取精确的版本信息可以让他们进行精准打击，直接使用针对该特定版本的已知漏洞（Exploit），从而大大提高攻击效率和隐蔽性，避免了因盲目尝试所有漏洞而产生大量流量，惊动目标。</li>
+<li><strong>对于安全研究人员和系统管理员而言</strong>，精确的版本信息是评估系统漏洞风险、及时预警和部署补丁的基础。</li>
+</ul>
+<p>然而，现有的远程软件版本识别方法主要依赖于<strong>基于预定义指纹（Fingerprint）的扫描</strong>。这些指纹通常是：</p>
+<ol>
+<li><strong>版本字符串</strong>：直接从服务器的欢迎横幅（Banner）或特定响应中读取版本号，如 <code>OpenSSH_7.6p1</code>。</li>
+<li><strong>文件哈希值</strong>：计算特定静态文件（如CSS、JS、图片文件）的哈希值，与已知版本的哈希库进行比对。</li>
+<li><strong>特定模式</strong>：识别HTML代码结构、URL路径或特定文件名等。</li>
+</ol>
+<p>这些传统方法存在一个<strong>致命的缺陷</strong>：它们高度依赖于目标软件保持开箱即用（out-of-the-box）的默认配置。一旦系统管理员采取了简单的防御措施，例如：</p>
+<ul>
+<li><strong>信息混淆（Obfuscation）</strong>：修改或删除响应中的版本字符串。</li>
+<li><strong>开启认证（Authentication）</strong>：需要登录才能访问，导致无法获取指纹信息。</li>
+<li><strong>访问限制</strong>：阻止对包含指纹信息的特定文件或路径的访问。</li>
+</ul>
+<p>这些防御措施都会导致传统识别工具的效果大打折扣，甚至完全失效。例如，论文中提到的RPC框架<code>Dubbo</code>，其默认响应中就不包含任何版本信息，使得传统工具束手无策。</p>
+<p>因此，本文要解决的核心问题是：<strong>如何设计一种更隐蔽、更准确、且能抵抗常见防御措施的新型远程软件版本识别方法？</strong></p>
+<hr>
+<h3 id="研究目的和创新点-Research-Purpose-and-Innovation"><a href="#研究目的和创新点-Research-Purpose-and-Innovation" class="headerlink" title="研究目的和创新点 (Research Purpose and Innovation)"></a>研究目的和创新点 (Research Purpose and Innovation)</h3><p><strong>研究目的：</strong><br>本文旨在提出一种全新的、基于软件**功能性变更（Functional Changes）**的远程版本识别方法。这种方法不依赖于容易被修改的表面指纹，而是利用软件版本迭代过程中引入的、难以被修改的核心功能变化来区分不同版本，从而实现更鲁棒、更精准的版本识别。</p>
+<p><strong>创新点：</strong><br>本文的核心创新在于其<strong>功能性变更驱动</strong>的思想，这体现在以下几个方面：</p>
+<ol>
+<li><p><strong>全新的识别维度</strong>：论文的根本性创新是从静态指纹转向动态行为。它利用的识别依据是：软件更新（尤其是功能添加、调整、移除）必然会改变其行为逻辑，从而对特定输入（Probe）产生不同的响应。这种功能性差异是软件版本的内在属性，极难被管理员修改或隐藏，否则会破坏软件的正常功能。</p>
+<ul>
+<li><em>补充解释</em>：论文开篇的<code>Elasticsearch</code>例子（图1）完美诠释了这一点。向两个不同版本（v5.1.2和v5.2.0）发送相同的登录请求，虽然都返回认证失败的错误，但错误信息文本有细微差别（<code>unable to authenticate</code> vs <code>failed to authenticate</code>）。这是因为v5.2.0版本新增了一个内置用户<code>logstash_system</code>，导致其处理逻辑发生了变化。这种差异就是一种功能性变更的体现。</li>
+</ul>
+</li>
+<li><p><strong>系统化的探针生成方法</strong>：为了有效触发这些功能性变更，论文提出了一套系统化的探针（Probe）生成流程。它综合利用了三种信息源：</p>
+<ul>
+<li><strong>发布说明 (Release Notes)</strong>：了解新版本有什么变化。</li>
+<li><strong>拉取请求 (Pull Requests, PRs)</strong>：深入了解变化背后的技术实现细节和讨论。</li>
+<li><strong>用户手册 (User Guides)</strong>：了解该功能如何被触发和使用。<br>并且，论文创新性地使用了**大语言模型（LLM）<strong>结合</strong>检索增强生成（RAG）**技术，来半自动地从这些海量文本中提炼知识，并生成可执行的测试探针。</li>
+</ul>
+</li>
+<li><p><strong>高效隐蔽的扫描策略</strong>：为了最小化扫描行为对服务器的干扰并保持隐蔽，论文设计了**动态决策树（Dynamic Decision Tree）**算法来规划探针序列。它并非一次性发送所有探针，而是根据上一个探针的响应结果，动态地选择下一个最具区分度的探针，从而用最少的请求数量来锁定版本范围。</p>
+</li>
+<li><p><strong>强大的现实世界适应性</strong>：考虑到真实网络环境的复杂性（如用户自定义配置），论文设计了<strong>冲突解决机制</strong>。当不同的探针给出相互矛盾的版本指向时，系统会采用多数投票的原则，选择置信度最高的结果，大大增强了识别的准确性和鲁棒性。</p>
+</li>
+</ol>
+<hr>
+<h3 id="研究方法和实验设计-Research-Method-and-Experimental-Design"><a href="#研究方法和实验设计-Research-Method-and-Experimental-Design" class="headerlink" title="研究方法和实验设计 (Research Method and Experimental Design)"></a>研究方法和实验设计 (Research Method and Experimental Design)</h3><p>为了实现上述目标，作者设计并实现了一个名为 <strong>VersionSeek</strong> 的原型框架。其工作流程主要包括三个模块（如图2所示）：</p>
+<ol>
+<li><p><strong>功能性探针生成模块 (Functional Probe Generation)</strong>：</p>
+<ul>
+<li><strong>信息收集</strong>：自动爬取目标软件（如Elasticsearch, Redis, Dubbo, Joomla, phpMyAdmin）过去十年的发布说明、相关的GitHub PR和用户手册。</li>
+<li><strong>特征提取与探针生成</strong>：利用LLM+RAG技术，对收集到的文本进行理解。首先，LLM根据发布说明中的功能描述，在用户手册和PR中检索最相关的上下文信息。然后，基于这些增强的上下文，LLM按照预设的格式自动生成用于触发该功能的具体命令（如<code>curl</code>请求）。</li>
+<li><strong>伦理过滤</strong>：排除了可能导致服务器崩溃或修改数据的危险探针（如触发已知Bug、使用<code>POST</code>&#x2F;<code>DELETE</code>等写操作）。</li>
+</ul>
+</li>
+<li><p><strong>响应处理模块 (Response Processing)</strong>：</p>
+<ul>
+<li><strong>本地部署与响应收集</strong>：使用Docker容器化技术，在本地大规模、自动化地部署目标软件的数百个不同版本。然后向这些本地实例发送探针，并收集所有响应。</li>
+<li><strong>响应标准化</strong>：真实响应中包含很多噪声（如时间戳、IP地址、随机ID等）。该模块通过差分测试等方法识别并屏蔽这些与版本无关的动态内容，提取出能稳定反映版本差异的纯净响应模式。</li>
+<li><strong>响应分类</strong>：对于每个探针，将产生相同纯净响应的版本归为一类。这样，每个探针就对应一个分类函数，输入一个响应，输出一个可能的版本集合。</li>
+</ul>
+</li>
+<li><p><strong>版本识别模块 (Version Identification)</strong>：</p>
+<ul>
+<li><strong>最小探针序列规划</strong>：在本地实验数据的基础上，通过递归算法（Algorithm 2）为每个版本计算出一个最优的、最短的探针识别序列。</li>
+<li><strong>动态决策树生成与执行</strong>：将所有版本的探针序列整合成一棵决策树（Algorithm 3）。在实际扫描时，从根节点开始，发送第一个探针，根据服务器返回的响应，走到对应的子节点（版本范围缩小），再发送该子节点对应的探针，依此类推，直到叶子节点（无法再细分），从而确定版本。</li>
+<li><strong>冲突解决</strong>：如果中途探针响应与预期不符（可能是用户自定义配置导致），系统会动态重新规划决策树，或在多个探针结果冲突时进行多数投票。</li>
+</ul>
+</li>
+</ol>
+<p><strong>实验设计：</strong></p>
+<ul>
+<li><strong>评估对象</strong>：选择了5个流行且漏洞众多的开源软件：Elasticsearch, Redis, Dubbo, Joomla, phpMyAdmin。</li>
+<li><strong>对比基线</strong>：与四种主流工具进行比较：Nmap, Metasploit, BlindElephant, WhatWeb。</li>
+<li><strong>鲁棒性测试</strong>：模拟了两种对抗场景：<strong>混淆</strong>（版本号替换为<code>x.x.x</code>）和<strong>隐藏</strong>（屏蔽泄露版本的路径），来测试VersionSeek和基线工具的性能。</li>
+<li><strong>大规模真实世界测量</strong>：利用Shodan和FOFA两大网络空间搜索引擎的数据，对互联网上存活的数十万个目标软件实例进行扫描，以验证其在真实环境下的有效性并分析其安全状况。</li>
+</ul>
+<hr>
+<h3 id="主要结果和结论-Main-Results-and-Conclusions"><a href="#主要结果和结论-Main-Results-and-Conclusions" class="headerlink" title="主要结果和结论 (Main Results and Conclusions)"></a>主要结果和结论 (Main Results and Conclusions)</h3><ol>
+<li><strong>性能远超现有工具</strong>：在对真实服务器的测试中，VersionSeek的识别成功率显著高于所有基线工具。例如，在识别phpMyAdmin时，其准确率比WhatWeb高出<strong>284%</strong>。至关重要地，<strong>它是唯一能够识别Dubbo版本的工具</strong>。</li>
+<li><strong>对防御措施具有鲁棒性</strong>：在模拟的混淆和隐藏对抗实验中，依赖版本字符串的Nmap和Metasploit等工具完全失效，而VersionSeek凭借功能性变更识别，<strong>达到了100%的识别率</strong>。即使在目标开启认证的情况下，VersionSeek依然能通过分析错误处理机制的差异来推断版本范围。</li>
+<li><strong>扫描效率高且隐蔽</strong>：得益于动态决策树，VersionSeek平均每个目标的扫描请求数非常少（例如，扫描Joomla比WhatWeb的攻击模式少**65.37%**的请求包），这使得扫描行为更难被发现。</li>
+<li><strong>揭示了严峻的现实世界安全风险</strong>：<ul>
+<li>通过大规模扫描，VersionSeek成功识别了<strong>240,020</strong>个软件实例的版本，其中<strong>156,256</strong>个是Shodan和FOFA未能识别的，揭示了现有平台的巨大盲区。</li>
+<li>一个惊人的发现是：在所有被测服务中，<strong>超过72.25%的用户仍在使用发布超过一年的老旧版本</strong>。以Joomla为例，<strong>近25%的用户还在使用10年前的古老版本</strong>，这些版本含有大量严重漏洞。</li>
+<li>研究还将识别出的版本与CVE漏洞数据库进行关联，量化了这些过时软件所面临的巨大安全威胁。</li>
+</ul>
+</li>
+</ol>
+<p><strong>核心结论</strong>：本文提出的<strong>基于功能性变更驱动的识别方法是可行且高效的</strong>。它不仅在准确性、隐蔽性和鲁棒性上全面超越了传统的基于指纹的方法，而且通过大规模实践揭示了互联网上存在着大量被忽视的、使用过时软件的脆弱资产。</p>
+<hr>
+<h3 id="潜在意义和未来工作方向-Potential-Significance-and-Future-Work"><a href="#潜在意义和未来工作方向-Potential-Significance-and-Future-Work" class="headerlink" title="潜在意义和未来工作方向 (Potential Significance and Future Work)"></a>潜在意义和未来工作方向 (Potential Significance and Future Work)</h3><p><strong>潜在意义：</strong></p>
+<ol>
+<li><strong>对网络安全防御的启示</strong>：为安全管理员和研究人员提供了一种强大的新工具，可以更准确地评估网络资产的脆弱性，发现那些被传统扫描器遗漏的风险点。这有助于更全面地理解和管理攻击面。</li>
+<li><strong>推动版本识别技术的发展</strong>：这项工作挑战了领域内对静态指纹的长期依赖，开辟了一条基于软件内在行为进行识别的新路径，可能引导未来相关研究的方向。</li>
+<li><strong>强调了及时更新的重要性</strong>：通过真实数据揭示了大量在用系统版本陈旧的严峻现实，为及时给软件打补丁这一安全准则提供了强有力的数据支撑。</li>
+</ol>
+<p><strong>未来工作方向（基于论文的局限性分析）：</strong></p>
+<ol>
+<li><strong>应对闭源软件的挑战</strong>：目前的方法依赖于开源软件的公开文档（发布说明、PR等）。如何将其应用于信息不透明的闭源或专有软件是一个巨大的挑战。未来可能需要结合逆向工程、二进制比对或众包分析等手段。</li>
+<li><strong>处理需认证的服务</strong>：尽管VersionSeek在认证场景下仍有一定效果，但其能力会受限。未来的工作可以研究如何更有效地识别需要深度交互或有效凭证才能触发的功能差异。</li>
+<li><strong>完善探针的生成和覆盖</strong>：本地部署所有历史版本是一项繁重的工作，且并非所有版本都有明显的功能变更。未来可以探索在没有本地部署环境的情况下生成探针的方法，并研究如何利用更细微的旁路信道（如时序、性能差异）作为识别依据。</li>
+<li><strong>自动化探针生成与验证</strong>：尽管使用了LLM，但目前流程仍需人工监督。进一步提升自动化水平，减少人工干预，是提高该方法可扩展性的关键。</li>
+</ol>
+<p>ok，就决定是你了MOCGuard</p>
+<!-- flag of hidden posts --></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://sakuraraindrop.github.io">cheng_xing</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://sakuraraindrop.github.io/2025/07/30/20250730%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/">https://sakuraraindrop.github.io/2025/07/30/20250730%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://sakuraraindrop.github.io" target="_blank">cheng_xing's blog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/ltx.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">cheng_xing</div><div class="author-info-description">web菜鸡修炼中</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">106</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sakuraraindrop"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/sakuraraindrop" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://space.bilibili.com/504596197" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MOCGuard-Automatically-Detecting-Missing-Owner-Check-Vulnerabilities-in-Java-Web-Applications"><span class="toc-number">1.</span> <span class="toc-text">MOCGuard: Automatically Detecting Missing-Owner-Check Vulnerabilities in Java Web Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">研究背景和问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF"><span class="toc-number">1.1.1.</span> <span class="toc-text">研究背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.2.</span> <span class="toc-text">研究问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E5%92%8C%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">研究目的和创新点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84"><span class="toc-number">1.2.1.</span> <span class="toc-text">研究目的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">创新点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%92%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.</span> <span class="toc-text">研究方法和实验设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95-MOCGuard%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">研究方法 (MOCGuard的工作流程)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.2.</span> <span class="toc-text">实验设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E5%92%8C%E7%BB%93%E8%AE%BA"><span class="toc-number">1.4.</span> <span class="toc-text">主要结果和结论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C"><span class="toc-number">1.4.1.</span> <span class="toc-text">主要结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">1.4.2.</span> <span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E5%92%8C%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91"><span class="toc-number">1.5.</span> <span class="toc-text">潜在意义和未来工作方向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89"><span class="toc-number">1.5.1.</span> <span class="toc-text">潜在意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91"><span class="toc-number">1.5.2.</span> <span class="toc-text">未来工作方向</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Detecting-Taint-Style-Vulnerabilities-in-Microservice-Structured-Web-Applications"><span class="toc-number">2.</span> <span class="toc-text">Detecting Taint-Style Vulnerabilities in Microservice-Structured Web Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">2.1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98-1"><span class="toc-number">2.2.</span> <span class="toc-text">研究背景和问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">研究背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E4%B8%8E%E6%8C%91%E6%88%98"><span class="toc-number">2.2.2.</span> <span class="toc-text">核心问题与挑战</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E5%92%8C%E5%88%9B%E6%96%B0%E7%82%B9-1"><span class="toc-number">2.3.</span> <span class="toc-text">研究目的和创新点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">研究目的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-number">2.3.2.</span> <span class="toc-text">三大核心创新点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%92%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-1"><span class="toc-number">2.4.</span> <span class="toc-text">研究方法和实验设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MScan-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">2.4.1.</span> <span class="toc-text">MScan 的工作流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-1"><span class="toc-number">2.4.2.</span> <span class="toc-text">实验设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E5%92%8C%E7%BB%93%E8%AE%BA-1"><span class="toc-number">2.5.</span> <span class="toc-text">主要结果和结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E5%92%8C%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91-1"><span class="toc-number">2.6.</span> <span class="toc-text">潜在意义和未来工作方向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89-1"><span class="toc-number">2.6.1.</span> <span class="toc-text">潜在意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91-1"><span class="toc-number">2.6.2.</span> <span class="toc-text">未来工作方向</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EPScan-Automated-Detection-of-Excessive-RBAC-Permissions-in-Kubernetes-Applications"><span class="toc-number">3.</span> <span class="toc-text">EPScan: Automated Detection of Excessive RBAC Permissions in Kubernetes Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98-2"><span class="toc-number">3.1.</span> <span class="toc-text">研究背景和问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E5%92%8C%E5%88%9B%E6%96%B0%E7%82%B9-2"><span class="toc-number">3.2.</span> <span class="toc-text">研究目的和创新点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%92%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-2"><span class="toc-number">3.3.</span> <span class="toc-text">研究方法和实验设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E5%92%8C%E7%BB%93%E8%AE%BA-2"><span class="toc-number">3.4.</span> <span class="toc-text">主要结果和结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E5%92%8C%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91-2"><span class="toc-number">3.5.</span> <span class="toc-text">潜在意义和未来工作方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HouseFuzz-Service-Aware-Grey-Box-Fuzzing-for-Vulnerability-Detection-in-Linux-Based-Firmware"><span class="toc-number">4.</span> <span class="toc-text">HouseFuzz: Service-Aware Grey-Box Fuzzing for Vulnerability Detection in Linux-Based Firmware</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98-3"><span class="toc-number">4.1.</span> <span class="toc-text">研究背景和问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E5%92%8C%E5%88%9B%E6%96%B0%E7%82%B9-3"><span class="toc-number">4.2.</span> <span class="toc-text">研究目的和创新点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%92%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-3"><span class="toc-number">4.3.</span> <span class="toc-text">研究方法和实验设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E5%92%8C%E7%BB%93%E8%AE%BA-3"><span class="toc-number">4.4.</span> <span class="toc-text">主要结果和结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E5%92%8C%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91-3"><span class="toc-number">4.5.</span> <span class="toc-text">潜在意义和未来工作方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Careless-Retention-and-Management-Understanding-and-Detecting-Data-Retention-Denial-of-Service-Vulnerabilities-in-Java-Web-Containers"><span class="toc-number">5.</span> <span class="toc-text">Careless Retention and Management: Understanding and Detecting Data Retention Denial-of-Service Vulnerabilities in Java Web Containers</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98-4"><span class="toc-number">5.1.</span> <span class="toc-text">研究背景和问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF-2"><span class="toc-number">5.1.1.</span> <span class="toc-text">研究背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E9%97%AE%E9%A2%98-1"><span class="toc-number">5.1.2.</span> <span class="toc-text">研究问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E5%92%8C%E5%88%9B%E6%96%B0%E7%82%B9-4"><span class="toc-number">5.2.</span> <span class="toc-text">研究目的和创新点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84-2"><span class="toc-number">5.2.1.</span> <span class="toc-text">研究目的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E6%96%B0%E7%82%B9-1"><span class="toc-number">5.2.2.</span> <span class="toc-text">创新点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%92%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-4"><span class="toc-number">5.3.</span> <span class="toc-text">研究方法和实验设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95-DR-D-%E5%B7%A5%E5%85%B7"><span class="toc-number">5.3.1.</span> <span class="toc-text">研究方法 (DR. D 工具)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-2"><span class="toc-number">5.3.2.</span> <span class="toc-text">实验设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E5%92%8C%E7%BB%93%E8%AE%BA-4"><span class="toc-number">5.4.</span> <span class="toc-text">主要结果和结论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C-1"><span class="toc-number">5.4.1.</span> <span class="toc-text">主要结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="toc-number">5.4.2.</span> <span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E5%92%8C%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91-4"><span class="toc-number">5.5.</span> <span class="toc-text">潜在意义和未来工作方向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89-2"><span class="toc-number">5.5.1.</span> <span class="toc-text">潜在意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91-2"><span class="toc-number">5.5.2.</span> <span class="toc-text">未来工作方向</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ChainFuzz-Exploiting-Upstream-Vulnerabilities-in-Open-Source-Supply-Chains"><span class="toc-number">6.</span> <span class="toc-text">ChainFuzz: Exploiting Upstream Vulnerabilities in Open-Source Supply Chains</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98-5"><span class="toc-number">6.1.</span> <span class="toc-text">研究背景和问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">6.1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98"><span class="toc-number">6.1.2.</span> <span class="toc-text">核心问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E5%92%8C%E5%88%9B%E6%96%B0%E7%82%B9-5"><span class="toc-number">6.2.</span> <span class="toc-text">研究目的和创新点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E7%9A%84"><span class="toc-number">6.2.1.</span> <span class="toc-text">目的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E6%96%B0%E7%82%B9-2"><span class="toc-number">6.2.2.</span> <span class="toc-text">创新点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%92%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-5"><span class="toc-number">6.3.</span> <span class="toc-text">研究方法和实验设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%EF%BC%88%E5%9B%BE-3%EF%BC%89"><span class="toc-number">6.3.1.</span> <span class="toc-text">系统架构（图 3）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-3"><span class="toc-number">6.3.2.</span> <span class="toc-text">实验设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E5%92%8C%E7%BB%93%E8%AE%BA-5"><span class="toc-number">6.4.</span> <span class="toc-text">主要结果和结论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E6%95%88%E6%80%A7%E9%AA%8C%E8%AF%81"><span class="toc-number">6.4.1.</span> <span class="toc-text">有效性验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%BB%93%E8%AE%BA"><span class="toc-number">6.4.2.</span> <span class="toc-text">关键结论</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E5%92%8C%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="toc-number">6.5.</span> <span class="toc-text">潜在意义和未来方向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%84%8F%E4%B9%89"><span class="toc-number">6.5.1.</span> <span class="toc-text">意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%99%90%E4%B8%8E%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="toc-number">6.5.2.</span> <span class="toc-text">局限与未来方向</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.6.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Towards-Automatic-Detection-and-Exploitation-of-Java-Web-Application-Vulnerabilities-via-Concolic-Execution-guided-by-Cross-thread-Object-Manipulation"><span class="toc-number">7.</span> <span class="toc-text">Towards Automatic Detection and Exploitation of Java Web Application Vulnerabilities via Concolic Execution guided by Cross-thread Object Manipulation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98-6"><span class="toc-number">7.1.</span> <span class="toc-text">研究背景和问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E5%92%8C%E5%88%9B%E6%96%B0%E7%82%B9-6"><span class="toc-number">7.2.</span> <span class="toc-text">研究目的和创新点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%92%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-6"><span class="toc-number">7.3.</span> <span class="toc-text">研究方法和实验设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E5%92%8C%E7%BB%93%E8%AE%BA-6"><span class="toc-number">7.4.</span> <span class="toc-text">主要结果和结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E5%92%8C%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91-5"><span class="toc-number">7.5.</span> <span class="toc-text">潜在意义和未来工作方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Demystifying-the-In-Security-of-QR-Code-based-Login-in-Real-world-Deployments"><span class="toc-number">8.</span> <span class="toc-text">Demystifying the (In)Security of QR Code-based Login in Real-world Deployments</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98-7"><span class="toc-number">8.1.</span> <span class="toc-text">研究背景和问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF-1"><span class="toc-number">8.1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-number">8.1.2.</span> <span class="toc-text">核心安全问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E5%92%8C%E5%88%9B%E6%96%B0%E7%82%B9-7"><span class="toc-number">8.2.</span> <span class="toc-text">研究目的和创新点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84-3"><span class="toc-number">8.2.1.</span> <span class="toc-text">研究目的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-number">8.2.2.</span> <span class="toc-text">核心创新点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%92%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-7"><span class="toc-number">8.3.</span> <span class="toc-text">研究方法和实验设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-number">8.3.1.</span> <span class="toc-text">方法论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-4"><span class="toc-number">8.3.2.</span> <span class="toc-text">实验设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E5%92%8C%E7%BB%93%E8%AE%BA-7"><span class="toc-number">8.4.</span> <span class="toc-text">主要结果和结论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%BB%93%E6%9E%9C"><span class="toc-number">8.4.1.</span> <span class="toc-text">关键结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="toc-number">8.4.2.</span> <span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E5%92%8C%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91-6"><span class="toc-number">8.5.</span> <span class="toc-text">潜在意义和未来工作方向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5%E6%84%8F%E4%B9%89"><span class="toc-number">8.5.1.</span> <span class="toc-text">实践意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="toc-number">8.5.2.</span> <span class="toc-text">未来方向</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E8%AF%B4%E6%98%8E"><span class="toc-number">8.6.</span> <span class="toc-text">补充说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Effective-Directed-Fuzzing-with-Hierarchical-Scheduling-for-Web-Vulnerability-Detection"><span class="toc-number">9.</span> <span class="toc-text">Effective Directed Fuzzing with Hierarchical Scheduling for Web Vulnerability Detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E4%B8%8E%E9%97%AE%E9%A2%98"><span class="toc-number">9.1.</span> <span class="toc-text">研究背景与问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E4%B8%8E%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-number">9.2.</span> <span class="toc-text">研究目的与创新点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1"><span class="toc-number">9.3.</span> <span class="toc-text">研究方法与实验设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%87%86%E5%A4%87%E9%98%B6%E6%AE%B5"><span class="toc-number">9.3.1.</span> <span class="toc-text">静态准备阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="toc-number">9.3.2.</span> <span class="toc-text">动态模糊测试阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E4%B8%8E%E7%BB%93%E8%AE%BA"><span class="toc-number">9.4.</span> <span class="toc-text">主要结果与结论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%BB%93%E6%9E%9C%EF%BC%88%E8%A1%A81%EF%BC%89%EF%BC%9A"><span class="toc-number">9.4.1.</span> <span class="toc-text">关键结果（表1）：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C%EF%BC%88%E8%A1%A82%EF%BC%89%EF%BC%9A"><span class="toc-number">9.4.2.</span> <span class="toc-text">消融实验（表2）：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E9%AA%8C%E8%AF%81%EF%BC%88%E5%9B%BE5%EF%BC%89%EF%BC%9A"><span class="toc-number">9.4.3.</span> <span class="toc-text">案例验证（图5）：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E4%B8%8E%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="toc-number">9.5.</span> <span class="toc-text">潜在意义与未来方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">9.6.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Beyond-Exploit-Scanning-A-Functional-Change-Driven-Approach-to-Remote-Software-Version-Identification"><span class="toc-number">10.</span> <span class="toc-text">Beyond Exploit Scanning: A Functional Change-Driven Approach to Remote Software Version Identification</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98-Research-Background-and-Problem"><span class="toc-number">10.1.</span> <span class="toc-text">研究背景和问题 (Research Background and Problem)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84%E5%92%8C%E5%88%9B%E6%96%B0%E7%82%B9-Research-Purpose-and-Innovation"><span class="toc-number">10.2.</span> <span class="toc-text">研究目的和创新点 (Research Purpose and Innovation)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95%E5%92%8C%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1-Research-Method-and-Experimental-Design"><span class="toc-number">10.3.</span> <span class="toc-text">研究方法和实验设计 (Research Method and Experimental Design)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%93%E6%9E%9C%E5%92%8C%E7%BB%93%E8%AE%BA-Main-Results-and-Conclusions"><span class="toc-number">10.4.</span> <span class="toc-text">主要结果和结论 (Main Results and Conclusions)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E6%84%8F%E4%B9%89%E5%92%8C%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%90%91-Potential-Significance-and-Future-Work"><span class="toc-number">10.5.</span> <span class="toc-text">潜在意义和未来工作方向 (Potential Significance and Future Work)</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/15/JDK%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" title="JDK动态代理">JDK动态代理</a><time datetime="2025-07-15T15:04:34.000Z" title="发表于 2025-07-15 23:04:34">2025-07-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/15/L3HCTFand%E6%98%A5%E7%A7%8B%E6%9D%AF%E5%A4%8F%E5%AD%A3%E8%B5%9B%E5%A4%8D%E7%9B%98/" title="L3HCTFand春秋杯夏季赛复盘">L3HCTFand春秋杯夏季赛复盘</a><time datetime="2025-07-15T15:04:19.000Z" title="发表于 2025-07-15 23:04:19">2025-07-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/15/Java-IO%E6%B5%81/" title="Java-IO流">Java-IO流</a><time datetime="2025-07-15T13:19:52.000Z" title="发表于 2025-07-15 21:19:52">2025-07-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/15/Java%E5%8F%8D%E5%B0%84%E8%BF%9B%E9%98%B6/" title="Java反射进阶">Java反射进阶</a><time datetime="2025-07-15T03:37:16.000Z" title="发表于 2025-07-15 11:37:16">2025-07-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/14/Java%E5%8F%8D%E5%B0%84%E4%B8%8EURLDNS%E9%93%BE%E5%88%86%E6%9E%90/" title="Java反射与URLDNS链分析">Java反射与URLDNS链分析</a><time datetime="2025-07-14T08:02:16.000Z" title="发表于 2025-07-14 16:02:16">2025-07-14</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/hk.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By cheng_xing</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
